@@ -25,3 +25,7 @@ o ref(3)
         + todo (make a better diagram)
             + quest (what does it mean to be 'better'?)
             + quest (is there a modelling language that can be recorded in git?)
+
+t (16/11/19)
++ note (we had trouble attempting to run Daikon with Junit before)
+    + quest (will running Daikon need the 'TestRunners'?)
