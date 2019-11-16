@@ -49,3 +49,20 @@ o ref(18)
 
 + done (make a SingleTestRunner)
     + note (we should care about config interchangability)
+
+t (17/11/19)
+o ref(4)
+    + done (no needs to do more of this since it's very messy)
+
++ quest (does there exist a better option to do this log?) meta
+    + note (one that could involve linking to commit number)
+
+o ref(3)
+    + quest (does Defects4j provide tools that could help this?)
+    + quest (how do the paper with certified artifact use Defects4j?)
+
+o ref(18)
+    o ref(50)
+    + todo (make MultipleTestRunner)
+    + todo (make a procedure to list testclass and its methodnames from a project)
+    + note (don't forget) ref(19)
