@@ -9,7 +9,7 @@ to run a specific method in a testclass of a project
 2. make file with name 'runconfig' with content below
 
     ```
-    CLASSPATH="<relevant path consist of several thing expained in number 2.>"
+    CLASSPATH="<relevant path consist of several thing expained in the next step.>"
     TESTCLASS="<name of the test class(with its package naming)>"
     TESTMETHOD="<name of the method>"
     
