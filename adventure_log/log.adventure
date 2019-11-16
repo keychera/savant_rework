@@ -29,3 +29,8 @@ o ref(3)
 t (16/11/19)
 + note (we had trouble attempting to run Daikon with Junit before)
     + quest (will running Daikon need the 'TestRunners'?)
+
++ done (make a new branch "Adventure")
+    + note (the concern was the log commit will collute with the working commit, this is the solution)
+    + note (the branch will never be merged and only serves as adventure logging purposes)
+    + note (all logs and its related things will be deleted in master)
