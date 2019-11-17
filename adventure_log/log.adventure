@@ -66,3 +66,13 @@ o ref(18)
     + todo (make MultipleTestRunner)
     + todo (make a procedure to list testclass and its methodnames from a project)
     + note (don't forget) ref(19)
+
+o ref(50)
+    + todo (find a way to acquire which method is run by a test, coverage with cobertura and infer the methods from the coverage results)
+        + note (cobertura can be used on running test just like running test as usual, said its documentation)
+
+o ref(61)
+    + note (Defects4j itself has its own "SingleTestRunner")
+        + quest (Does it compatible with running a coverage test?)
+    + note (Defects4j have a example to iterate its projects)
+    + note (Defects4j make a automatic list of which tests failed, file:"failing_tests" (no extension))
