@@ -85,3 +85,8 @@ o ref(71)
             + note (relevant) ref(31)
                 + quest (can Daikon trace on test that Defects4j run?)
             + note (relevant: https://github.com/rjust/defects4j/issues/162)
+
+o ref(71)
+    + note (the steps Cobertura do, as we understand it: 1.it instruments the class 2.generate coverage of instrumented class)
+    + note (defects4j does coverage but only instrument the class relevant to bugfix(we need more class instrumented))
+    + quest (What are Test Suites? Evosuites? Randoop?)
