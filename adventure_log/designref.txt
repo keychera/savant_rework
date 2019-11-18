@@ -1,0 +1,35 @@
+t 18/11/19
++ note (Modelling the input/output model so far)
+    + diag (
+        what we have now
+
+            /  style:           \
+            | Process Name      |
+            \    Input > Output /
+
+            defects4j.test
+                [defects4j_project_dir, testname, testmethod] > success/failed
+
+            defects4j.coverage
+                [defects4j_project_dir, testname, testmethod, list_of_classes] > coverage.xml
+
+            get_method_coverage.py (after coverage done on the project)
+                defects4j_project_dir > list_of_methods
+
+            SingleTestRunner.java
+                [defects4j_project_dir, testname, testmethod]] > success/failed
+        )
+
+    + diag (
+        what data is needed
+
+            for overall
+                list of test, and its fail/success status
+                list of method run by a failed test
+            
+            for Clustering
+                matrix/table of [methods] x [testcase] with value of 0/1
+
+            for Daikon
+                [methods] + [subset of passed testcases]
+        )
