@@ -90,3 +90,8 @@ o ref(71)
     + note (the steps Cobertura do, as we understand it: 1.it instruments the class 2.generate coverage of instrumented class)
     + note (defects4j does coverage but only instrument the class relevant to bugfix(we need more class instrumented))
     + quest (What are Test Suites? Evosuites? Randoop?)
+
+o ref(71)
+    + done (using Cobertura and a simple parsing py script)
+        + note (problem: the instrumenting part still needs a manual list of which class to instrument for each test method)
+        + note (problem: dealing with methods with same name but different signature)
