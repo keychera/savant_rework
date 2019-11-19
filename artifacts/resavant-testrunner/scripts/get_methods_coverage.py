@@ -1,26 +1,38 @@
 import sys
 from bs4 import BeautifulSoup
 
-if len(sys.argv) == 2:
-    project_path = sys.argv[1]
-    cvr_results_file = open(project_path + '/coverage.xml', 'r')
+if len(sys.argv) >= 2:
+    xml_file_path = sys.argv[1]
+    cvr_results_file = open(xml_file_path, 'r')
 
     cvr_xml = BeautifulSoup(cvr_results_file.read(), features='html.parser')
 
     cvr_results_file.close()
 
     all_classes = cvr_xml.findAll(name = 'class')
-    for class_name in all_classes:
-        all_methods = class_name.findAll(name = 'method')
+    method_names = list()
+    for a_class in all_classes:
+        all_methods = a_class.findAll(name = 'method')
 
         covered_methods = list()
         for method in all_methods:
             if method.get('line-rate') != '0.0':
-                covered_methods += [method]
-        
+                covered_methods.append(method)
+
         for method in covered_methods:
-            print(method.get('name'))
+            method_name = method.get('name')
+            class_name = a_class.get('name')
+            method_names.append('{}::{}'.format(class_name, method_name))
+    
+    if len(sys.argv) == 3:
+        output_path = sys.argv[2]
+        with open(output_path + '/coveredmethods', 'w+') as f:
+            for method_name in method_names:
+                f.write("{}\n".format(method_name))
+    else:
+        for method_name in method_names:
+            print(method_name)
 
 
 else:
-    print('python get_methods_coverage.py [path_to_defects4j_project]')
+    print('python get_methods_coverage.py [path to coverage.xml file] (opt)[outputpath]')
