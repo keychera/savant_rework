@@ -105,3 +105,11 @@ o ref(19)
 t (19/11/19)
 o ref(101)
     + note (steps to do next written on designref, "steps towards Clustering") attch(designref.txt)
+
++ quest (what would we do about directories separator, python version, and stuff that will be machine/config dependent?)
+
+o done (step 1 to 3 towards clustering) attch(designref.txt)
+    + note (extra, now scripts can output to a file instead)
+    + note (we make assumptions! assuming file and directory exist, assuming the folder structure is the package structure)
+        + quest (is folder structure always the package structure?)
+            + quest (is it the case if we just talk about Defects4j projects?)
