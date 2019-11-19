@@ -1,4 +1,4 @@
-t 18/11/19
+t (18/11/19)
 + note (Modelling the input/output model so far)
     + diag (
         what we have now
@@ -33,3 +33,17 @@ t 18/11/19
             for Daikon
                 [methods] + [subset of passed testcases]
         )
+
+t (19/11/19)
++ steps towards Clustering
+    +1 run defects4j test for all test on a buggy program
+    +2 get the failed test
+    +3 collect all classes in the program
+    +4 instrument all of the classes
+    +5 run coverage test of the failed tests
+    +6 we get all method that is run only by the failed test, make a list of em
+    +7 get all the classes containing all those methods
+    +8 now instrument only them
+    +9 run coverage test of the passing tests
+    +10 take note whether each method is run by the passing test or not
+    +11 make a matrix or table for the final output
