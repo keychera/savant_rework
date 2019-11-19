@@ -26,7 +26,7 @@ if len(sys.argv) >= 2:
     
     if len(sys.argv) == 3:
         output_path = sys.argv[2]
-        with open(output_path + '/coveredmethods', 'w+') as f:
+        with open(output_path + '/covered_methods', 'w+') as f:
             for method_name in method_names:
                 f.write("{}\n".format(method_name))
     else:

@@ -17,7 +17,7 @@ if len(sys.argv) >= 2:
     
     if len(sys.argv) == 3:
         output_path = sys.argv[2]
-        with open(output_path + '/allmethods', 'w+') as f:
+        with open(output_path + '/all_classes', 'w+') as f:
             for classname in classnames:
                 f.write("{}\n".format(classname))
     else:
