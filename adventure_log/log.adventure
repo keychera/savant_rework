@@ -113,3 +113,7 @@ o done (step 1 to 3 towards clustering) attch(designref.txt)
     + note (we make assumptions! assuming file and directory exist, assuming the folder structure is the package structure)
         + quest (is folder structure always the package structure?)
             + quest (is it the case if we just talk about Defects4j projects?)
+
+o done (step 4,5,6 towards Clustering) attch(designref.txt)
+    + note (consider the "pythonic" way for scripts)
+    + quest (how do we store inbetween files, so we could gitignore them better?)
