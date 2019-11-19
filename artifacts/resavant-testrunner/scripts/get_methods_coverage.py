@@ -3,11 +3,8 @@ from bs4 import BeautifulSoup
 
 if len(sys.argv) >= 2:
     xml_file_path = sys.argv[1]
-    cvr_results_file = open(xml_file_path, 'r')
-
-    cvr_xml = BeautifulSoup(cvr_results_file.read(), features='html.parser')
-
-    cvr_results_file.close()
+    with open(xml_file_path, 'r') as xml_file:
+        cvr_xml = BeautifulSoup(xml_file.read(), features='html.parser')
 
     all_classes = cvr_xml.findAll(name = 'class')
     method_names = list()
