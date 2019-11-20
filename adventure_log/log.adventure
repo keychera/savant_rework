@@ -14,7 +14,7 @@ o ref(4)
 
 o ref(3)
     + quest (Is a test referred by Savant represented by one test class or one method in a test class?)
-        + assum (one method in a test class, reason is the existence of SingleTestRunner that only run a method)
+        + note (assumption: one method in a test class, reason is the existence of SingleTestRunner that only run a method)
     + todo (replicate SingleTestRunner and MultipleTestRunner)
     + todo (determine the output format)
     o ref(5)
@@ -108,18 +108,17 @@ o ref(101)
 
 + quest (what would we do about directories separator, python version, and stuff that will be machine/config dependent?)
 
-o done (step 1 to 3 towards clustering) attch(designref.txt)
++ done (step 1 to 3 towards clustering) attch(designref.txt)
     + note (extra, now scripts can output to a file instead)
     + note (we make assumptions! assuming file and directory exist, assuming the folder structure is the package structure)
         + quest (is folder structure always the package structure?)
             + quest (is it the case if we just talk about Defects4j projects?)
 
-o done (step 4,5,6 towards Clustering) attch(designref.txt)
++ done (step 4,5,6 towards Clustering) attch(designref.txt)
     + note (consider the "pythonic" way for scripts)
     + quest (how do we store inbetween files, so we could gitignore them better?)
 
 t (20/11/19)
-
 + done (step 7,get all covered classes acript)
     + quest (Why doesn't Defects4j also provide a way to get this information?)
     + quest (Is there a better way to transfer data between formatting and process? better in term of performance?)
