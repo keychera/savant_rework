@@ -24,3 +24,6 @@ if len(sys.argv) >= 2:
     else:
         for failing_test in covered_classes:
             print(failing_test)
+
+else:
+    print('ython scripts/get_classes_coverage.py [covered_method file] (opt)[output file]')

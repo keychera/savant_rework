@@ -17,3 +17,6 @@ if len(sys.argv) >= 2:
     else:
         for failing_test in failing_tests:
             print(failing_test)
+
+else:
+    print('python scripts/get_failing_tests.py [failing tests report] (opt)[output file]')
