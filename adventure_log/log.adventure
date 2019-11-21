@@ -138,3 +138,15 @@ o ref(92)
         + note (It can't be the solution because we need to run a single test method but test suites only provide for selection of test classes)
         o ref(127)
             + todo (test out the python project structure for making a module)
+
++ note (the usage of $(..) in bash! it's pretty cool)
+
+t (21/11/19)
++ note (problem: Defects4J only provide list of all test classes only, not until its methods)
+    + note (solution: parse the sourcecode and match some regex)
+        + todo (above)
+        + note (assumption: all test method is annotated by @Test and simply following by a class declaration with public void)
+
++ note (problem: number of python script parameter checking might be inconsistent)
+    + note (solution: make a parameter for it)
+        + todo (above)
