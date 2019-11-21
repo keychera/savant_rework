@@ -5,9 +5,11 @@ if len(sys.argv) >= 3:
     failingtests_path = sys.argv[2]
 
     failing_test_methods = list()
-    with open(alltests_path) as fp:
+    with open(failingtests_path) as fp:
         for count, line in enumerate(fp):
             failing_test_methods.append(line)
+
+    print(failing_test_methods)
     
     all_test_methods = list()
     with open(alltests_path) as fp:
@@ -17,7 +19,7 @@ if len(sys.argv) >= 3:
     
     if len(sys.argv) == 4:
         output_path = sys.argv[3]
-        with open(output_path + '/passing_tests', 'w+') as f:
+        with open(output_path + '/passing_test_methods', 'w+') as f:
             for test_method in  all_test_methods:
                 f.write("{}\n".format(test_method))
     else:
@@ -25,4 +27,4 @@ if len(sys.argv) >= 3:
             print(test_method)
 
 else:
-    print('python scripts/get_passing_test_methods.py [all_tests file] [failing_tests file]')
+    print('python scripts/get_passing_test_methods.py [all_tests file] [failing_tests file] (opt)[output path]')
