@@ -28,5 +28,5 @@ source runconfig
 
 #step 9.5 get all tests and then the passing tests
 #defects4j export -w "$TARGETPROJECT" -p tests.all
-python scripts/get_all_test_methods.py ./all_tests "$TARGETPROJECT/$(defects4j export -w "$TARGETPROJECT" -p dir.src.tests)" .
-python scripts/get_passing_test_methods.py ./all_test_methods ./failing_test_methods
+python scripts/get_all_test_methods.py $TARGETPROJECT/all_tests .
+python scripts/get_passing_test_methods.py ./all_test_methods ./failing_test_methods .
