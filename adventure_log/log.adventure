@@ -166,3 +166,20 @@ o ref(119)
     o ref(150)
         + null (this issue is not important now)
             + note (refer to this quest/todo instead) ref(131) ref(132) ref(140)
+
+t (22/11/19)
+
++ quest ('what is this `#!/bin/sh`? it causes the script to be unable to read the config files)
+
++ done (make script do coverage for all failed test)
+    + note (problem: it's slow, coverage seems done redundantly)
+    o ref(160)
+        + done (put them in a folder (named `temp`) and ignore the folder)
+    + note (sh scripting intricacies, `while loop` file input is put at `done` at the end)
+    + todo (aggregate the report for each coverage result)
+    + todo (time each command)
+
++ done (make script to aggregate all results)
+    + note (aggregation done using `set` functionality)
+        + note (idea: https://stackoverflow.com/a/2151553)
+    + note (this might be problematic: because of using set, two different signatured method is recorded as the same) ref(97)
