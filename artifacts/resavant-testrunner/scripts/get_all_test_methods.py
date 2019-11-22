@@ -10,7 +10,7 @@ if len(sys.argv) >= 2:
             test_method = '{}::{}'.format(package_name[:-1], test_method_name)
             all_test_methods.append(test_method)
 
-    if len(sys.argv) == 3:
+    if len(sys.argv) >= 3:
         output_path = sys.argv[2]
         with open(output_path + '/all_test_methods', 'w+') as f:
             for test_method in  all_test_methods:
@@ -18,3 +18,6 @@ if len(sys.argv) >= 2:
     else:
         for test_method in all_test_methods:
             print(test_method)
+
+else:
+    print('python script/get_all_test_methods [all_tests path] (opt)[output path]')

@@ -1,6 +1,7 @@
 #this run.sh is for development and example purposes, the commented out is what would probably used for later
 
 source runconfig
+mkdir -p $TEMP/
 #java -cp "target/classes:$JUNITJAR:$HAMCRESTJAR:$TARGETCLASSESPATH:$TARGETTESTSPATH" resavant.testrunner.App $TESTCLASS $TESTMETHOD testrunner
 
 #the steps
@@ -19,13 +20,16 @@ python scripts/get_java_classes_from_directory.py "$TARGETPROJECT/$(defects4j ex
 
 #step4+5+6 instrument all classes and run coverage of the failed test
 FILE=$TEMP/failing_test_methods
+COVERED_OUT=$TEMP/covered_methods
+mkdir -p $COVERED_OUT
 while read LINE
 do
     echo $LINE
-    defects4j coverage -w $TARGETPROJECT -t $LINE -i $TEMP/all_classes
-    python scripts/get_methods_coverage.py $TARGETPROJECT/coverage.xml $TEMP/ $LINE
+    defects4j coverage -w $TARGETPROJECT -t $LINE -i $TEMP/all_classes    
+    python scripts/get_methods_coverage.py $TARGETPROJECT/coverage.xml $COVERED_OUT/ $LINE
     #TODO aggregate the report
 done < $FILE
+python scripts/aggregate_results.py $COVERED_OUT/ $TEMP/
 
 #step7 get all covered classes
 #python scripts/get_classes_coverage.py ./covered_methods .
