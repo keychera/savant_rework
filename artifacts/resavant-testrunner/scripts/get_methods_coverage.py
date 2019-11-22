@@ -21,9 +21,13 @@ if len(sys.argv) >= 2:
             class_name = a_class.get('name')
             method_names.append('{}::{}'.format(class_name, method_name))
     
-    if len(sys.argv) == 3:
+    if len(sys.argv) >= 3:
         output_path = sys.argv[2]
-        with open(output_path + '/covered_methods', 'w+') as f:
+        if len(sys.argv) >= 4:
+            testname = sys.argv[3]
+        else:
+            testname = 'some'
+        with open(output_path + '/covered_methods-{}'.format(testname), 'w+') as f:
             for method_name in method_names:
                 f.write("{}\n".format(method_name))
     else:

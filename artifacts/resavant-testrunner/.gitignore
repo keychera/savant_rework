@@ -18,4 +18,5 @@ buildNumber.properties
 #config
 runconfig
 
-instrument_classes
+#Temp
+temp/

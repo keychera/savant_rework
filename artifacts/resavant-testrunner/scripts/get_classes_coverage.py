@@ -15,8 +15,7 @@ if len(sys.argv) >= 2:
         if not(a_class in covered_classes): 
             covered_classes.append(a_class)
         
-    
-    if len(sys.argv) == 3:
+    if len(sys.argv) >= 3:
         output_path = sys.argv[2]
         with open(output_path + '/covered_classes', 'w+') as f:
             for failing_test in covered_classes:
@@ -26,4 +25,4 @@ if len(sys.argv) >= 2:
             print(failing_test)
 
 else:
-    print('ython scripts/get_classes_coverage.py [covered_method file] (opt)[output file]')
+    print('python scripts/get_classes_coverage.py [covered_method file] (opt)[output file]')
