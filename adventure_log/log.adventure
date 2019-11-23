@@ -168,7 +168,6 @@ o ref(119)
             + note (refer to this quest/todo instead) ref(131) ref(132) ref(140)
 
 t (22/11/19)
-
 + quest ('what is this `#!/bin/sh`? it causes the script to be unable to read the config files)
 
 + done (make script do coverage for all failed test)
@@ -183,3 +182,13 @@ t (22/11/19)
     + note (aggregation done using `set` functionality)
         + note (idea: https://stackoverflow.com/a/2151553)
     + note (this might be problematic: because of using set, two different signatured method is recorded as the same) ref(97)
+
+t (23/11/19)
++ note (Defects4J should do coverage like cobetura, different command for instrumentation and coverage)
+    o ref(175)
+    + todo (Make issue/suggestion for Defects4j) oot
+
++ done (step 9 is done)
+    + note (problem: it takes too long, redundancy and still wrong info to capture)
+        + note ("too long" is the coverage is done multiple times on a lot of tests) ref(174)
+        + note ("wrong capture" part is reading the `coverage.xml` does not tell about the classes we need to inspect (the covered classes))
