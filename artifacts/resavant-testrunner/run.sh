@@ -11,32 +11,41 @@ mkdir -p $TEMP/
 #defects4j info -p Lang -b 1
 #python scripts/get_all_test_methods.py $TARGETPROJECT/all_tests $TEMP/
 
-#step 2: read the 'failing_tests'
-#cp $TARGETPROJECT/failing_tests $TEMP/failing_tests_report
-python scripts/get_failing_test_methods.py $TEMP/failing_tests_report $TEMP/
+# #step 2: read the 'failing_tests'
+# #cp $TARGETPROJECT/failing_tests $TEMP/failing_tests_report
+# python scripts/get_failing_test_methods.py $TEMP/failing_tests_report $TEMP/
+# 
+# #step 3: get all classes
+# python scripts/get_java_classes_from_directory.py "$TARGETPROJECT/$(defects4j export -w "$TARGETPROJECT" -p dir.src.classes)" $TEMP/
+# 
+# #step4+5+6 instrument all classes and run coverage of the failed test
+# FILE=$TEMP/failing_test_methods
+# COVERED_OUT=$TEMP/covered_methods
+# mkdir -p $COVERED_OUT
+# while read TEST_METHOD
+# do
+#     echo $TEST_METHOD
+#     defects4j coverage -w $TARGETPROJECT -t $TEST_METHOD -i $TEMP/all_classes    
+#     python scripts/get_methods_coverage.py $TARGETPROJECT/coverage.xml $COVERED_OUT/ $TEST_METHOD
+# done < $FILE
+# python scripts/aggregate_results.py $COVERED_OUT/ $TEMP/
+# 
+# #step7 get all covered classes
+# python scripts/get_classes_coverage.py $TEMP/aggregate_covered_methods $TEMP
 
-#step 3: get all classes
-python scripts/get_java_classes_from_directory.py "$TARGETPROJECT/$(defects4j export -w "$TARGETPROJECT" -p dir.src.classes)" $TEMP/
-
-#step4+5+6 instrument all classes and run coverage of the failed test
-FILE=$TEMP/failing_test_methods
-COVERED_OUT=$TEMP/covered_methods
-mkdir -p $COVERED_OUT
-while read LINE
-do
-    echo $LINE
-    defects4j coverage -w $TARGETPROJECT -t $LINE -i $TEMP/all_classes    
-    python scripts/get_methods_coverage.py $TARGETPROJECT/coverage.xml $COVERED_OUT/ $LINE
-    #TODO aggregate the report
-done < $FILE
-python scripts/aggregate_results.py $COVERED_OUT/ $TEMP/
-
-#step7 get all covered classes
-#python scripts/get_classes_coverage.py ./covered_methods .
+# #step 7.5 get all tests and then the passing tests
+# python scripts/get_all_test_methods.py $TARGETPROJECT/all_tests $TEMP/
+# python scripts/get_passing_test_methods.py $TEMP/all_test_methods $TEMP/failing_test_methods $TEMP/
 
 #step8+9 coverage with instrumentation only the covered classes
-#defects4j coverage -w $TARGETPROJECT -t $TESTCLASS::$TESTMETHOD -i covered_classes
+FILE=$TEMP/passing_test_methods
+PASSING_CVR=$TEMP/passing_coverage
+mkdir -p $PASSING_CVR
+while read TEST_METHOD
+do
+    echo $TEST_METHOD
+    defects4j coverage -w $TARGETPROJECT -t $TEST_METHOD -i $TEMP/covered_classes
+    python scripts/get_methods_coverage.py $TARGETPROJECT/coverage.xml $PASSING_CVR/ $TEST_METHOD
+done < $FILE
+# build method x passing test matrix
 
-#step 9.5 get all tests and then the passing tests
-#python scripts/get_all_test_methods.py $TARGETPROJECT/all_tests .
-#python scripts/get_passing_test_methods.py ./all_test_methods ./failing_test_methods .

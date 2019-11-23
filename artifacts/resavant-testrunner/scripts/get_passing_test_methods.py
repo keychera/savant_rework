@@ -8,8 +8,6 @@ if len(sys.argv) >= 3:
     with open(failingtests_path) as fp:
         for count, line in enumerate(fp):
             failing_test_methods.append(line)
-
-    print(failing_test_methods)
     
     all_test_methods = list()
     with open(alltests_path) as fp:
