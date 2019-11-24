@@ -192,3 +192,18 @@ t (23/11/19)
     + note (problem: it takes too long, redundancy and still wrong info to capture)
         + note ("too long" is the coverage is done multiple times on a lot of tests) ref(174)
         + note ("wrong capture" part is reading the `coverage.xml` does not tell about the classes we need to inspect (the covered classes))
+
+o ref(194)
+    + null (this turns out to be wrong)
+        + quest (what does the coverage results really tell?)
+
+t(24/11/19)
++ todo (attempt to follow Defects4J examples on coverage analysis)
+    + quest (what does their example do?)
+
++ quest (does there exist a method to make TestSuites with selected test methods?)
+    + note (answer found so far, not possible without modifying the tests itself)
+        + note (idea: do modify the test class since we have the source code, python can do that)
+
+o ref(200)
+    + todo (analyze Savant implementation as well)
