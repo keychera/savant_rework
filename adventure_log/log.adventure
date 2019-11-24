@@ -207,3 +207,8 @@ t(24/11/19)
 
 o ref(200)
     + todo (analyze Savant implementation as well)
+
++ quest (Should we just learn Perl and make everything in Perl??)
+
++ note (Defects4J is not yet fully compatible with Java 8)
+    + todo (set up Java 7 do Defects4J is fully compatible)
