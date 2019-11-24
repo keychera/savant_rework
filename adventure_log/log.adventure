@@ -212,3 +212,12 @@ o ref(200)
 
 + note (Defects4J is not yet fully compatible with Java 8)
     + todo (set up Java 7 do Defects4J is fully compatible)
+
+o ref(214)
+    + note (problem: openJDK 7 is not easily available in Linux Mint, oh no)
+        + note (solution: this, https://askubuntu.com/a/840945)
+        + note (to make above work and to work with multiple openJDK version, we use `update-alternatives --config java` command)
+            + note (problem: however, to make above works we need to comment out the `export JAVA_HOME` declaration on `.bashrc`, which subsequently makes some other things don't work anymore (vscode cant reach java, daikon.bashrc needs that too))
+        + note (backup plan is, installing Defects4J on Ubuntu subsystem on Windows)
+
++ note (Defects4J error `./init.sh: line 115: jar: command not found` means java environment is not setup)
