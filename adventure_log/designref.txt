@@ -71,7 +71,7 @@ t (25/11/19)
                 + check the results for each test suites
 
         run_coverage.pl
-            [p_id, b_id, suite] > coverage analysis (write to file)
+            [p_ref, instrument_class, suite] > coverage analysis (write to file)
 
             process
                 + do preprocess

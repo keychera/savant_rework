@@ -237,3 +237,10 @@ o ref(201)
 o ref(234)
     + note (reason1 : Defects4J use Perl)
     + note (reason2 : Perl is strong on string comp/regex and we will be using that to read coverage results and output inbetween process)
+
++ quest (Where is that procedure of applying Defects4J on an arbitrary project as we understand it? did we have misconception?)
+
++ note (PERL var naming convention: all caps for cmd opt, all low for temporary var?)
+
++ note (problem: weird error regarding running single test)
+    + note (solution: it is caused by the variable that supply the input is read from a file. what's wrong is that you let the trailing /n get in the string and passed to the other scripts. which what cause a really weird error that cost you more than 6 hours. damn it.)
