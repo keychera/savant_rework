@@ -229,7 +229,7 @@ t (25/11/19)
 + note (there exists example of scripts that built on to of Defects4J)
 
 o ref(201)
-    + done (for randoop_coverage.sh) attch(designref.txt)
+    + done (analysisi of Defects4J's randoop_coverage.sh) attch(designref.txt)
         o ref(211)
             + note (WE PERL bois, we will be utilizing Defects4J Core)
             + todo (do it in PERL)
@@ -244,3 +244,6 @@ o ref(234)
 
 + note (problem: weird error regarding running single test)
     + note (solution: it is caused by the variable that supply the input is read from a file. what's wrong is that you let the trailing /n get in the string and passed to the other scripts. which what cause a really weird error that cost you more than 6 hours. damn it.)
+
+o ref(235)
+    + done (a working Perl script that utilizes Defects4J Core, onwards to replication!)
