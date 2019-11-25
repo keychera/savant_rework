@@ -205,13 +205,13 @@ t(24/11/19)
     + note (answer found so far, not possible without modifying the tests itself)
         + note (idea: do modify the test class since we have the source code, python can do that)
 
-o ref(200)
+o ref(201)
     + todo (analyze Savant implementation as well)
 
 + quest (Should we just learn Perl and make everything in Perl??)
 
 + note (Defects4J is not yet fully compatible with Java 8)
-    + todo (set up Java 7 do Defects4J is fully compatible)
+    + todo (set up Java 7 where Defects4J is fully compatible)
 
 o ref(214)
     + note (problem: openJDK 7 is not easily available in Linux Mint, oh no)
@@ -221,3 +221,19 @@ o ref(214)
         + note (backup plan is, installing Defects4J on Ubuntu subsystem on Windows)
 
 + note (Defects4J error `./init.sh: line 115: jar: command not found` means java environment is not setup)
+
+o ref(214)
+    + done (this is done, also ref this) ref(218) ref(219)
+
+t (25/11/19)
++ note (there exists example of scripts that built on to of Defects4J)
+
+o ref(201)
+    + done (for randoop_coverage.sh) attch(designref.txt)
+        o ref(211)
+            + note (WE PERL bois, we will be utilizing Defects4J Core)
+            + todo (do it in PERL)
+
+o ref(234)
+    + note (reason1 : Defects4J use Perl)
+    + note (reason2 : Perl is strong on string comp/regex and we will be using that to read coverage results and output inbetween process)

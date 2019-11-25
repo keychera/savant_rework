@@ -47,3 +47,33 @@ t (19/11/19)
     +9 run coverage test of the passing tests
     +10 take note whether each method is run by the passing test or not
     +11 make a matrix or table for the final output
+
+t (25/11/19)
++ defects4j randoop_coverage.sh i/o + process analysis
+    diag (
+
+        randoop_coverage.sh
+            [p_id, b_id] > coverage.xml and statistics (write to file)
+ 
+            process
+                + do preprocess stuff
+                + call run_randoop.pl on specified p_id + b_id
+                + run test_coverage on gen'd test suites
+
+        (we don't need Randoop as for now)
+
+        test_coverage (located in test.include)
+            [p_id, b_id] > none
+
+            process
+                + do preprocess stuff
+                + call run_coverage.pl
+                + check the results for each test suites
+
+        run_coverage.pl
+            [p_id, b_id, suite] > coverage analysis (write to file)
+
+            process
+                + do preprocess
+                + call Coverage::coverage_ext
+    )
