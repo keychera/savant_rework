@@ -1,0 +1,1 @@
+./get_method_coverage.pl -w /home/osboxes/Documents/lang_1_buggy -t ./temp/single_tests -i ./temp/instrument_class
