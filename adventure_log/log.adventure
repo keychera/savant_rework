@@ -256,3 +256,15 @@ t(26/11/19)
 
 + note (about cobertura: the instrumented bytecode is the one that generates the .ser andfile)
     + note (and then, cobertura do report which then generates the readable .xml file. currently how we understand it)
+
+o ref(235)
+    + done (scripts that executes sets of single test and make coverage report for each. w/o reinstrumenting and recompiling everytime)
+        o ref(192)
+            + note (solution: that above is for ref's problem)
+
++ note (Defects4J heavily utilizes Ant, or specifically what might be called as Ant task)
+    + note (we seems to not understand what Ant really is)
+        + note (originally, we understood it that Ant is used for some kind of defining project structure and dependency manager. I guess we were either wrong or didn't realize it is so much more.)
+    + note (Defects4J can export all test without running every test) 
+        + note (a better alternative for script that we made) ref(163)
+            + note (however, it seems it is still a WIP from Defects4J's behalf. as pointed out by comments on `framework/projects/defects4j.export.xml`)
