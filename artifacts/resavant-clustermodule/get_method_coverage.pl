@@ -51,6 +51,9 @@ use Utils;
 # Default paths
 my $OUTPUT_FOLDER = "resavant_out";
 
+my $SER_FILE = "cobertura.ser";
+my $CORBETURA_REPORT = "$SCRIPT_DIR/projects/lib/cobertura-report.sh";
+
 # process arguments
 my %cmd_opts;
 getopts('w:t:i:', \%cmd_opts) or pod2usage( { -verbose => 1, -input => __FILE__} );
@@ -90,14 +93,17 @@ $project->compile_tests() or die "Cannot compile tests!";
 for (my $i = 0; $i < scalar @single_tests; $i++) {
 
     # prepare the output location
-    my $folder = "$WORK_DIR/$OUTPUT_FOLDER/$i";
-    make_path($folder);
-    my $log_file = "$folder/failing_tests";
+    my $out_folder = "$WORK_DIR/$OUTPUT_FOLDER/$i";
+    make_path($out_folder);
+    my $log_file = "$out_folder/failing_tests";
 
     # run the test
     my $single_test = $single_tests[$i];
     print "\ntesting for $single_test\n";
     $project->run_tests($log_file, $single_test) or die "Cannot run the test! test attempted: $single_test";
 
-    $project->coverage_report($WORK_DIR) or die "Could not create coverage report";
+    my $ser_path = "$WORK_DIR/$SER_FILE";
+    my $report_folder = "$out_folder/cobertura";
+    make_path($report_folder);
+    system("sh $CORBETURA_REPORT --format xml --datafile $ser_path --destination $report_folder >/dev/null 2>&1") == 0 or die "could not create report";
 }
