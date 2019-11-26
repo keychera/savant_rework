@@ -30,34 +30,36 @@ use strict;
 
 use FindBin;
 use File::Basename;
+use File::Path qw(make_path);
 use Cwd qw(abs_path);
 use Getopt::Std;
 use Pod::Usage;
 
-my $D4J_CORE;
+my $D4J_HOME;
 BEGIN {
     unless (defined $ENV{D4J_HOME}) {
         die "D4J_HOME not set!\n";
     }
-    $D4J_CORE = "$ENV{D4J_HOME}/framework/core";
+    $D4J_HOME = "$ENV{D4J_HOME}";
 }
-use lib abs_path("$D4J_CORE");
+use lib abs_path("$D4J_HOME/framework/core");
 use Constants;
 use Coverage;
 use Project;
 use Utils;
-use Log;
-use DB;
+
+# Default paths
+my $OUTPUT_FOLDER = "resavant_out";
 
 # process arguments
 my %cmd_opts;
 getopts('w:t:i:', \%cmd_opts) or pod2usage( { -verbose => 1, -input => __FILE__} );
 
 my $WORK_DIR = $cmd_opts{w};
-my $SINGLE_TESTS = $cmd_opts{t};
+my $SINGLE_TESTS_FILE = $cmd_opts{t};
 my $INSTRUMENT = $cmd_opts{i};
 
-# Get project reference from working directory
+# Instantiate project based on working directory
 my $config = Utils::read_config_file("$WORK_DIR/$CONFIG");
 unless(defined $config) {
     print(STDERR "$WORK_DIR is not a valid working directory!\n");
@@ -67,18 +69,35 @@ unless(defined $config) {
 my $project = Project::create_project($config->{$CONFIG_PID});
 $project->{prog_root} = $WORK_DIR;
 
-# get all single tests from file
--e $SINGLE_TESTS or die "Single test list file '$SINGLE_TESTS' does not exist!";
-open FH, $SINGLE_TESTS;
-my @single_tests = ();
-{
-    $/ = "\n";
-    @single_tests = s/\R\z// for <FH>;
-}
-close FH;
-my $single_test = $single_tests[1];
+# Instrument all classes provided
+$project->coverage_instrument($INSTRUMENT) or die("Can't instrument project!");
 
-# run a single test
-my $log_file = "$WORK_DIR/failing_tests";
+# get all single tests from file
+-e $SINGLE_TESTS_FILE or die "Single test list file '$SINGLE_TESTS_FILE' does not exist!";
+open my ($file_in), $SINGLE_TESTS_FILE;
+
+my @single_tests = ();
+while( my $line = <$file_in>)  {
+    chomp($line);
+    push @single_tests, $line;
+}
+
+close $file_in;
+die "No single tests found in the file!" if scalar @single_tests == 0;
+
+# loop the tests and run each one
 $project->compile_tests() or die "Cannot compile tests!";
-$project->run_tests($log_file, $single_test) or die "Cannot run the test! test attempted: $single_test";
+for (my $i = 0; $i < scalar @single_tests; $i++) {
+
+    # prepare the output location
+    my $folder = "$WORK_DIR/$OUTPUT_FOLDER/$i";
+    make_path($folder);
+    my $log_file = "$folder/failing_tests";
+
+    # run the test
+    my $single_test = $single_tests[$i];
+    print "\ntesting for $single_test\n";
+    $project->run_tests($log_file, $single_test) or die "Cannot run the test! test attempted: $single_test";
+
+    $project->coverage_report($WORK_DIR) or die "Could not create coverage report";
+}
