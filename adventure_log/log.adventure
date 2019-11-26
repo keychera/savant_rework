@@ -243,12 +243,12 @@ o ref(234)
 + note (PERL var naming convention: all caps for cmd opt, all low for temporary var?)
 
 + note (problem: weird error regarding running single test)
-    + note (solution: it is caused by the variable that supply the input is read from a file. what's wrong is that you let the trailing /n get in the string and passed to the other scripts. which what cause a really weird error that cost you more than 6 hours. damn it.)
+    + note (reason: it is caused by the input that is read from a file. what's wrong is that you let the trailing /n get in the string and passed to the other scripts. which what cause a really weird error that cost you more than 6 hours. damn it.)
 
 o ref(235)
     + done (a working Perl script that utilizes Defects4J Core, onwards to replication!)
 
-t(26/11/19)
+t (26/11/19)
 + note (understanding chomp() and \r\n....)
     + note (the concern orinally found from here: https://stackoverflow.com/q/35940583)
     + note (however, the solution is then found here: https://stackoverflow.com/a/15735143)
@@ -268,3 +268,12 @@ o ref(235)
     + note (Defects4J can export all test without running every test) 
         + note (a better alternative for script that we made) ref(163)
             + note (however, it seems it is still a WIP from Defects4J's behalf. as pointed out by comments on `framework/projects/defects4j.export.xml`)
+
+t (27/11/19)
++ note (we originally call it `all_test_methods`, `all_test_classes` and stuff)
+    + note (I want to call test_method simply just test)
+    + todo (make a dictionary or some sort denoting names for input and in-between files)
+        + quest (What is the term DSL that we found in Cobertura doc? is it relevant?)
+
++ note (problem: suddenly `defects4j test` produce different result, previously 4 failed method to only one)
+    + note (reason: you recently changed Java version from 8 to 7. Defects4J is only compatible w/ 7, using 8 will cause extra errors as pointed out here: https://github.com/rjust/defects4j/issues/194#issuecomment-460899398)
