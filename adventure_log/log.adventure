@@ -247,3 +247,12 @@ o ref(234)
 
 o ref(235)
     + done (a working Perl script that utilizes Defects4J Core, onwards to replication!)
+
+t(26/11/19)
++ note (understanding chomp() and \r\n....)
+    + note (the concern orinally found from here: https://stackoverflow.com/q/35940583)
+    + note (however, the solution is then found here: https://stackoverflow.com/a/15735143)
+    + note (final verdict: we care about \r\n when necessary, which is later)
+
++ note (about cobertura: the instrumented bytecode is the one that generates the .ser andfile)
+    + note (and then, cobertura do report which then generates the readable .xml file. currently how we understand it)
