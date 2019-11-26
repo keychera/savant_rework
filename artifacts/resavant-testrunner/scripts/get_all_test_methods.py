@@ -11,8 +11,8 @@ if len(sys.argv) >= 2:
             all_test_methods.append(test_method)
 
     if len(sys.argv) >= 3:
-        output_path = sys.argv[2]
-        with open(output_path + '/all_test_methods', 'w+') as f:
+        output_file = sys.argv[2]
+        with open(output_file, 'w+') as f:
             for test_method in  all_test_methods:
                 f.write("{}\n".format(test_method))
     else:
@@ -20,4 +20,4 @@ if len(sys.argv) >= 2:
             print(test_method)
 
 else:
-    print('python script/get_all_test_methods [all_tests path] (opt)[output path]')
+    print('python script/get_all_test_methods [all_tests path] (opt)[output file]')

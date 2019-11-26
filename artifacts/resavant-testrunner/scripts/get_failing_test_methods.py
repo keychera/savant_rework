@@ -10,8 +10,8 @@ if len(sys.argv) >= 2:
                 failing_test_methods.append(line[4:].rstrip())
     
     if len(sys.argv) == 3:
-        output_path = sys.argv[2]
-        with open(output_path + '/failing_test_methods', 'w+') as f:
+        output_file = sys.argv[2]
+        with open(output_file, 'w+') as f:
             for failing_test_method in failing_test_methods:
                 f.write("{}\n".format(failing_test_method))
     else:

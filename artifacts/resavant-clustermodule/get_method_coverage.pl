@@ -8,7 +8,7 @@ get_method_coverage.pl -- get method-level coverage analysis of a project for gi
 
 =head1 SYNOPSIS
 
-get_method_coverage.pl -w working_directory -t single_test_list_file -i classes to instrument
+get_method_coverage.pl -w working_directory -t single_test_list_file -i classes_to_instrument -o output_path
 
 =head1 OPTIONS
 
@@ -19,6 +19,14 @@ get_method_coverage.pl -w working_directory -t single_test_list_file -i classes 
 Tss
 
 =item -t F<ss>
+
+Tss
+
+=item -i F<ss>
+
+Tss
+
+=item -o F<ss>
 
 Tss
 
@@ -56,11 +64,12 @@ my $CORBETURA_REPORT = "$SCRIPT_DIR/projects/lib/cobertura-report.sh";
 
 # process arguments
 my %cmd_opts;
-getopts('w:t:i:', \%cmd_opts) or pod2usage( { -verbose => 1, -input => __FILE__} );
+getopts('w:t:i:o:', \%cmd_opts) or pod2usage( { -verbose => 1, -input => __FILE__} );
 
 my $WORK_DIR = $cmd_opts{w};
 my $SINGLE_TESTS_FILE = $cmd_opts{t};
 my $INSTRUMENT = $cmd_opts{i};
+my $OUTPUT_PATH = $cmd_opts{o};
 
 # Instantiate project based on working directory
 my $config = Utils::read_config_file("$WORK_DIR/$CONFIG");
@@ -93,17 +102,22 @@ $project->compile_tests() or die "Cannot compile tests!";
 for (my $i = 0; $i < scalar @single_tests; $i++) {
 
     # prepare the output location
-    my $out_folder = "$WORK_DIR/$OUTPUT_FOLDER/$i";
+    my $abs_output_path = abs_path($OUTPUT_PATH);
+    my $out_folder = "$abs_output_path/$OUTPUT_FOLDER/$i";
     make_path($out_folder);
     my $log_file = "$out_folder/failing_tests";
+    open my $dummy, ">", "$log_file" or die "can't create file: $log_file";
 
     # run the test
     my $single_test = $single_tests[$i];
     print "\ntesting for $single_test\n";
     $project->run_tests($log_file, $single_test) or die "Cannot run the test! test attempted: $single_test";
 
+    # do coverage report
     my $ser_path = "$WORK_DIR/$SER_FILE";
     my $report_folder = "$out_folder/cobertura";
     make_path($report_folder);
     system("sh $CORBETURA_REPORT --format xml --datafile $ser_path --destination $report_folder >/dev/null 2>&1") == 0 or die "could not create report";
+    #make_path("$report_folder/html");
+    #system("sh $CORBETURA_REPORT --format html --datafile $ser_path --destination $report_folder/html >/dev/null 2>&1") == 0 or die "could not create report";
 }

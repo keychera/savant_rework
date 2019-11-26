@@ -16,8 +16,8 @@ if len(sys.argv) >= 2:
                 classnames.append(package_name + file_name[:-5])
     
     if len(sys.argv) == 3:
-        output_path = sys.argv[2]
-        with open(output_path + '/all_classes', 'w+') as f:
+        output_file = sys.argv[2]
+        with open(output_file, 'w+') as f:
             for classname in classnames:
                 f.write("{}\n".format(classname))
     else:
@@ -25,4 +25,4 @@ if len(sys.argv) >= 2:
             print(classname)
 
 else: 
-    print('python get_java_classes_from_directory.py [absolute path to the class directory] (opt)[outputpath]')
+    print('python get_java_classes_from_directory.py [absolute path to the class directory] (opt)[output file]')
