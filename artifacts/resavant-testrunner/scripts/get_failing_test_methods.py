@@ -19,4 +19,4 @@ if len(sys.argv) >= 2:
             print(failing_test_method )
 
 else:
-    print('python scripts/get_failing_test_methods.py [failing tests report] (opt)[output file]')
+    print('python get_failing_test_methods.py [failing tests report] (opt)[output file]')

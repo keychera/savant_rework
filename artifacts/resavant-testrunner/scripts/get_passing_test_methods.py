@@ -25,4 +25,4 @@ if len(sys.argv) >= 3:
             print(test_method)
 
 else:
-    print('python scripts/get_passing_test_methods.py [all_tests file] [failing_tests file] (opt)[output file]')
+    print('python get_passing_test_methods.py [all_tests file] [failing_tests file] (opt)[output file]')

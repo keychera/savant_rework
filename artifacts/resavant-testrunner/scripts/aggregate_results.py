@@ -31,4 +31,4 @@ if len(sys.argv) >= 2:
             print(line)
 
 else:
-    print('python scripts/aggregate_results.py [input file] (opt)[output file]')
+    print('python aggregate_results.py [input file] (opt)[output file]')

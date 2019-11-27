@@ -20,4 +20,4 @@ if len(sys.argv) >= 2:
             print(test_method)
 
 else:
-    print('python script/get_all_test_methods [all_tests path] (opt)[output file]')
+    print('python get_all_test_methods [all_tests path] (opt)[output file]')

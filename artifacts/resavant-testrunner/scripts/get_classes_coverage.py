@@ -25,4 +25,4 @@ if len(sys.argv) >= 2:
             print(failing_test)
 
 else:
-    print('python scripts/get_classes_coverage.py [covered_method file] (opt)[output file]')
+    print('python get_classes_coverage.py [covered_method file] (opt)[output file]')
