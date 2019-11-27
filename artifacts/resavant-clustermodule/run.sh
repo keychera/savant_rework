@@ -30,8 +30,9 @@ number_of_out=$(find $CVR_OUTPUT_FOLDER/* -maxdepth 0 -type d | wc -l)
 while [ $counter -le `expr $number_of_out - 1` ]
 do
     cvr_folder="$CVR_OUTPUT_FOLDER/$counter/cobertura"
-    python $PYSCRIPT_PATH/get_methods_coverage.py $cvr_folder/coverage.xml $MTD_OUTPUT_FOLDER $counter
+    python $PYSCRIPT_PATH/get_methods_coverage.py $cvr_folder/coverage.xml "$MTD_OUTPUT_FOLDER/covered_methods-$counter"
     ((counter++))
 done
+python $PYSCRIPT_PATH/aggregate_results.py $MTD_OUTPUT_FOLDER/ "$TEMP/all_covered_method"
 
 # step 7

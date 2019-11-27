@@ -17,12 +17,13 @@ if len(sys.argv) >= 2:
             aggregate.append(method_list)
             aggregate_union = set().union(*aggregate)
             aggregate = [list(aggregate_union)]
+            aggregate.sort()
     
     aggregate = aggregate[0]
 
     if len(sys.argv) >= 3:
-        output_path = sys.argv[2]
-        with open(output_path + '/aggregate_covered_methods', 'w+') as f:
+        output_file = sys.argv[2]
+        with open(output_file, 'w+') as f:
             for line in aggregate:
                 f.write("{}\n".format(line))
     else:
@@ -30,4 +31,4 @@ if len(sys.argv) >= 2:
             print(line)
 
 else:
-    print('python scripts/aggregate_results.py [results folder path]')
+    print('python scripts/aggregate_results.py [input file] (opt)[output file]')

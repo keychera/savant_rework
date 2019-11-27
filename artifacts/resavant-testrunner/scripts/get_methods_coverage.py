@@ -22,12 +22,8 @@ if len(sys.argv) >= 2:
             method_names.append('{}::{}'.format(class_name, method_name))
     
     if len(sys.argv) >= 3:
-        output_path = sys.argv[2]
-        if len(sys.argv) >= 4:
-            testname = '-{}'.format(sys.argv[3])
-        else:
-            testname = ''
-        with open(output_path + '/covered_methods{}'.format(testname), 'w+') as f:
+        output_file = sys.argv[2]
+        with open(output_file, 'w+') as f:
             for method_name in method_names:
                 f.write("{}\n".format(method_name))
     else:
@@ -36,4 +32,4 @@ if len(sys.argv) >= 2:
 
 
 else:
-    print('python get_methods_coverage.py [path to coverage.xml file] (opt)[outputpath] (opt)[test_name]')
+    print('python get_methods_coverage.py [path to coverage.xml file] (opt)[output file]')

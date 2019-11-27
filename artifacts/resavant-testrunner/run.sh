@@ -26,9 +26,9 @@ while read TEST_METHOD
 do
     echo $TEST_METHOD
     defects4j coverage -w $TARGETPROJECT -t $TEST_METHOD -i $TEMP/all_classes    
-    python scripts/get_methods_coverage.py $TARGETPROJECT/coverage.xml $COVERED_OUT/ $TEST_METHOD
+    python scripts/get_methods_coverage.py $TARGETPROJECT/coverage.xml "$COVERED_OUT/covered_methods-$TEST_METHOD"
 done < $FILE
-python scripts/aggregate_results.py $COVERED_OUT/ $TEMP/
+python scripts/aggregate_results.py $COVERED_OUT/ "$TEMP/aggregate_covered_methods"
 
 #step7 get all covered classes
 python scripts/get_classes_coverage.py $TEMP/aggregate_covered_methods $TEMP
@@ -43,7 +43,7 @@ while read TEST_METHOD
 do
     echo $TEST_METHOD
     defects4j coverage -w $TARGETPROJECT -t $TEST_METHOD -i $TEMP/covered_classes
-    python scripts/get_methods_coverage.py $TARGETPROJECT/coverage.xml $PASSING_CVR/ $TEST_METHOD
+    python scripts/get_methods_coverage.py $TARGETPROJECT/coverage.xml "$PASSING_CVR/covered_classes-$TEST_METHOD"
 done < $FILE
 # build method x passing test matrix
 
