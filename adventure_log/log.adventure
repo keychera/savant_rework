@@ -286,3 +286,12 @@ t (27/11/19)
     + note (solution: run `git clean -f -d` at the beginning everytime)
 
 + done (Perl recreation until step 7)
+
++ note (folder naming should have same num of digit)
+    + note (to ass ease on traversing all of the folder)
+    + note (Defects4J Lang project 1b has around 2000 tests)
+    + note (to use for now, 6 digit, meaning maximum of 999999 test)
+
++ note (in-between files naming aggreement should be considered early)
+
++ note (parallelizing process is possible for some step)
