@@ -2,8 +2,6 @@
 source runconfig
 
 mkdir -p $TEMP/
-CVR_OUTPUT_FOLDER="$TEMP/single_test_coverage_out"
-
 
 # step 1: get all tests, get all class
 git --git-dir=$TARGETPROJECT/.git/ --work-tree=$TARGETPROJECT clean -f -d
@@ -21,6 +19,7 @@ python $PYSCRIPT_PATH/get_failing_test_methods.py $TEMP/failing_tests_report "$T
 python $PYSCRIPT_PATH/get_java_classes_from_directory.py "$TARGETPROJECT/$(defects4j export -w "$TARGETPROJECT" -p dir.src.classes)" "$TEMP/all_classes"
 
 # step 4-5: run and get coverage all failing tests
+CVR_OUTPUT_FOLDER="$TEMP/single_test_coverage_out"
 ./run_single_test_coverage.pl -w $TARGETPROJECT -t "$TEMP/failing_tests" -i "$TEMP/all_classes" -o "$CVR_OUTPUT_FOLDER"
 
 # step 6: get all methods run by the failing tests
@@ -39,7 +38,12 @@ python $PYSCRIPT_PATH/aggregate_results.py $MTD_OUTPUT_FOLDER/ "$TEMP/all_covere
 
 # step 7 get all covered classes
 python $PYSCRIPT_PATH/get_classes_coverage.py "$TEMP/all_covered_methods" "$TEMP/all_covered_classes"
-
 # step 7.5 get all tests and then the passing tests
 python $PYSCRIPT_PATH/get_passing_test_methods.py "$TEMP/all_tests" "$TEMP/failing_tests" "$TEMP/passing_tests"
 
+# step 8-9 run coverage of passing tests with covered class instrumented
+PASS_OUTPUT_FOLDER="$TEMP/passing_test_coverage_out"
+./run_single_test_coverage.pl -w $TARGETPROJECT -t "$TEMP/passing_tests" -i "$TEMP/all_covered_classes" -o "$PASS_OUTPUT_FOLDER"
+
+# step 10-11 generate matrix
+python $PYSCRIPT_PATH/generate_method_and_test_matrix.py "$PASS_OUTPUT_FOLDER/" "$TEMP/all_covered_methods" "$TEMP/passing_tests" "$TEMP/res.csv"
