@@ -4,11 +4,11 @@
 
 =head1 NAME
 
-get_method_coverage.pl -- get method-level coverage analysis of a project for given set of single tests
+run_single_test_coverage.pl -- get method-level coverage analysis of a project for given set of single tests
 
 =head1 SYNOPSIS
 
-get_method_coverage.pl -w working_directory -t single_test_list_file -i classes_to_instrument -o output_path
+run_single_test_coverage.pl -w working_directory -t single_test_list_file -i classes_to_instrument -o output_path
 
 =head1 OPTIONS
 
@@ -56,9 +56,6 @@ use Coverage;
 use Project;
 use Utils;
 
-# Default paths
-my $OUTPUT_FOLDER = "resavant_out";
-
 my $SER_FILE = "cobertura.ser";
 my $CORBETURA_REPORT = "$SCRIPT_DIR/projects/lib/cobertura-report.sh";
 
@@ -103,7 +100,7 @@ for (my $i = 0; $i < scalar @single_tests; $i++) {
 
     # prepare the output location
     my $abs_output_path = abs_path($OUTPUT_PATH);
-    my $out_folder = "$abs_output_path/$OUTPUT_FOLDER/$i";
+    my $out_folder = "$abs_output_path/$i";
     make_path($out_folder);
     my $log_file = "$out_folder/failing_tests";
     open my $dummy, ">", "$log_file" or die "can't create file: $log_file";
