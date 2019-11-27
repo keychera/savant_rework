@@ -31,9 +31,9 @@ done < $FILE
 python scripts/aggregate_results.py $COVERED_OUT/ "$TEMP/aggregate_covered_methods"
 
 #step7 get all covered classes
-python scripts/get_classes_coverage.py $TEMP/aggregate_covered_methods $TEMP
+python scripts/get_classes_coverage.py $TEMP/aggregate_covered_methods $TEMP/covered_classes
 #step 7.5 get all tests and then the passing tests
-python scripts/get_passing_test_methods.py $TEMP/all_test_methods $TEMP/failing_test_methods $TEMP/
+python scripts/get_passing_test_methods.py $TEMP/all_test_methods $TEMP/failing_test_methods $TEMP/passing_test_methods
 
 #step8+9 coverage with instrumentation only the covered classes
 FILE=$TEMP/passing_test_methods

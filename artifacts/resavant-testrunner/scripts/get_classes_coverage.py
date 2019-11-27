@@ -16,8 +16,8 @@ if len(sys.argv) >= 2:
             covered_classes.append(a_class)
         
     if len(sys.argv) >= 3:
-        output_path = sys.argv[2]
-        with open(output_path + '/covered_classes', 'w+') as f:
+        output_file = sys.argv[2]
+        with open(output_file, 'w+') as f:
             for failing_test in covered_classes:
                 f.write("{}\n".format(failing_test))
     else:

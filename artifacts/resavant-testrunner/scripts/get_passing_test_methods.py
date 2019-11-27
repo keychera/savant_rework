@@ -16,8 +16,8 @@ if len(sys.argv) >= 3:
                 all_test_methods.append(line.rstrip())
     
     if len(sys.argv) == 4:
-        output_path = sys.argv[3]
-        with open(output_path + '/passing_test_methods', 'w+') as f:
+        output_file = sys.argv[3]
+        with open(output_file, 'w+') as f:
             for test_method in  all_test_methods:
                 f.write("{}\n".format(test_method))
     else:
@@ -25,4 +25,4 @@ if len(sys.argv) >= 3:
             print(test_method)
 
 else:
-    print('python scripts/get_passing_test_methods.py [all_tests file] [failing_tests file] (opt)[output path]')
+    print('python scripts/get_passing_test_methods.py [all_tests file] [failing_tests file] (opt)[output file]')
