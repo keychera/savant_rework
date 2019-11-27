@@ -277,3 +277,12 @@ t (27/11/19)
 
 + note (problem: suddenly `defects4j test` produce different result, previously 4 failed method to only one)
     + note (reason: you recently changed Java version from 8 to 7. Defects4J is only compatible w/ 7, using 8 will cause extra errors as pointed out here: https://github.com/rjust/defects4j/issues/194#issuecomment-460899398)
+
++ note (py aggregate scripts needs checking whether it's actually aggregate all of the methods)
+    + note (relevant problem) ref(97)
+
++ note (the all test result has a lot of duplicates)
+    + note (reason: `defects4j test` command append its all_test result, making the list stack)
+    + note (solution: run `git clean -f -d` at the beginning everytime)
+
++ done (Perl recreation until step 7)
