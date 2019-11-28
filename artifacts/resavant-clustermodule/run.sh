@@ -45,5 +45,15 @@ python $PYSCRIPT_PATH/get_passing_test_methods.py "$TEMP/all_tests" "$TEMP/faili
 PASS_OUTPUT_FOLDER="$TEMP/passing_test_coverage_out"
 ./run_single_test_coverage.pl -w $TARGETPROJECT -t "$TEMP/passing_tests" -i "$TEMP/all_covered_classes" -o "$PASS_OUTPUT_FOLDER"
 
+# step 9.5 get all method for each cvr results
+counter=0
+number_of_out=$(find $PASS_OUTPUT_FOLDER/* -maxdepth 0 -type d | wc -l)
+while [ $counter -le `expr $number_of_out - 1` ]
+do
+    cvr_folder="$PASS_OUTPUT_FOLDER/$counter/cobertura"
+    python $PYSCRIPT_PATH/get_methods_coverage.py $cvr_folder/coverage.xml "$cvr_folder/covered_methods"
+    ((counter++))
+done
+
 # step 10-11 generate matrix
 python $PYSCRIPT_PATH/generate_method_and_test_matrix.py "$PASS_OUTPUT_FOLDER/" "$TEMP/all_covered_methods" "$TEMP/passing_tests" "$TEMP/res.csv"
