@@ -295,3 +295,14 @@ t (27/11/19)
 + note (in-between files naming aggreement should be considered early)
 
 + note (parallelizing process is possible for some step)
+
+t (28/11/19)
++ note (problem: well it's really long for one bug)
+    + note (problem: and it takes a lot of space)
+
+o ref(290)
+    + note (however, some script iterates files better by simply for loop from 0 to n)
+    + note (also, both the linux mint explorer and vscode shows it ordered already without caring the number of digit)
+
++ done (the whole step 1-11 for a bug)
+    + todo (retrospect)
