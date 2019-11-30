@@ -331,3 +331,29 @@ t(30/11/19)
         + DONE (dictionary, for documentation)
 
 + note (capitalize TODO and done, for ease of distinguishing) meta
+
++ note (retro pt 2, quest contemplation)
+    + ref(16)
+        + note (problem ref(300) might stem from our assumption. it might be wrong to use test method instead of test class)
+    + ref(26,27)
+        + note (this is kinda meta but ok)
+    + ref(31,86,102)
+        + TODO (determine how Daikon works and what we need to do to utilizes it)
+    + ref(57)
+        + note (hmm, meta)
+    + ref(61)
+        + note (yes, we now use Defects4J::Core from their Perl implementation)
+    + ref(62)
+        + note (the paper with artifact doesn't publicly share their implementation)
+    + ref(76)
+        + note (yes, but more correct to say Cobertura is most compatible with most java stuff)
+    + ref(97)
+        + note (we now understand about Test Suites, also Evosuties and Randoop. at least how they work on the surface)
+    + ref(109)
+        + note (this is compatibility issues, to worry later)
+            + quest (what are the things about compatibility issues that we should worry?)
+
++ note (now that we think about it, this retro thing is kinda redundant) meta
+    + todo (make visualizer for .adventure) meta
+
++ TODO (start the document)
