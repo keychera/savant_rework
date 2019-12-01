@@ -357,3 +357,13 @@ t(30/11/19)
     + todo (make visualizer for .adventure) meta
 
 + TODO (start the document)
+
+t (1/12/19)
++ note (documents, presentation, are progressing)
+    + note (refer to the stuff at `Drive TA`)
+
++ TODO (install CentOS dualbooted on the machine!)
+    + note (CentOS reasoning: it has Java 7 readily available, it is close to Fedora(we've used them before))
++ TODO (do the Savant's Method Clustering and Test Selection)
++ TODO (determine Daikon input and how Daikon module process them)
+    + note (relevant ref, or above is kinda a better rewording of ref) ref(341)
