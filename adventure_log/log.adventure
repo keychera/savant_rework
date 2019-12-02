@@ -375,3 +375,8 @@ t (2/12/19)
 + done (method clustering yeah)
     + note (we save index of method instead of method name for cluster result. index is based on the order of `all_covered_method` file, that is generated in previous step)
         + quest (should we make the csv the same? use idx instead of method name that is too long?)
+
++ done (test selections)
+    + note (problem: we weren't sure how to verify the result)
+        + note (all output seems to have same number of test, regardless of T value)
+            + null (retract that, using big value (T=1500) produce inequal amount of tests, which is possible)
