@@ -24,6 +24,13 @@ else
     exit 1
 fi
 
+# set up Java 7 for Defects4J
+sudo alternatives --set java $JAVA7_PATH
+echo 'we are using :'
+echo '============='
+java -version
+echo '============='
+
 # step 1: get all tests, get all class
 git --git-dir=$TARGETPROJECT/.git/ --work-tree=$TARGETPROJECT clean -f -d
 defects4j test -w $TARGETPROJECT
