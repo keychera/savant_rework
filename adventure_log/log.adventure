@@ -97,24 +97,24 @@ o ref(71)
         + note (problem: dealing with methods with same name but different signature)
 
 o ref(19)
-    + DONE (somewhat) attch(designref.txt)
+    + DONE (somewhat) attch(ref_design.txt)
         + TODO (make towards the clustering need)
         + quest (How Daikon actually process all these thing?)
         + note (related) ref(67)
 
 t (19/11/19)
 o ref(101)
-    + note (steps to do next written on designref, "steps towards Clustering") attch(designref.txt)
+    + note (steps to do next written on ref_design, "steps towards Clustering") attch(ref_design.txt)
 
 + quest (what would we do about directories separator, python version, and stuff that will be machine/config dependent?)
 
-+ DONE (step 1 to 3 towards clustering) attch(designref.txt)
++ DONE (step 1 to 3 towards clustering) attch(ref_design.txt)
     + note (extra, now scripts can output to a file instead)
     + note (we make assumptions! assuming file and directory exist, assuming the folder structure is the package structure)
         + quest (is folder structure always the package structure?)
             + quest (is it the case if we just talk about Defects4j projects?)
 
-+ DONE (step 4,5,6 towards Clustering) attch(designref.txt)
++ DONE (step 4,5,6 towards Clustering) attch(ref_design.txt)
     + note (consider the "pythonic" way for scripts)
     + quest (how do we store inbetween files, so we could gitignore them better?)
 
@@ -229,7 +229,7 @@ t (25/11/19)
 + note (there exists example of scripts that built on to of Defects4J)
 
 o ref(201)
-    + DONE (analysisi of Defects4J's randoop_coverage.sh) attch(designref.txt)
+    + DONE (analysisi of Defects4J's randoop_coverage.sh) attch(ref_design.txt)
         o ref(211)
             + note (WE PERL bois, we will be utilizing Defects4J Core)
             + TODO (do it in PERL)
@@ -398,3 +398,9 @@ o ref(365)
 o ref(394)
     + note (this is actually mentioned in the error message when the installer told us that they didn't detect the free space in the disk) ref(388)
         + note (HECKin READ THE ERROR MESSAGE CAREFULLY) ref(46) ref(46) ref(46) ref(46) ref(46)
+
++ note (problem with long filename in Windows, those long filenames produced for tests)
+
++ note (migration notes)
+    + note (from Linux Mint 19 (Virtual Machine) to CentOS 8 )
+    + note (running savant_rework, steps, chronological) attch (ref_story.txt)

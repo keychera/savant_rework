@@ -1,0 +1,44 @@
+t (4/12/19)
+
+pattern (
+    $ what is done to centos
+    # centos condition
+        o running what
+        > run results
+            = verdict
+
+        + note
+)
+
+1   $ .
+    # bare centos
+        o `run.sh`
+        > a lot of `python: command not found`
+            = set up python
+
+2.  $ `yum install python`
+    # turns out python is already installed, the command should be python3
+        = generalize python command
+
+3.  $ add code to check `python` and `python3` command
+        o `run.sh`
+        > `../resavant-testrunner/scripts/get_methods_coverage.py: Permission denied`
+            = we don't know why??
+            + this error happen to all python script call
+        > `defects4j: command not found`
+            = set up defects4j
+        > error saying target directory doesn't exist
+            = add checking
+
++ bout the python permission denied error
+    + human error, we incorrectly assign variable in sh scripting
+    + you assign by `PY_COMMAND=python` not `$PY_COMMAND=python`     
+    + so, not error anymore
+
+4.  $ installing defects4j
+        + error `jar:command not found` that we have encountered before!
+
+
+5.  $ installing 2 java
+        + taking notes that defects4j needs java7, while daikon needs java8
+
