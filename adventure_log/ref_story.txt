@@ -41,4 +41,11 @@ pattern (
 
 5.  $ installing 2 java
         + taking notes that defects4j needs java7, while daikon needs java8
+        + centos8 actually doesn't support java7
+        + java 7 is installed from rpm downloaded from Oracle
+        + java 8 is from `yum install`
+            = use `alternatives` for changing version
+
+6.  $ defects4j `init.sh`
+    # java ready, defects4j ready
 
