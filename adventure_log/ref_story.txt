@@ -49,3 +49,10 @@ pattern (
 6.  $ defects4j `init.sh`
     # java ready, defects4j ready
 
+7.  o `defects4j info -p Lang`
+        > same bug as `https://github.com/rjust/defects4j/issues/190` appears
+            = reinstall defects4j
+
+8.  o `defects4j info -p Lang`
+        > same bug as `https://github.com/rjust/defects4j/issues/125` appears
+            = install needed modules by cpan
