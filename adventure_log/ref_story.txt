@@ -59,15 +59,31 @@ pattern (
 
     + defects4j is working properly
 
-9   o resavant's `./run.sh`
-        > perl error `D4J_HOME not set!`
-            = export the `D4J_HOME` as well in `.bash_rc file`
-            = `D4J_HOME` is set to root defects4j, but you initially set it to /framework/bin, so that was where you were wrong
+9   $ cpan install [several needed module, gathered from the error]
+        o resavant's `./run.sh`
+            > perl error `D4J_HOME not set!`
+                = export the `D4J_HOME` as well in `.bash_rc file`
+                = `D4J_HOME` is set to root defects4j, but you initially set it to /framework/bin, so that was where you were wrong
 
-10  o resavant's `./run.sh`
-        > python error `no module name bs4` for BeautifulSoup
-            = install needed module
-            = since we also use conda modules, install miniconda and all needed package
-            + in our centos8, the pip command is `pip3`
+10  $ export D4J_HOME in .bash_rc files
+        o resavant's `./run.sh`
+            > python error `no module name bs4` for BeautifulSoup
+                = install needed module
+                = since we also use conda modules, install miniconda and all needed package
+                + in our centos8, the pip command is `pip3`
 
     + run.sh is working properly (and fast! :o)
+
+11  $ `pip3 install beautifulsoup4`
+        o resavant's `./run_cluster.sh`
+            > ' line 4: ../resavant-testrunner/scripts/get_method_cluster.py: Permission denied`
+                = this is because of no conda, install miniconda
+
+12  $ install `miniconda` (downloaded from the web)
+    $ `conda install scikit-learn pandas`
+        o resavant's `./run_cluster.sh`
+            
+        + actually, the permission error is because $PY_COMMAND is not yet set, it only set for run.sh before
+            = so, make a general sh for py checking!
+
+        + now we roll, run_cluster.sh is ready

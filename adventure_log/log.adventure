@@ -422,3 +422,10 @@ o ref(402)
         + note (preparing for this)
 
 + TODO (try to understand SBFL Formulas and how we gather the information needed)
+
++ quest(do chmod +x need to be done every setup?)
++ note (using source for .sh files)
+
+o ref(404)
+    + done (migration is done)
+
