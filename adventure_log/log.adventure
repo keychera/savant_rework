@@ -409,3 +409,16 @@ t (7/12/19)
 + note (the migration story is progressing)
     + quest (why is `sudo pip` not a good idea?)
     + note (oh yeah! it seems to run faster on Centos8)
+
+o ref(402)
+    + note (we can't seem to find where that file with long name is)
+
++ note (TODO sweep, line >355)
+    o ref(359)
+        + note (in progress)
+    o ref(367)
+        + done (yeah) ref(375) ref(379)
+    o ref(368)
+        + note (preparing for this)
+
++ TODO (try to understand SBFL Formulas and how we gather the information needed)
