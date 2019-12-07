@@ -35,7 +35,7 @@ echo '============='
 git --git-dir=$TARGETPROJECT/.git/ --work-tree=$TARGETPROJECT clean -f -d
 defects4j test -w $TARGETPROJECT
 $PY_COMMAND $PYSCRIPT_PATH/get_all_test_methods.py $TARGETPROJECT/all_tests "$TEMP/all_tests"
-exit 1
+
 # step 2: read the 'failing_tests'
 cp $TARGETPROJECT/failing_tests $TEMP/failing_tests_report
 $PY_COMMAND $PYSCRIPT_PATH/get_failing_test_methods.py $TEMP/failing_tests_report "$TEMP/failing_tests"
