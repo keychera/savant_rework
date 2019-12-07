@@ -1,5 +1,6 @@
 
 source runconfig
+source ./check_py.sh
 
 $PY_COMMAND $PYSCRIPT_PATH/get_method_cluster.py "$TEMP/res.csv" 5 "$TEMP/clusters" 
 
