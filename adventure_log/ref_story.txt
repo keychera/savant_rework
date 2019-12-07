@@ -56,3 +56,18 @@ pattern (
 8.  o `defects4j info -p Lang`
         > same bug as `https://github.com/rjust/defects4j/issues/125` appears
             = install needed modules by cpan
+
+    + defects4j is working properly
+
+9   o resavant's `./run.sh`
+        > perl error `D4J_HOME not set!`
+            = export the `D4J_HOME` as well in `.bash_rc file`
+            = `D4J_HOME` is set to root defects4j, but you initially set it to /framework/bin, so that was where you were wrong
+
+10  o resavant's `./run.sh`
+        > python error `no module name bs4` for BeautifulSoup
+            = install needed module
+            = since we also use conda modules, install miniconda and all needed package
+            + in our centos8, the pip command is `pip3`
+
+    + run.sh is working properly (and fast! :o)
