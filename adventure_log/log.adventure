@@ -429,3 +429,8 @@ o ref(402)
 o ref(404)
     + done (migration is done)
 
+t (8/12/19)
++ note (rebuilding SingleTestRunner, and using it simply with terminal `java` and `javac`)
+    + note (javac also need to be configured to versin 7/1.7)
+        + note (problem `alternatives` need to be config manually first)
+            + note (solution: just access javac directly from the source)
