@@ -31,7 +31,7 @@ $PY_COMMAND $PYSCRIPT_PATH/get_failing_test_methods.py $TEMP/failing_tests_repor
 $PY_COMMAND $PYSCRIPT_PATH/get_java_classes_from_directory.py "$TARGETPROJECT/$(defects4j export -w "$TARGETPROJECT" -p dir.src.classes)" "$TEMP/all_classes"
 
 # step 4-5: run and get coverage all failing tests
-CVR_OUTPUT_FOLDER="$TEMP/single_test_coverage_out"
+CVR_OUTPUT_FOLDER="$TEMP/failing_test_coverage_out"
 ./run_single_test_coverage.pl -w $TARGETPROJECT -t "$TEMP/failing_tests" -i "$TEMP/all_classes" -o "$CVR_OUTPUT_FOLDER"
 
 # step 6: get all methods run by the failing tests
@@ -69,3 +69,15 @@ done
 
 # step 10-11 generate matrix
 $PY_COMMAND $PYSCRIPT_PATH/generate_method_and_test_matrix.py "$PASS_OUTPUT_FOLDER/" "$TEMP/all_covered_methods" "$TEMP/passing_tests" "$TEMP/res.csv"
+
+# step 11.5 generate matrix for failed tests
+counter=0
+number_of_out=$(find $CVR_OUTPUT_FOLDER/* -maxdepth 0 -type d | wc -l)
+while [ $counter -le `expr $number_of_out - 1` ]
+do
+    cvr_folder="$CVR_OUTPUT_FOLDER/$counter/cobertura"
+    $PY_COMMAND $PYSCRIPT_PATH/get_methods_coverage.py $cvr_folder/coverage.xml "$cvr_folder/covered_methods"
+    ((counter++))
+done
+
+$PY_COMMAND $PYSCRIPT_PATH/generate_method_and_test_matrix.py "$CVR_OUTPUT_FOLDER/" "$TEMP/all_covered_methods" "$TEMP/failing_tests" "$TEMP/res_fail.csv"
