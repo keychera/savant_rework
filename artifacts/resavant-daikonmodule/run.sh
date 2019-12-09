@@ -19,7 +19,7 @@ cd $CUR_DIR
 
 CLASSES_TO_CMPL=$(find ./src/ -name "*.java")
 mkdir -p target
-$JAVAC7_PATH -cp "$LIB_FOLDER" -d "./target/" $CLASSES_TO_CMPL
+$JAVAC7_PATH -g -cp "$LIB_FOLDER" -d "./target/" $CLASSES_TO_CMPL
 
 CLS_DIR=$(defects4j export -p dir.bin.classes -w $TARGETPROJECT)
 TEST_DIR=$(defects4j export -p dir.bin.tests -w $TARGETPROJECT)
@@ -37,8 +37,8 @@ $SINGLETESTRUN org.apache.commons.lang3.AnnotationUtilsTest::testBothArgsNull
 $SINGLETESTRUN org.apache.commons.lang3.LocaleUtilsTest::testParseAllLocales
 
 TEST_RUNNER="SingleTestRunner"
-TEST_TO_RUN="org.apache.commons.lang3.AnnotationUtilsTest::testBothArgsNull"
+TEST_TO_RUN="org.apache.commons.lang3.math.NumberUtilsTest::TestLang747"
 
-java -cp $CLASS_PATHS:$DAIKON_JAR daikon.DynComp $TEST_RUNNER $TEST_TO_RUN
+$JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.DynComp  $TEST_RUNNER $TEST_TO_RUN
 
-java -cp $CLASS_PATHS:$DAIKON_JAR daikon.Chicory --daikon --comparability-file=$TEST_RUNNER.decls-DynComp $TEST_RUNNER $TEST_TO_RUN
+$JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.Chicory --daikon --comparability-file=$TEST_RUNNER.decls-DynComp --ppt-select-pattern="org.apache.commons.lang3" $TEST_RUNNER $TEST_TO_RUN
