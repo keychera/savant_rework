@@ -457,3 +457,12 @@ o ref(449)
             + note (first opt is easier for aggregate script)
             + note (second is easier for matrix gen script)
                 + TODO (deal with failed test's covered method output redundancy)
+
+
+t (10/12/19)
+o ref(441)
+    + note (solution: we use ppt-select-pattern option so we only see traces for the methods pay attention to. the error doesn't come up anymore.)
+        + note (thanks to actual Savant sourcecode)
+
++ quest (what is this java flag: -Xmx700m?)
++ quest (are we collecting the right list of method?)
