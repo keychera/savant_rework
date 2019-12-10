@@ -466,3 +466,11 @@ o ref(441)
 
 + quest (what is this java flag: -Xmx700m?)
 + quest (are we collecting the right list of method?)
+
+t (11/12/19)
++ note (Defects4J needs svn and patch)
+
++ note (Problem: Savant's data that we found seems to be different than the data that we generate)
+    o ref(468)
+    + quest (are we reading the coverage result correctly)
+        + TODO (let's now focus on the SBFL part first, because it is easier to verify and compare)
