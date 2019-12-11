@@ -49,6 +49,6 @@ if len(sys.argv) >= 3:
             print(cs)
 
 else:
-    print('python get_method_cluster.py [method test matrix csv file] [max cluster size] (opt)[output file]')
+    print('python generate_method_cluster.py [method test matrix csv file] [max cluster size] (opt)[output file]')
 
     
