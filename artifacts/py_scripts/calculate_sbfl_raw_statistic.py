@@ -1,6 +1,5 @@
-import sys, random
+import sys
 import pandas as pd
-from sklearn.cluster import KMeans
 
 def calculate_statistic(df):
     col_len = len(df.columns)
@@ -31,15 +30,19 @@ if len(sys.argv) >= 3:
 
     nf_total, nf_exec_df, nf_not_df = calculate_statistic(fail_df)
 
-    raw = pd.DataFrame(columns=range(0,5), index=range(0,len(all_methods.index)))
+    n_method = len(all_methods.index)
+    raw = pd.DataFrame(columns=range(0, 5), index=range(0, n_method))
     raw.iloc[:,0] = all_methods
     raw.iloc[:,1] = np_exec_df
     raw.iloc[:,2] = np_not_df
     raw.iloc[:,3] = nf_exec_df
     raw.iloc[:,4] = nf_not_df
 
-    print(raw)
+    if len(sys.argv) >= 4:
+        output_file = sys.argv[3]
+        raw.to_csv(path_or_buf=output_file, header=False, index=False)
+    else:
+        print(raw.to_csv)
      
-
 else:
     print('python calculate_sbfl_raw_statistic.py [pass matrix path] [fail matrix path] (opt)[output path]')
