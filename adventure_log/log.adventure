@@ -474,3 +474,17 @@ t (11/12/19)
     o ref(468)
     + quest (are we reading the coverage result correctly)
         + TODO (let's now focus on the SBFL part first, because it is easier to verify and compare)
+
+t (12/12/19)
++ done (we do some clean up)
+    + note (delete old test runner)
+        + note (test runner now in daikon module)
+        + note (rename a py script (`get_method_cluster` to `generate_method_clusters`)
+            + note (consistency in verb used)
+            + note (consistency in plural/singular object)
+
++ note (redundancy in `runconfig` and stuff)
++ quest (should we put temp in its own folder)
+
++ note (python and strategy pattern)
+    + quest (how do you use python `lambda` ?)
