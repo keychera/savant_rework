@@ -514,3 +514,6 @@ t (21/12/19)
         + note (https://stackoverflow.com/a/1057534)
     + note (using combination of `staticmethod` and `abstractmethod`)
         + note (write `staticmethod` first!)
+
++ note (Multric seems like very big, it's one paper on its own)
+    + TODO (explore and implement MULTRIC)
