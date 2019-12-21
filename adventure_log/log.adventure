@@ -504,3 +504,13 @@ t (20/12/19)
             + note (however, we will still use __init__.py to import all classes automatically)
 
 + note (`dataframe[column][row]` and `dataframe[column]`)
+
++ note (Multric is an SBFL formula that also use learning-to-rank algorithm)
+
+t (21/12/19)
++ note (learning more about modules importing dynamically)
+    + note (`__init__.py` file exec script that is a combination of two below)
+        + note (https://stackoverflow.com/a/1796247)
+        + note (https://stackoverflow.com/a/1057534)
+    + note (using combination of `staticmethod` and `abstractmethod`)
+        + note (write `staticmethod` first!)
