@@ -14,14 +14,14 @@ if len(sys.argv) >= 2:
     suspicousness_scores.iloc[:,0] = raw_stat_df[0]
 
     for row in range(0, n_method):
-        np = int(raw_stat_df[1][row])
-        np_not = int(raw_stat_df[2][row])
-        nf = int(raw_stat_df[3][row])
-        nf_not = int(raw_stat_df[4][row])
+        ep = int(raw_stat_df[1][row])
+        np = int(raw_stat_df[2][row])
+        ef = int(raw_stat_df[3][row])
+        nf = int(raw_stat_df[4][row])
 
         i = 1
         for strat in strats:
-            res = strat.calc(np, np_not, nf, nf_not)
+            res = strat.calc(ep, np, ef, nf)
             suspicousness_scores.iloc[row:,i] = res
             i += 1
 
