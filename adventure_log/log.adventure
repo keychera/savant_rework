@@ -524,3 +524,10 @@ t (22/12/19)
     + note (after   : ep    np      ef    nf    )
         + note (a lesson on `\bregex\b`)
  
++ note (problem: some formula apparently have potential divison by zero problem)
+
++ note (we found Gzoltar, a tool which one of its maintainer is one person that also maintain Defects4J and it has some SBFL function there)
+    + note (now, we don't plan to use it since it doesn't have all)
+    + note (we will be comparing the implementation instead and get some hints from there)
+    + note (Gzoltar is a coverage tools for SBFL, and this reminds us of that question we had about coverage) ref(468) ref(475)
+        + TODO (compare the coverage procedures/implementation)
