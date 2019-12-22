@@ -517,3 +517,10 @@ t (21/12/19)
 
 + note (Multric seems like very big, it's one paper on its own)
     + TODO (explore and implement MULTRIC)
+
+t (22/12/19)
++ note (changing variable names to match Multric)
+    + note (before  : np    np_not  nf    nf_not)
+    + note (after   : ep    np      ef    nf    )
+        + note (a lesson on `\bregex\b`)
+ 
