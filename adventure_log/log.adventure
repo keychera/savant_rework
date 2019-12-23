@@ -530,10 +530,16 @@ t (22/12/19)
     + note (now, we don't plan to use it since it doesn't have all)
     + note (we will be comparing the implementation instead and get some hints from there)
     + note (Gzoltar is a coverage tools for SBFL, and this reminds us of that question we had about coverage) ref(468) ref(475)
-        + TODO (compare the coverage procedures/implementation)
+        + TODO (compare the coverage procedures/implementation to Gzoltar)
 
 o ref(527)
     + note (assumption: if there happens a division by zero, return 0)
         + done (we temporarily just check zero division when there are some error first in that method)
 
-+ TODO (add `get_name()` to AbstractSBFLStrategy`)
++ TODO (add `get_name()` to AbstractSBFLStrategy` for documentation purposes)
+
+t (24/12/19)
+o ref(476) ref(424)
+    + done (now move to understand the learning to rank)
+        o ref(495)
+    + note (we ignore multric for now)
