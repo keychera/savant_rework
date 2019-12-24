@@ -543,3 +543,20 @@ o ref(476) ref(424)
     + done (now move to understand the learning to rank)
         o ref(495)
     + note (we ignore multric for now)
+
++ note (instead of getting the project info from the WORKDIR, get the info by keeping which project and bug id that is currently being operated and use that info)
+    + note (...or not since we easily get config info (project id, bug id) from the work dir)
+
++ TODO (refactor the cluster module, gather the relevant PY script to one folder)
+
++ note (dependency: one Defects4J's util needs `diffstat`)
+
++ note (introducing... `JavaParser`)
+    + note (thanks to: https://stackoverflow.com/a/46851121)
+    + note (there was some pyscripts implementation that is better if we use this (like getting all java class realiably instead of reading the folder structure))
+    + note (problem: they only provide easy installation for maven/gradle project hmm)
+        + note (solution: then use maven/gradle lol)
+        + TODO (setup small maven project)
+            + note (back to that Maven archetype, we need to learn them first)
+        + quest (actually... which one (maven, gradle) do we better use so it isn't overkill since this is a small functionality?)
+            + note (find the easier to setup/learn)
