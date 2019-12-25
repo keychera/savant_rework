@@ -1,6 +1,6 @@
 
 source runconfig
 
-mkdir $TEMP
+mkdir -p $TEMP
 
 ./extract_ground_truths.pl -w $TARGETPROJECT -o $TEMP
