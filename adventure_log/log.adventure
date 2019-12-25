@@ -560,3 +560,20 @@ o ref(476) ref(424)
             + note (back to that Maven archetype, we need to learn them first)
         + quest (actually... which one (maven, gradle) do we better use so it isn't overkill since this is a small functionality?)
             + note (find the easier to setup/learn)
+
+t (25/12/19)
+o ref(561)
+    + note (seems they are not much different, we use mvn instead because we use it before in this project)
+
++ note (problem: mvn needs to download some stuff and the download process needs to use Java 8)
+    + note (error msg: [ERROR] No plugin found for prefix 'archetype' in the current project and in the plugin groups)
+    + note (solution: set up file ~/.mavenrc for java_home exclusively for maven)
+
++ note (about maven, `groud_id` is you, `artifact_id` is project's root folder name, `package_id` is the packaging in class)
+
++ note (the code from ref(555) is using JavaParser 3.4.4 which is unavaliable in maven dependency manager)
+    + note (problem: some methods and class have different signature in the newer version of JavaParser)
+        + note (solution: read doc, find correct sig, fix it)
+            + note (there was some annoying signature that can't be abstracted: `MethodDeclaration` and `ConstructorDeclaration`)
+                + note (both are extended from a class named `CallableDeclaration<T> and the T is their own classes`)
+                    + note (that made me unable to access the method from `CallableDeclaration` since they are different because of T)
