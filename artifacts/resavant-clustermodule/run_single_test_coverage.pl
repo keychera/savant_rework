@@ -94,14 +94,15 @@ while( my $line = <$file_in>)  {
 close $file_in;
 die "No single tests found in the file!" if scalar @single_tests == 0;
 
+# prepare the output location
+my $abs_output_path = abs_path($OUTPUT_PATH);
+my $out_folder = "$abs_output_path/$i";
+make_path($out_folder);
+
 # loop the tests and run each one
 $project->compile_tests() or die "Cannot compile tests!";
 for (my $i = 0; $i < scalar @single_tests; $i++) {
 
-    # prepare the output location
-    my $abs_output_path = abs_path($OUTPUT_PATH);
-    my $out_folder = "$abs_output_path/$i";
-    make_path($out_folder);
     my $log_file = "$out_folder/failing_tests";
     open my $dummy, ">", "$log_file" or die "can't create file: $log_file";
 

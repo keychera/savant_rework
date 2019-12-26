@@ -76,12 +76,49 @@ $project->{prog_root} = $WORK_DIR;
 my $pid = $config->{$CONFIG_PID};
 my $vid = $config->{$CONFIG_VID};
 my $bid = Utils::check_vid($vid)->{bid};
+my $type = Utils::check_vid($vid)->{type};
 
 # get which class is modified
-Utils::exec_cmd("$UTIL_DIR/get_modified_classes.pl -p $pid -b $bid > $OUTPUT_DIR/$bid.src",
+my $mod_classes_list_file = "$OUTPUT_DIR/$bid.list";
+Utils::exec_cmd("$UTIL_DIR/get_modified_classes.pl -p $pid -b $bid > $mod_classes_list_file",
             "Exporting the set of modified classes");
 
-# fet the source of the class, before and after
+-e $mod_classes_list_file or die "file '$mod_classes_list_file' does not exist!";
+open my ($file_in), $mod_classes_list_file;
+
+my @mod_classes = ();
+while( my $line = <$file_in>)  {
+    chomp($line);
+    push @mod_classes, $line;
+}
+
+
+
+# get the source of the buggy class
+my $prop_file_path = "$WORK_DIR/defects4j.build.properties";
+
+-e $prop_file_path or die "file $prop_file_path does not exist!";
+open my ($prop_file), $prop_file_path;
+
+my $found;
+my $val;
+while(my $line = <$prop_file>)  {
+    chomp($line);
+    $found = ($line =~ m/d4j\.dir\.src\.classes=(.*)/);
+    if ($found) {
+        $val = $1;
+    }
+    last if $found;
+}
+
+print("src path: $val\n");
+
+my $buggy_path = "$OUTPUT_DIR/$bid.fixed";
+make_path($buggy_path);
+
+for (my $i = 0; $i < scalar @mod_classes; $i++) {
+
+}
 
 # get which method is changed
 
