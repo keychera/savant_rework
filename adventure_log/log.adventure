@@ -592,3 +592,19 @@ t (26/12/19)
 
 + note (regex to get right hand side of "prop=value")
     + note (learning capturing group again and $1)
+
+t (27/12/19)
++ quest (what is `$_` often seen in Perl docs?)
+    + note (seems not relevant for now)
+
++ note (problem: checking out all the source code, buggy and fixed, could takes up a lot of spaces)
+
++ TODO (make sure `java_utils` is already compiled at the strategy)
+
++ note (problem: NoClassDefFoundError again, now dealing with what classpath to specify to run a maven project)
+    + note (the problem is the JavaParser that is specified in maven dependency list is not present in `target` folder)
+        + note (making it unrunnable when trying to run the project using `java` from another location)
+            + note (maven doesn't include the dependency in the built jar)
+            + note (we don't know the classpath to be specified for JavaParser)
+
++ quest (`java_utils` is automatically using Java 7, should we make it use Java 8?)
