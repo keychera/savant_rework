@@ -38,6 +38,7 @@ use strict;
 use FindBin;
 use File::Basename;
 use File::Path qw(make_path);
+use File::Copy qw(copy);
 use Cwd qw(abs_path);
 use Getopt::Std;
 use Pod::Usage;
@@ -72,14 +73,15 @@ unless(defined $config) {
 my $project = Project::create_project($config->{$CONFIG_PID});
 $project->{prog_root} = $WORK_DIR;
 
-# temp ref
+# get defects4j project info
 my $pid = $config->{$CONFIG_PID};
 my $vid = $config->{$CONFIG_VID};
 my $bid = Utils::check_vid($vid)->{bid};
-my $type = Utils::check_vid($vid)->{type};
 
-# get which class is modified
-my $mod_classes_list_file = "$OUTPUT_DIR/$bid.list";
+my $identifier = "$pid.$vid";
+
+# get the list of modified classes
+my $mod_classes_list_file = "$OUTPUT_DIR/$identifier.list";
 Utils::exec_cmd("$UTIL_DIR/get_modified_classes.pl -p $pid -b $bid > $mod_classes_list_file",
             "Exporting the set of modified classes");
 
@@ -92,34 +94,69 @@ while( my $line = <$file_in>)  {
     push @mod_classes, $line;
 }
 
-
-
-# get the source of the buggy class
+# get the class src paths
 my $prop_file_path = "$WORK_DIR/defects4j.build.properties";
 
 -e $prop_file_path or die "file $prop_file_path does not exist!";
 open my ($prop_file), $prop_file_path;
 
 my $found;
-my $val;
+my $relative_class_dir;
 while(my $line = <$prop_file>)  {
     chomp($line);
     $found = ($line =~ m/d4j\.dir\.src\.classes=(.*)/);
     if ($found) {
-        $val = $1;
+        $relative_class_dir = $1;
     }
     last if $found;
 }
 
-print("src path: $val\n");
+# get the source of the buggy classes
+my $class_dir = "$WORK_DIR/$relative_class_dir";
 
-my $buggy_path = "$OUTPUT_DIR/$bid.fixed";
-make_path($buggy_path);
-
+my $buggy_classes_path = "$OUTPUT_DIR/$identifier.buggy_classes";
+make_path($buggy_classes_path);
 for (my $i = 0; $i < scalar @mod_classes; $i++) {
+    my $class_name = "$mod_classes[$i]";
+    my $class_rel_path = $class_name;
+    $class_rel_path =~ s/\./\//g;
+    $class_rel_path = "$class_rel_path.java";
+    my $class_abs_path = "$class_dir/$class_rel_path";
 
+    copy "$class_abs_path", "$buggy_classes_path/$class_name";
+}
+
+# get the source of fixed classes
+my $fixed_src_path = "$OUTPUT_DIR/$identifier.fixed_src";
+make_path($fixed_src_path);
+Utils::exec_cmd("defects4j checkout -p $pid -v ${bid}f -w $fixed_src_path", 
+            "Checking out the fixed source code");
+
+my $class_dir = "$fixed_src_path/$relative_class_dir";
+
+my $fixed_classes_path = "$OUTPUT_DIR/$identifier.fixed_classes";
+make_path($fixed_classes_path);
+for (my $i = 0; $i < scalar @mod_classes; $i++) {
+    my $class_name = "$mod_classes[$i]";
+    my $class_rel_path = $class_name;
+    $class_rel_path =~ s/\./\//g;
+    $class_rel_path = "$class_rel_path.java";
+    my $class_abs_path = "$class_dir/$class_rel_path";
+
+    copy "$class_abs_path", "$fixed_classes_path/$class_name";
 }
 
 # get which method is changed
+my $JAVA = "$ENV{JAVA8}";
+my $JAVA_CP = "$ENV{JAVAUTILS_JAR}";
 
-# print to file
+my $method_diff_path = "$OUTPUT_DIR/$identifier.method_diff";
+make_path($method_diff_path);
+for (my $i = 0; $i < scalar @mod_classes; $i++) {
+
+    my $buggy_class = "$buggy_classes_path/$mod_classes[$i]";
+    my $fixed_class = "$fixed_classes_path/$mod_classes[$i]";
+    my $method_diff_output = "$method_diff_path/$mod_classes[$i]";
+    Utils::exec_cmd("$JAVA -cp $JAVA_CP resavant.utils.App $buggy_class $fixed_class > $method_diff_output",
+                "Get MethodDiff between modified buggy classes and fixed classes");
+}
