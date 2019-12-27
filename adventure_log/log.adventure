@@ -616,3 +616,9 @@ o ref(604)
     
 + note (dealing with ENV and perl)
     + note (we explicitly specify JAVA and JAR to perl scripts via ENV var)
+
+o ref(550) ref(559)
+    + done (simple)
+
++ done (a Ground Truth Extractor - well, we didn't create a TODO for this, but ref(495))
+    + TODO (build the l2r module)
