@@ -24,6 +24,20 @@ import java.util.List;
  * from https://stackoverflow.com/a/46851121)
  */
 public class MethodDiff {
+    public static void main( String[] args )
+    {
+        if (args.length == 2) {
+            String filename1 = args[0];
+            String filename2 = args[1];
+
+            HashSet<String> methods = MethodDiff.methodDiffInClass(filename1, filename2);
+            methods.forEach(method -> {
+                System.out.println(method);
+            });
+        } else {
+            System.out.println("Wrong input: [filename1] [filename2]");
+        }
+    }
 
     private static PrettyPrinterConfiguration ppc = null;
 

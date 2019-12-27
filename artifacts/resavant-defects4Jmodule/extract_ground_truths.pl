@@ -157,6 +157,6 @@ for (my $i = 0; $i < scalar @mod_classes; $i++) {
     my $buggy_class = "$buggy_classes_path/$mod_classes[$i]";
     my $fixed_class = "$fixed_classes_path/$mod_classes[$i]";
     my $method_diff_output = "$method_diff_path/$mod_classes[$i]";
-    Utils::exec_cmd("$JAVA -cp $JAVA_CP resavant.utils.App $buggy_class $fixed_class > $method_diff_output",
+    Utils::exec_cmd("$JAVA -cp $JAVA_CP resavant.utils.MethodDiff $buggy_class $fixed_class > $method_diff_output",
                 "Get MethodDiff between modified buggy classes and fixed classes");
 }
