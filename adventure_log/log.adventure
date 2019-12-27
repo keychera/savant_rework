@@ -622,3 +622,6 @@ o ref(550) ref(559)
 
 + done (a Ground Truth Extractor - well, we didn't create a TODO for this, but ref(495))
     + TODO (build the l2r module)
+
+o ref(623)
+    + done (some fixes for compatibility (output format, java_utils changes))
