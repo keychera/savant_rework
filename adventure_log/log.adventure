@@ -608,3 +608,11 @@ t (27/12/19)
             + note (we don't know the classpath to be specified for JavaParser)
 
 + quest (`java_utils` is automatically using Java 7, should we make it use Java 8?)
+
+o ref(604)
+    + note (solution: using maven-shade-plugin)
+        + note (thanks to: https://www.mkyong.com/maven/how-to-create-a-java-project-with-maven/)
+        + note (a maven-shade-plugin gotcha appear, and solved: https://stackoverflow.com/a/42231035)
+    
++ note (dealing with ENV and perl)
+    + note (we explicitly specify JAVA and JAR to perl scripts via ENV var)
