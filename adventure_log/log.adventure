@@ -610,7 +610,7 @@ t (27/12/19)
 + quest (`java_utils` is automatically using Java 7, should we make it use Java 8?)
 
 o ref(604)
-    + note (solution: using maven-shade-plugin)
+    + note (solution: using maven-shade-plugin so the dependency is included in the built jar)
         + note (thanks to: https://www.mkyong.com/maven/how-to-create-a-java-project-with-maven/)
         + note (a maven-shade-plugin gotcha appear, and solved: https://stackoverflow.com/a/42231035)
     
@@ -625,3 +625,17 @@ o ref(550) ref(559)
 
 o ref(623)
     + done (some fixes for compatibility (output format, java_utils changes))
+
+t (28/12/19)
++ note (an exercise of python file handling and string manipulations)
+    + note (`with open` + open every file: https://stackoverflow.com/a/18262324)
+    + note (split vs partition: https://stackoverflow.com/a/21568360)
+
++ note (this just in, Savant extends Carrot, maybe Carrot have some implementation around)
+    + note (Carrot: https://cs.brown.edu/~sk/Publications/Papers/Published/prkr-auto-fault-loc-inv/paper.pdf)
+    + note (Daikon is used by Carrot to calculate spectra)
+        + quest (can Daikon-produced spectra used to calculate SBFL instead? do we need actually cobertura?)
+
++ done (L2R prerocessing part, only for SBFL stat for now)
+    + note (including reformatting for libswm, aggregation, and normalization)
+    + quest (would it be okay for really big data?)
