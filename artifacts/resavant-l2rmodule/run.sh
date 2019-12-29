@@ -18,3 +18,9 @@ python aggregate_input.py "$BUG_FEATURES_FOLDER" "$TEMP/aggregate_features"
 
 # normalize the input
 python normalize_input.py "$TEMP/aggregate_features" "$TEMP/normalized_features" "$TEMP/maxmin_info"
+
+# run the libsvm
+$RANKSVM_FOLDER/train "$TEMP/normalized_features" "$TEMP/model"
+
+# test the model
+$RANKSVM_FOLDER/predict "$TEMP/test_features" "$TEMP/model" "$TEMP/test_result"

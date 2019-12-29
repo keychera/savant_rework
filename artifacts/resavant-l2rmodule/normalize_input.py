@@ -54,7 +54,7 @@ if len(sys.argv) >= 2:
     for label in label_list:
         normalized_features_list.append(label)
     
-    col_i = 0
+    col_i = 1
     for normalized_column in normalized_column_list:
         i = 0
         for val in normalized_column:

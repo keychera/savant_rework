@@ -27,7 +27,7 @@ if len(sys.argv) >= 4:
         else:
             row_split[0] = '0'
         for i in range(1, len(row_split)):
-            row_split[i] = '{}:{}'.format(i-1, row_split[i])
+            row_split[i] = '{}:{}'.format(i, row_split[i])
 
         l2r_rows.append(row_split)
 
