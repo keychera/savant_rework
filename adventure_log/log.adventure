@@ -572,9 +572,9 @@ o ref(561)
 + note (about maven, `groud_id` is you, `artifact_id` is project's root folder name, `package_id` is the packaging in class)
 
 + note (the code from ref(555) is using JavaParser 3.4.4 which is unavaliable in maven dependency manager)
-    + note (problem: some methods and class have different signature in the newer version of JavaParser)
+    + note (problem: some methods and class of JavaParser have different signature in the newer version of JavaParser)
         + note (solution: read doc, find correct sig, fix it)
-            + note (there was some annoying signature that can't be abstracted: `MethodDeclaration` and `ConstructorDeclaration`)
+            + note (there was some annoying signature from ref(555) that can't be abstracted: `MethodDeclaration` and `ConstructorDeclaration`)
                 + note (both are extended from a class named `CallableDeclaration<T> and the T is their own classes`)
                     + note (that made me unable to access the method from `CallableDeclaration` since they are different because of T)
 
@@ -658,3 +658,12 @@ o ref(624)
             + TODO (build the software/process diagram of all the module that is also for documentation purposes)
                 + note (also ref(25))
         + note (ref(2) is also done or to be more precise not relevant anymore)
+
+t (30/12/19)
++ note (code analysis: list the produced file chronologically to make sense of data flow, and prep for space requirement)
+    + note (some identified problem that has not yet been addressed)
+        o ref(97) ref(184)
+        + note (problem: representing a class that is declared inside a class, those class names that has `$` in it)
+
++ note (make sure a single block of note can stand on its own) meta
+    o ref(575) ref(577)
