@@ -8,8 +8,8 @@ mkdir -p $TEMP
 BUG_FEATURES_FOLDER="$TEMP/bug-features"
 mkdir -p $BUG_FEATURES_FOLDER
 
-BUG_GROUND_TRUTH="/home/square/Documents/projects/savant_rework/artifacts/resavant-defects4Jmodule/temp/Lang.1b.method_diff"
-BUG_SBFL_STAT="/home/square/Documents/projects/savant_rework/artifacts/resavant-sbflmodule/temp/susp_scores"
+BUG_GROUND_TRUTH="../resavant-defects4Jmodule/temp/Lang.1b.method_diff"
+BUG_SBFL_STAT="../resavant-sbflmodule/temp/susp_scores"
 BUG_DAIKON_STAT="."
 python build_input.py $BUG_GROUND_TRUTH $BUG_SBFL_STAT $BUG_DAIKON_STAT "$BUG_FEATURES_FOLDER/Lang.1b"
 
