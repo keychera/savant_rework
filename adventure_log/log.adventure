@@ -667,3 +667,19 @@ t (30/12/19)
 
 + note (make sure a single block of note can stand on its own) meta
     o ref(575) ref(577)
+
+t (31/12/19)
++ TODO (logging the time and everything else, for documentation purposes)
+    + note (point of interest: time taken, space/memory taken)
+
++ note (problem: `.classpath` error after oving `java_utils`)
+    + note (reason: it's because there are errors in pom.xml of checked-out d4j project that hinder the compilation, they can't be ignored somehow)
+        + note (solution: delete them since it's temporary anyway)
+    + note (reason: another possible reason is because there are double maven projects that are the same)
+        + note (solution: make sure there is are no double maven projects that are the same)
+
++ note (problem: `defects4j checkout` will raise error if output dir exist)
+    + note (solution: make sure temp folders are deleted)
+
++ done (ground truth extractor integrated)
+    + TODO (deal with error handling specified in TODO comments)
