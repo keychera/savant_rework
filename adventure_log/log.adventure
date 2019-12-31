@@ -683,3 +683,17 @@ t (31/12/19)
 
 + done (ground truth extractor integrated)
     + TODO (deal with error handling specified in TODO comments)
+
++ note (flag parameter is good)
+    + note (we are using one for .sh files, `getopts` rules!!)
+        + TODO (do for the rest of .sh files)
+        + TODO (do so for .py as well)
+            + note (yes this problem has been mentioned in ref(150))
+
++ quest (do we need to redo the `chmod +x` for scripts if these all are put somewhere else?)
+
++ note (we now use only the name `test` for a test method instead calling it `test_method`)
+
++ done (get_bug_info integrated)
+    + TODO (make defects4j less verbose and catch relevant std output)
+    + TODO (separate `defects4j test` on its own, it takes a long time)
