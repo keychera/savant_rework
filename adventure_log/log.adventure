@@ -697,3 +697,9 @@ t (31/12/19)
 + done (get_bug_info integrated)
     + TODO (make defects4j less verbose and catch relevant std output)
     + TODO (separate `defects4j test` on its own, it takes a long time)
+
++ note (problem: calling a script in a dir that calls another script in the same dir)
+
++ note (problem: error `can't instrument project!` for the run_test_coverage.pl script)
+    + note (reason: run_test_coverage.pl script can't take relative path, the more precise error is that the relative path is doubled in resulting  processed abs path somehow. Most of this is defects4j's machination)
+    
