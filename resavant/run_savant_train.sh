@@ -1,5 +1,5 @@
 # check prereq
-OUT_FOLDER="./temp"
+source run.config
 
 # iterate bug
 PROJECTS=(Chart Closure Math Time Lang)
@@ -23,8 +23,14 @@ do
         defects4j checkout -p "${PROJECTS[$i]}" -v "${bug_id}f" -w "${CHECKOUT_FOLDER}/f"
 
         # get d4j infos
-            # ground truth, relevant infos
-        
+            # ground truth
+            GROUND_TRUTH_FOLDER="$OUT_FOLDER/1-ground-truth/${proj_id}/${bug_id}"
+            mkdir -p $GROUND_TRUTH_FOLDER
+            
+            $DEFECTS4J_MODULE/extract_ground_truths.pl -p "${PROJECTS[$i]}" -v "${bug_id}b" -w "${CHECKOUT_FOLDER}" -o "$GROUND_TRUTH_FOLDER" # -w must refer to already checkout-ed src, b and f, error not yet handled TODO wrap the checkout process
+            
+            # relevant infos
+            
 
         # get coverage
 

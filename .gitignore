@@ -1,3 +1,4 @@
 .vscode
 runconfig
+*.config
 temp*/
