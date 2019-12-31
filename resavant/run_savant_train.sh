@@ -1,6 +1,6 @@
 # check prereq
 source run.config
-source $PY_UTILS/check_py.sh
+source $SCRIPTS_PY/check_py.sh
 
 # iterate bug
 PROJECTS=(Chart Closure Math Time Lang)
@@ -36,8 +36,8 @@ do
 
             $DEFECTS4J_MODULE/get_bug_info.sh -w "${CHECKOUT_FOLDER}/b" -o "$BUG_INFO_FOLDER"
 
-        # get coverage
-
+            # get coverage
+            
         # method clustering and test selection
 
         # sbfl

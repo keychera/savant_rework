@@ -132,7 +132,7 @@ for (my $i = 0; $i < scalar @mod_classes; $i++) {
 # get which method is changed
 # TODO not yet error handle these ENV var
 my $JAVA = "$ENV{JAVA8}";
-my $JAVA_CP = "$ENV{JAVAUTILS_JAR}";
+my $JAVA_CP = "$ENV{SCRIPTS_JAVA_JAR}";
 
 my $method_diff_path = "$OUTPUT_DIR/$identifier.method_diff";
 make_path($method_diff_path);

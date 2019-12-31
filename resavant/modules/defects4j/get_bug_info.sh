@@ -26,14 +26,14 @@ defects4j export -w "$TARGET_PROJECT" -p dir.src.tests -o "$OUTPUT_FOLDER/dir.sr
 # get all tests
 git --git-dir=$TARGET_PROJECT/.git/ --work-tree=$TARGET_PROJECT clean -f -d
 defects4j test -w $TARGET_PROJECT
-$PY_COMMAND $PY_UTILS/get_all_tests.py $TARGET_PROJECT/all_tests "$OUTPUT_FOLDER/all_tests"
+$PY_COMMAND $SCRIPTS_PY/get_all_tests.py $TARGET_PROJECT/all_tests "$OUTPUT_FOLDER/all_tests"
 
 # read the 'failing_tests'
 cp "$TARGET_PROJECT/failing_tests" "$OUTPUT_FOLDER/failing_tests_log"
-$PY_COMMAND $PY_UTILS/get_failing_tests.py "$OUTPUT_FOLDER/failing_tests_log" "$OUTPUT_FOLDER/failing_tests"
+$PY_COMMAND $SCRIPTS_PY/get_failing_tests.py "$OUTPUT_FOLDER/failing_tests_log" "$OUTPUT_FOLDER/failing_tests"
 
 # get all classes
-$PY_COMMAND $PY_UTILS/get_java_classes_from_directory.py "$TARGET_PROJECT/$(echo $(<$OUTPUT_FOLDER/dir.src.classes))" "$OUTPUT_FOLDER/all_classes"
+$PY_COMMAND $SCRIPTS_PY/get_java_classes_from_directory.py "$TARGET_PROJECT/$(echo $(<$OUTPUT_FOLDER/dir.src.classes))" "$OUTPUT_FOLDER/all_classes"
 
 # get passing tests
-$PY_COMMAND $PY_UTILS/get_passing_tests.py "$OUTPUT_FOLDER/all_tests" "$OUTPUT_FOLDER/failing_tests" "$OUTPUT_FOLDER/passing_tests"
+$PY_COMMAND $SCRIPTS_PY/get_passing_tests.py "$OUTPUT_FOLDER/all_tests" "$OUTPUT_FOLDER/failing_tests" "$OUTPUT_FOLDER/passing_tests"
