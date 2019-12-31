@@ -1,5 +1,6 @@
 # check prereq
 source run.config
+source $PY_UTILS/check_py.sh
 
 # iterate bug
 PROJECTS=(Chart Closure Math Time Lang)
@@ -30,7 +31,10 @@ do
             $DEFECTS4J_MODULE/extract_ground_truths.pl -p "${PROJECTS[$i]}" -v "${bug_id}b" -w "${CHECKOUT_FOLDER}" -o "$GROUND_TRUTH_FOLDER" # -w must refer to already checkout-ed src, b and f, error not yet handled TODO wrap the checkout process
             
             # relevant infos
-            
+            BUG_INFO_FOLDER="$OUT_FOLDER/2-bug-info/${proj_id}/${bug_id}"
+            mkdir -p $BUG_INFO_FOLDER
+
+            $DEFECTS4J_MODULE/get_bug_info.sh -w "${CHECKOUT_FOLDER}/b" -o "$BUG_INFO_FOLDER"
 
         # get coverage
 
