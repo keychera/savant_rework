@@ -37,6 +37,9 @@ do
             $DEFECTS4J_MODULE/get_bug_info.sh -w "${CHECKOUT_FOLDER}/b" -o "$BUG_INFO_FOLDER"
 
             # get coverage
+            CVR_FOLDER="$OUT_FOLDER/3-coverage/${proj_id}/${bug_id}"
+            mkdir -p $CVR_FOLDER
+            $DEFECTS4J_MODULE/run_coverage.sh -w "${CHECKOUT_FOLDER}/b" -b "$BUG_INFO_FOLDER" -o "$CVR_FOLDER"
             
         # method clustering and test selection
 

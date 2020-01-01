@@ -4,11 +4,11 @@
 
 =head1 NAME
 
-run_single_test_coverage.pl -- get method-level coverage analysis of a project for given set of single tests
+run_test_coverage.pl -- get method-level coverage analysis of a project for given set of single tests
 
 =head1 SYNOPSIS
 
-run_single_test_coverage.pl -w working_directory -t single_test_list_file -i classes_to_instrument -o output_path
+run_test_coverage.pl -w working_directory -t single_test_list_file -i classes_to_instrument -o output_path
 
 =head1 OPTIONS
 
@@ -63,10 +63,10 @@ my $CORBETURA_REPORT = "$SCRIPT_DIR/projects/lib/cobertura-report.sh";
 my %cmd_opts;
 getopts('w:t:i:o:', \%cmd_opts) or pod2usage( { -verbose => 1, -input => __FILE__} );
 
-my $WORK_DIR = $cmd_opts{w};
+my $WORK_DIR = abs_path($cmd_opts{w});
 my $SINGLE_TESTS_FILE = $cmd_opts{t};
 my $INSTRUMENT = $cmd_opts{i};
-my $OUTPUT_PATH = $cmd_opts{o};
+my $OUTPUT_PATH = abs_path(($cmd_opts{o});
 
 # Instantiate project based on working directory
 my $config = Utils::read_config_file("$WORK_DIR/$CONFIG");
@@ -94,14 +94,11 @@ while( my $line = <$file_in>)  {
 close $file_in;
 die "No single tests found in the file!" if scalar @single_tests == 0;
 
-
-
 # loop the tests and run each one
 $project->compile_tests() or die "Cannot compile tests!";
 for (my $i = 0; $i < scalar @single_tests; $i++) {
     # prepare the output location
-    my $abs_output_path = abs_path($OUTPUT_PATH);
-    my $out_folder = "$abs_output_path/$i";
+    my $out_folder = "$OUTPUT_PATH/$i";
     make_path($out_folder);
 
     my $log_file = "$out_folder/failing_tests";
