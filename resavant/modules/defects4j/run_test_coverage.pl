@@ -66,7 +66,7 @@ getopts('w:t:i:o:', \%cmd_opts) or pod2usage( { -verbose => 1, -input => __FILE_
 my $WORK_DIR = abs_path($cmd_opts{w});
 my $SINGLE_TESTS_FILE = $cmd_opts{t};
 my $INSTRUMENT = $cmd_opts{i};
-my $OUTPUT_PATH = abs_path(($cmd_opts{o});
+my $OUTPUT_PATH = abs_path($cmd_opts{o});
 
 # Instantiate project based on working directory
 my $config = Utils::read_config_file("$WORK_DIR/$CONFIG");
