@@ -702,4 +702,26 @@ t (31/12/19)
 
 + note (problem: error `can't instrument project!` for the run_test_coverage.pl script)
     + note (reason: run_test_coverage.pl script can't take relative path, the more precise error is that the relative path is doubled in resulting  processed abs path somehow. Most of this is defects4j's machination)
-    
+
+t (1/1/20)
+o ref(704)
+    + note (solution: well convert it to abs_path with perl `use Cwd qw(abs_path)`)
+
++ note (be careful of `TARGETPROJECT` and `TARGET_PROJECT`!)
+
++ note (problem: coverage takes too much time)
+    + note (1 bug takes more than 1 hour, and we have 300 more bugs)
+    + note (not the redundancy as mentioned ref(174) ref(192) but the process itself is slow)
+        + note (solution: make it select fewer subset of tests to run)
+            + note (assumption: to test: running one test class is faster than running the test inside one by one)
+
+o ref(675)
+    + note (solution: just click `proceed` because it also means ignore the problem, since we don't deal with d4j java projects compilation)
+
++ note (rethinking how true our way to get method coverage is)
+    + note (mentioned before ref(468))
+
++ note (friendship ended with Cobertura, now I am best friend with OpenClover)
+    + note (or not..? to use OpenClover, it seems that we need to...gasp! modify Defects4J!)
+    + note (we also have to learn Ant! what is this? programming for ants?)
+        + TODO (Defects4J x OpenClover)
