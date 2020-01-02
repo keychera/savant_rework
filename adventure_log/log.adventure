@@ -739,3 +739,15 @@ o ref(727)
         + note (problem: getting list of method run by a test seems not simple to do here)
     + quest (what is the importance in the order of ant calls?)
         + note (calling `with.clover` target and `run.dev.test.clover` separately won't work yet calling them together will)
+
++ note (problem: OpenClover works on Lang project, fails on Chart project)
+    + note (solution: `git clean -f -d` the project folder)
+        + note (problem: the problem persist after the first run, which solution above will fix it up, only for Chart so far)
+            + quest (call git clean in ant task? or in the sh scripts?)
+
++ note (problem: OpenClover instrumentation problem, it's not clear when it is done)
+
+o ref(727)
+    + done (clover coverage integrated, with Defects4J modified)
+        + note (problem: getting coverage for each test still takes a long time)
+            + quest (how do we find a way to utilize what is shown in html? the part where it can show which part of source is run by a test)
