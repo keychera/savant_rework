@@ -1,5 +1,4 @@
 import sys
-from bs4 import BeautifulSoup
 
 if len(sys.argv) >= 2:
     report_path = sys.argv[1]
