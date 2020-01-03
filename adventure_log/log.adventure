@@ -751,3 +751,10 @@ o ref(727)
     + done (clover coverage integrated, with Defects4J modified)
         + note (problem: getting coverage for each test still takes a long time)
             + quest (how do we find a way to utilize what is shown in html? the part where it can show which part of source is run by a test)
+
+t (3/1/19)
++ note (we can read clover database gramatically!)
+    + TODO (do read them database and find out whether we can get what we need or not)
+
++ note (we found something for ref(27), an uml graph file something with `.graphml` file extension. this might be something that can be recorded in git!)
+    + note (found here: http://openclover.org/doc/manual/4.2.0/developer-guide--database-structure.html on the very bottom)
