@@ -758,3 +758,9 @@ t (3/1/19)
 
 + note (we found something for ref(27), an uml graph file something with `.graphml` file extension. this might be something that can be recorded in git!)
     + note (found here: http://openclover.org/doc/manual/4.2.0/developer-guide--database-structure.html on the very bottom)
+
+t (4/1/19)
++ note (a lesson on using `equals()` instead of == in Java)
++ note (a lesson on java `iterator`)
+
++ note (we spend the days reading the source code since there is only incomplete documentation)
