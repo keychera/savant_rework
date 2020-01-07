@@ -1,6 +1,9 @@
 package resavant.utils;
 
+import java.util.BitSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.atlassian.clover.CloverDatabase;
@@ -28,30 +31,47 @@ public class SavantCloverDBExtractor {
 
             System.out.println();
             String methodName = "org.jfree.chart.LegendItemCollection.getItemCount";
-            FullMethodInfo a_method =
+            FullMethodInfo aMethod =
                 GeneralUtils.findElementInCollection(
                     methodInfos,
                     (FullMethodInfo m, String name) -> m.getQualifiedName().equals(name),
                     methodName
                 );
-            if (a_method != null) {
-                System.out.println("getting test hits for method :(" + a_method.getName() + ")");
-                getTestHits(a_method);
+            if (aMethod != null) {
+                System.out.println("getting test hits for method :(" + aMethod.getName() + ")");
+                getTestHits(aMethod);
             } else {
                 System.out.println("method :(" + methodName + " not found!");
             }
             
             String testName = "org.jfree.chart.renderer.category.junit.AbstractCategoryItemRendererTests.test2947660";
             Set<TestCaseInfo> testCaseInfos = getTestCaseInfoSet(db);
-            TestCaseInfo a_testcase =
+            TestCaseInfo aTestcase =
                 GeneralUtils.findElementInCollection(
                     testCaseInfos,
                     (TestCaseInfo test, String name) -> test.getQualifiedName().equals(name),
                     testName
                 );
-            if (a_testcase != null) {
-                System.out.println("this test found! :(" + a_testcase.getQualifiedName() + ")");
-                System.out.println("test status: " + a_testcase.isSuccess());
+            if (aTestcase != null) {
+                System.out.println("this test found! :(" + aTestcase.getQualifiedName() + ")");
+                System.out.println("test status: " + aTestcase.isSuccess());
+
+                Set<TestCaseInfo> failedTests = new LinkedHashSet<>();
+                failedTests.add(aTestcase);
+                BitSet hits = db.getCoverageData().getHitsFor(failedTests);
+                System.out.println(hits.length());
+
+                List<FullMethodInfo> hitMethods = GeneralUtils.findElementsInCollection(
+                    methodInfos,
+                    (FullMethodInfo method, BitSet testHits) -> isMethodHit(method, testHits),
+                    hits
+                );
+                System.out.println("number of methods found: " + hitMethods.size());
+                Iterator<FullMethodInfo> methodIterator = hitMethods.iterator();
+                while(methodIterator.hasNext()) {
+                    System.out.println(methodIterator.next().getQualifiedName());
+                } 
+
             } else {
                 System.out.println("test :(" + testName + " not found!");
             }
@@ -61,6 +81,16 @@ public class SavantCloverDBExtractor {
             e.printStackTrace();
             return;
         }
+    }
+
+    private static boolean isMethodHit(FullMethodInfo method, BitSet testHits) {
+        int firstIndex = method.getDataIndex();
+        int length = method.getDataIndex() + method.getDataLength();
+        boolean val = true;
+        for (int i = firstIndex; i < length; i++) {
+            val &= testHits.get(i);
+        }
+        return val;
     }
 
     private static void getTestHits(MethodInfo methodInfo) {
