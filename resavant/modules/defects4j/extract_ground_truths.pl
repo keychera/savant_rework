@@ -69,7 +69,7 @@ my $identifier = "$pid.$vid";
 my $bid = substr $vid, 0, -1;
 
 # get the list of modified classes
-my $mod_classes_list_file = "$OUTPUT_DIR/$identifier.list";
+my $mod_classes_list_file = "$OUTPUT_DIR/$identifier.mod_classes_list";
 Utils::exec_cmd("$UTIL_DIR/get_modified_classes.pl -p $pid -b $bid > $mod_classes_list_file",
             "Exporting the set of modified classes\n");
 

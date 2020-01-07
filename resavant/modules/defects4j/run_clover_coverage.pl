@@ -20,11 +20,10 @@ use Project;
 
 # process arguments
 my %cmd_opts;
-getopts('w:t:o:', \%cmd_opts) or pod2usage( { -verbose => 1, -input => __FILE__} );
+getopts('w:t:', \%cmd_opts) or pod2usage( { -verbose => 1, -input => __FILE__} );
 
 my $WORK_DIR = abs_path($cmd_opts{w});
 my $SINGLE_TEST = $cmd_opts{t};
-my $OUTPUT_FILE = abs_path($cmd_opts{o});
 
 # Instantiate project based on working directory
 my $config = Utils::read_config_file("$WORK_DIR/$CONFIG");
@@ -47,4 +46,3 @@ if (defined $SINGLE_TEST) {
 } else {
     $project->_ant_call("with.clover run.dev.test.clover");
 }
-$project->_ant_call("clover.xml", "-Dcoverage.xml.out=$OUTPUT_FILE");

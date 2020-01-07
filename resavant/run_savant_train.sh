@@ -1,5 +1,5 @@
 # check prereq
-source run.config
+source $(dirname "$0")/run.config
 source $SCRIPTS_PY/check_py.sh
 
 # iterate bug
@@ -29,17 +29,11 @@ do
             mkdir -p $GROUND_TRUTH_FOLDER
             
             $DEFECTS4J_MODULE/extract_ground_truths.pl -p "${PROJECTS[$i]}" -v "${bug_id}b" -w "${CHECKOUT_FOLDER}" -o "$GROUND_TRUTH_FOLDER" # -w must refer to already checkout-ed src, b and f, error not yet handled TODO wrap the checkout process
-            
-            # relevant infos
-            BUG_INFO_FOLDER="$OUT_FOLDER/2-bug-info/${proj_id}/${bug_id}"
-            mkdir -p $BUG_INFO_FOLDER
-
-            $DEFECTS4J_MODULE/get_bug_info.sh -w "${CHECKOUT_FOLDER}/b" -o "$BUG_INFO_FOLDER"
 
             # get coverage
-            CVR_FOLDER="$OUT_FOLDER/3-coverage/${proj_id}/${bug_id}"
+            CVR_FOLDER="$OUT_FOLDER/2-coverage/${proj_id}/${bug_id}"
             mkdir -p $CVR_FOLDER
-            $DEFECTS4J_MODULE/run_coverage.sh -w "${CHECKOUT_FOLDER}/b" -b "$BUG_INFO_FOLDER" -o "$CVR_FOLDER"
+            $DEFECTS4J_MODULE/run_coverage.sh -w "${CHECKOUT_FOLDER}/b" -o "$CVR_FOLDER"
             
         # method clustering and test selection
 
