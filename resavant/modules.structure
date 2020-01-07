@@ -1,0 +1,8 @@
+# modules
+DEFECTS4J_MODULE="$(dirname "$0")/modules/defects4j"
+CLUSTER_MODULE="$(dirname "$0")/modules/cluster"
+SCRIPTS_JAVA_JAR="$(dirname "$0")/modules/scripts_java/target/scripts_java-1.0-SNAPSHOT.jar"
+SCRIPTS_PY="$(dirname "$0")/modules/scripts_py"
+
+export SCRIPTS_JAVA_JAR
+export SCRIPTS_PY

@@ -1,5 +1,6 @@
 # check prereq
 source $(dirname "$0")/run.config
+source $(dirname "$0")/modules.structure
 source $SCRIPTS_PY/check_py.sh
 
 # iterate bug
@@ -36,6 +37,12 @@ do
             $DEFECTS4J_MODULE/run_coverage.sh -w "${CHECKOUT_FOLDER}/b" -o "$CVR_FOLDER"
             
         # method clustering and test selection
+        CLUSTER_FOLDER="$OUT_FOLDER/3-cluster/${proj_id}/${bug_id}"
+        mkdir -p $CLUSTER_FOLDER
+
+        $PY_COMMAND $CLUSTER_MODULE/generate_method_clusters.py "$CVR_FOLDER/matrix_passing.csv" $MAX_CLUSTER_SIZE "$CLUSTER_FOLDER/clusters" 
+
+        $PY_COMMAND $CLUSTER_MODULE/select_tests.py "$CVR_FOLDER/matrix_passing.csv" "$CLUSTER_FOLDER/clusters" $MAX_TEST_NUMBER "$CLUSTER_FOLDER/selected_tests"
 
         # sbfl
 
