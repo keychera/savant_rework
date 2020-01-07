@@ -780,3 +780,25 @@ t (7/1/20)
 + note (a lesson on `java.util.Collection` class)
 + note (since we use clover, I think we only need to run defects4j test once using `run_clover_coverage.pl`)
     + TODO (figure out the redundancies)
+
++ note (a lesson on using `List.get()` and `List.add()`)
+    + note (we got an `IndexOutOfBoundException` because we use get(i) on an unitialized List)
+        + note (we thought it was initialized since we supply initialCapacity on `new ArrayList<>(initialCapacity)`, but it wasn't)
+
++ note (note on using `iterator()`, save it to variable to use it instead on calling from 'Collection.iterator()')
+
++ note (some possible future error to check below)
+    + TODO (make reading Clover database file version-independent: from clover4_4_1.db tp clover$VERSION.db)
+    + TODO (error checking and help message on scripts_java inputs)
+
++ note (problem: scripts will be error if called on another directory)
+    + note (solution: use `$(dirname "$0")/` instead of `./` for current directory of any file)
+
++ note (child sh scripts is dependent on the parent call, because it calls $ENV var that is set by the parent)
+    + note (in this case, the parent is `run_savant_train.sh` and the dependent child is `run_coverage.sh`)
+
++ note (problem: OpenClover resulting method includes one (or maybe more) method that is actually a TestCase)
+
++ quest (is our way to select test correct?)
+
++ done (integrating Clover, Clustering, and Test Selection)
