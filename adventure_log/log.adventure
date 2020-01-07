@@ -726,7 +726,7 @@ o ref(675)
     + note (we also have to learn Ant! what is this? programming for ants?)
         + TODO (Defects4J x OpenClover)
 
-t (2/1/19)
+t (2/1/20)
 o ref(727)
     + note (before that, to talk about ref(715))
         + note (it is now null since there are multiple problem)
@@ -752,15 +752,23 @@ o ref(727)
         + note (problem: getting coverage for each test still takes a long time)
             + quest (how do we find a way to utilize what is shown in html? the part where it can show which part of source is run by a test)
 
-t (3/1/19)
+t (3/1/20)
 + note (we can read clover database gramatically!)
     + TODO (do read them database and find out whether we can get what we need or not)
 
 + note (we found something for ref(27), an uml graph file something with `.graphml` file extension. this might be something that can be recorded in git!)
     + note (found here: http://openclover.org/doc/manual/4.2.0/developer-guide--database-structure.html on the very bottom)
 
-t (4/1/19)
+t (4/1/20)
 + note (a lesson on using `equals()` instead of == in Java)
 + note (a lesson on java `iterator`)
 
 + note (we spend the days reading the source code since there is only incomplete documentation)
+
+t (5/1/20)
++ note (a lesson on following the steps carefully)
+    + note (we were stumped that we aren't getting results using built-in functions, it turns out we declare the data wrongly)
+        + note (we declare CloverDatabase var with `new CloverDatabase()` even though the code example says to use `CloverDatabase.loadWithCoverage(args[0], new CoverageDataSpec())`)
+            + note (the code example: http://openclover.org/doc/manual/4.2.0/developer-guide--database-structure.html the `Reading from a Clover database` section)
+
++ note (a lesson on Java lambdas, `java.util.function` interfaces, and generic methods)
