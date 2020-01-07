@@ -1,11 +1,9 @@
 package resavant.utils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import com.atlassian.clover.CloverDatabase;
-import com.atlassian.clover.CodeType;
 import com.atlassian.clover.CoverageDataSpec;
 import com.atlassian.clover.api.CloverException;
 import com.atlassian.clover.api.registry.ClassInfo;
@@ -19,18 +17,19 @@ import com.atlassian.clover.util.SimpleCoverageRange;
 
 public class SavantCloverDBExtractor {
     static CloverDatabase db;
-    static List<FullMethodInfo> methodInfos;
+    static Set<FullMethodInfo> methodInfos;
     
 
     public static void main(String[] args) {
         String databasePath = "/home/square/Documents/projects/d4j_repo/chart_1_buggy/.clover/clover4_4_1.db";
         try {
             db = CloverDatabase.loadWithCoverage(databasePath, new CoverageDataSpec());
-            methodInfos = getMethodInfoList(db);
+            methodInfos = getMethodInfoSet(db);
+
             System.out.println();
             String methodName = "org.jfree.chart.LegendItemCollection.getItemCount";
             FullMethodInfo a_method =
-                GeneralUtils.findElementInList(
+                GeneralUtils.findElementInCollection(
                     methodInfos,
                     (FullMethodInfo m, String name) -> m.getQualifiedName().equals(name),
                     methodName
@@ -40,7 +39,23 @@ public class SavantCloverDBExtractor {
                 getTestHits(a_method);
             } else {
                 System.out.println("method :(" + methodName + " not found!");
-            }   
+            }
+            
+            String testName = "org.jfree.chart.renderer.category.junit.AbstractCategoryItemRendererTests.test2947660";
+            Set<TestCaseInfo> testCaseInfos = getTestCaseInfoSet(db);
+            TestCaseInfo a_testcase =
+                GeneralUtils.findElementInCollection(
+                    testCaseInfos,
+                    (TestCaseInfo test, String name) -> test.getQualifiedName().equals(name),
+                    testName
+                );
+            if (a_testcase != null) {
+                System.out.println("this test found! :(" + a_testcase.getQualifiedName() + ")");
+                System.out.println("test status: " + a_testcase.isSuccess());
+            } else {
+                System.out.println("test :(" + testName + " not found!");
+            }
+        
         } catch (CloverException e) {
             System.out.println("Error from Clover: ");
             e.printStackTrace();
@@ -57,9 +72,9 @@ public class SavantCloverDBExtractor {
         }
     }
 
-    private static List<FullMethodInfo> getMethodInfoList(CloverDatabase db) {
-        FullProjectInfo projectInfo = db.getModel(CodeType.APPLICATION);
-        List<FullMethodInfo> methodInfos = new ArrayList<>();
+    private static Set<FullMethodInfo> getMethodInfoSet(CloverDatabase db) {
+        FullProjectInfo projectInfo = db.getAppOnlyModel();
+        Set<FullMethodInfo> methodInfos = new LinkedHashSet<>();
         for (PackageInfo packageInfo : projectInfo.getAllPackages()) {
             for (FileInfo fileInfo : packageInfo.getFiles()) {
                 for (ClassInfo classInfo : fileInfo.getClasses()) {
@@ -70,5 +85,9 @@ public class SavantCloverDBExtractor {
             }
         }
         return methodInfos;
+    }
+
+    private static Set<TestCaseInfo> getTestCaseInfoSet(CloverDatabase db) {
+        return db.getCoverageData().getPerTestCoverage().getTests();
     }
 }

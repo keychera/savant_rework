@@ -1,12 +1,12 @@
 package resavant.utils;
 
+import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.function.BiPredicate;
 
 class GeneralUtils {
-    public static <T,U> T findElementInList(List<T> list, BiPredicate<T,U> operator, U identifier) {
-        Iterator<T> iterator = list.iterator();
+    public static <T,U> T findElementInCollection(Collection<T> collection, BiPredicate<T,U> operator, U identifier) {
+        Iterator<T> iterator = collection.iterator();
         T currentElement = null;
         boolean found = false;
         while(iterator.hasNext() && !found) {
