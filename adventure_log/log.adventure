@@ -772,3 +772,11 @@ t (5/1/20)
             + note (the code example: http://openclover.org/doc/manual/4.2.0/developer-guide--database-structure.html the `Reading from a Clover database` section)
 
 + note (a lesson on Java lambdas, `java.util.function` interfaces, and generic methods)
+
+t (6/1/20)
++ note (dealing with TA docs and administration stuff)
+
+t (7/1/20)
++ note (a lesson on `java.util.Collection` class)
++ note (since we use clover, I think we only need to run defects4j test once using `run_clover_coverage.pl`)
+    + TODO (figure out the redundancies)
