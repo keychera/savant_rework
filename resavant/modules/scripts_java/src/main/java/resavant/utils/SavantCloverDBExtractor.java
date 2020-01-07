@@ -27,10 +27,9 @@ public class SavantCloverDBExtractor {
     static Set<FullMethodInfo> methodInfos;
 
     public static void main(String[] args) {
-        // input -> clover db, failing test list
-        String databasePath = "/home/square/Documents/projects/d4j_repo/chart_1_buggy/.clover/clover4_4_1.db";
-        List<String> testNames = new ArrayList<>();
-        testNames.add("org.jfree.chart.renderer.category.junit.AbstractCategoryItemRendererTests.test2947660");
+        // input -> clover db, output path
+        String databasePath = args[0];
+        String outputPath = args[1];
 
         try {
             db = CloverDatabase.loadWithCoverage(databasePath, new CoverageDataSpec());
@@ -38,19 +37,12 @@ public class SavantCloverDBExtractor {
             Set<TestCaseInfo> testCaseInfos = getTestCaseInfoSet(db);
 
             // get all failing test case infos
-            Set<TestCaseInfo> failingTestCaseInfos = new LinkedHashSet<>();
-
-            Iterator<String> testNameIterator = testNames.iterator();
-            while (testNameIterator.hasNext()) {
-                String testName = testNameIterator.next();
-                TestCaseInfo aFailingTest = GeneralUtils.findElementInCollection(testCaseInfos,
-                        (TestCaseInfo test, String name) -> test.getQualifiedName().equals(name), testName);
-                failingTestCaseInfos.add(aFailingTest);
-            }
+            Set<TestCaseInfo> failingTestCaseInfos = GeneralUtils.findElementsInCollection(testCaseInfos,
+                        (TestCaseInfo test, Void aVoid) -> test.isFailure(), null);
 
             // get all method run by failing test case infos (the covered methods)
             BitSet testHits = db.getCoverageData().getHitsFor(failingTestCaseInfos);
-            List<FullMethodInfo> coveredMethodInfos = GeneralUtils.findElementsInCollection(methodInfos,
+            Set<FullMethodInfo> coveredMethodInfos = GeneralUtils.findElementsInCollection(methodInfos,
                     (FullMethodInfo method, BitSet hits) -> isMethodHit(method, hits), testHits);
 
             // get all passing tests that runs the covered methods
@@ -68,8 +60,8 @@ public class SavantCloverDBExtractor {
             MethodTestMatrix passingMatrix = new MethodTestMatrix(coveredMethodInfos, passingTestCaseInfos);
 
             // print to csv
-            failingMatrix.printToFile("/home/square/Documents/projects/d4j_repo/chart_1_buggy/res_fail.csv");
-            passingMatrix.printToFile("/home/square/Documents/projects/d4j_repo/chart_1_buggy/res_pass.csv");
+            failingMatrix.printToFile(outputPath + "/matrix_failing.csv");
+            passingMatrix.printToFile(outputPath + "/matrix_passing.csv");
 
         } catch (CloverException e) {
             System.out.println("Error from Clover: ");
@@ -130,6 +122,7 @@ public class SavantCloverDBExtractor {
                 rows.add(row);
                 i++;
             }
+
             try {
                 FileWriter writer = new FileWriter(output);
                 Iterator<String> rowIterator = rows.iterator();

@@ -1,9 +1,9 @@
 package resavant.utils;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.function.BiPredicate;
 
 class GeneralUtils {
@@ -22,10 +22,10 @@ class GeneralUtils {
         }
     }
 
-    public static <T,U> List<T> findElementsInCollection(Collection<T> collection, BiPredicate<T,U> identificator, U identifier) {
+    public static <T,U> Set<T> findElementsInCollection(Collection<T> collection, BiPredicate<T,U> identificator, U identifier) {
         Iterator<T> iterator = collection.iterator();
         T currentElement = null;
-        List<T> foundElements = new ArrayList<>();
+        Set<T> foundElements = new LinkedHashSet<>();
         while(iterator.hasNext()) {
             currentElement = iterator.next();
             if (identificator.test(currentElement, identifier)) {
