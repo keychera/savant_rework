@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.function.BiPredicate;
 
 class GeneralUtils {
-    public static <T,U> T findElementInCollection(Collection<T> collection, BiPredicate<T,U> operator, U identifier) {
+    public static <T,U> T findElementInCollection(Collection<T> collection, BiPredicate<T,U> identificator, U identifier) {
         Iterator<T> iterator = collection.iterator();
         T currentElement = null;
         boolean found = false;
         while(iterator.hasNext() && !found) {
             currentElement = iterator.next();
-            found = operator.test(currentElement, identifier);
+            found = identificator.test(currentElement, identifier);
         }
         if (found) {
             return currentElement;
@@ -22,13 +22,13 @@ class GeneralUtils {
         }
     }
 
-    public static <T,U> List<T> findElementsInCollection(Collection<T> collection, BiPredicate<T,U> operator, U identifier) {
+    public static <T,U> List<T> findElementsInCollection(Collection<T> collection, BiPredicate<T,U> identificator, U identifier) {
         Iterator<T> iterator = collection.iterator();
         T currentElement = null;
         List<T> foundElements = new ArrayList<>();
         while(iterator.hasNext()) {
             currentElement = iterator.next();
-            if (operator.test(currentElement, identifier)) {
+            if (identificator.test(currentElement, identifier)) {
                 foundElements.add(currentElement);
             }
         }

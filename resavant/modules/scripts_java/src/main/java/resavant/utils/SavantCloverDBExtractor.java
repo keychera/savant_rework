@@ -1,6 +1,10 @@
 package resavant.utils;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -21,66 +25,137 @@ import com.atlassian.clover.util.SimpleCoverageRange;
 public class SavantCloverDBExtractor {
     static CloverDatabase db;
     static Set<FullMethodInfo> methodInfos;
-    
 
     public static void main(String[] args) {
+        // input -> clover db, failing test list
         String databasePath = "/home/square/Documents/projects/d4j_repo/chart_1_buggy/.clover/clover4_4_1.db";
+        List<String> testNames = new ArrayList<>();
+        testNames.add("org.jfree.chart.renderer.category.junit.AbstractCategoryItemRendererTests.test2947660");
+
         try {
             db = CloverDatabase.loadWithCoverage(databasePath, new CoverageDataSpec());
             methodInfos = getMethodInfoSet(db);
-
-            System.out.println();
-            String methodName = "org.jfree.chart.LegendItemCollection.getItemCount";
-            FullMethodInfo aMethod =
-                GeneralUtils.findElementInCollection(
-                    methodInfos,
-                    (FullMethodInfo m, String name) -> m.getQualifiedName().equals(name),
-                    methodName
-                );
-            if (aMethod != null) {
-                System.out.println("getting test hits for method :(" + aMethod.getName() + ")");
-                getTestHits(aMethod);
-            } else {
-                System.out.println("method :(" + methodName + " not found!");
-            }
-            
-            String testName = "org.jfree.chart.renderer.category.junit.AbstractCategoryItemRendererTests.test2947660";
             Set<TestCaseInfo> testCaseInfos = getTestCaseInfoSet(db);
-            TestCaseInfo aTestcase =
-                GeneralUtils.findElementInCollection(
-                    testCaseInfos,
-                    (TestCaseInfo test, String name) -> test.getQualifiedName().equals(name),
-                    testName
-                );
-            if (aTestcase != null) {
-                System.out.println("this test found! :(" + aTestcase.getQualifiedName() + ")");
-                System.out.println("test status: " + aTestcase.isSuccess());
 
-                Set<TestCaseInfo> failedTests = new LinkedHashSet<>();
-                failedTests.add(aTestcase);
-                BitSet hits = db.getCoverageData().getHitsFor(failedTests);
-                System.out.println(hits.length());
+            // get all failing test case infos
+            Set<TestCaseInfo> failingTestCaseInfos = new LinkedHashSet<>();
 
-                List<FullMethodInfo> hitMethods = GeneralUtils.findElementsInCollection(
-                    methodInfos,
-                    (FullMethodInfo method, BitSet testHits) -> isMethodHit(method, testHits),
-                    hits
-                );
-                System.out.println("number of methods found: " + hitMethods.size());
-                Iterator<FullMethodInfo> methodIterator = hitMethods.iterator();
-                while(methodIterator.hasNext()) {
-                    System.out.println(methodIterator.next().getQualifiedName());
-                } 
-
-            } else {
-                System.out.println("test :(" + testName + " not found!");
+            Iterator<String> testNameIterator = testNames.iterator();
+            while (testNameIterator.hasNext()) {
+                String testName = testNameIterator.next();
+                TestCaseInfo aFailingTest = GeneralUtils.findElementInCollection(testCaseInfos,
+                        (TestCaseInfo test, String name) -> test.getQualifiedName().equals(name), testName);
+                failingTestCaseInfos.add(aFailingTest);
             }
-        
+
+            // get all method run by failing test case infos (the covered methods)
+            BitSet testHits = db.getCoverageData().getHitsFor(failingTestCaseInfos);
+            List<FullMethodInfo> coveredMethodInfos = GeneralUtils.findElementsInCollection(methodInfos,
+                    (FullMethodInfo method, BitSet hits) -> isMethodHit(method, hits), testHits);
+
+            // get all passing tests that runs the covered methods
+            Set<TestCaseInfo> passingTestCaseInfos = new LinkedHashSet<>();
+
+            Iterator<FullMethodInfo> methodIterator = coveredMethodInfos.iterator();
+            while (methodIterator.hasNext()) {
+                FullMethodInfo coveredMethod = methodIterator.next();
+                Set<TestCaseInfo> passingTests = getTestHits(coveredMethod);
+                passingTestCaseInfos.addAll(passingTests);
+            }
+
+            // create test hit matrix for each covered methods
+            MethodTestMatrix failingMatrix = new MethodTestMatrix(coveredMethodInfos, failingTestCaseInfos);
+            MethodTestMatrix passingMatrix = new MethodTestMatrix(coveredMethodInfos, passingTestCaseInfos);
+
+            // print to csv
+            failingMatrix.printToFile("/home/square/Documents/projects/d4j_repo/chart_1_buggy/res_fail.csv");
+            passingMatrix.printToFile("/home/square/Documents/projects/d4j_repo/chart_1_buggy/res_pass.csv");
+
         } catch (CloverException e) {
             System.out.println("Error from Clover: ");
             e.printStackTrace();
             return;
         }
+    }
+
+    static class MethodTestMatrix {
+        Collection<FullMethodInfo> methodInfos;
+        Collection<TestCaseInfo> testCaseInfos;
+        ArrayList<ArrayList<Boolean>> testHits;
+
+        public MethodTestMatrix(Collection<FullMethodInfo> methodInfos, Collection<TestCaseInfo> testCaseInfos) {
+            this.methodInfos = methodInfos;
+            this.testCaseInfos = testCaseInfos;
+
+            testHits = new ArrayList<>(methodInfos.size());
+
+            int i = 0;
+            Iterator<FullMethodInfo> methodIterator = methodInfos.iterator();
+            while (methodIterator.hasNext()) {
+                testHits.add(new ArrayList<>(testCaseInfos.size()));
+
+                FullMethodInfo currentMethod = methodIterator.next();
+                ArrayList<Boolean> currentMethodTestHit = testHits.get(i);
+                Iterator<TestCaseInfo> testIterator = testCaseInfos.iterator();
+                while (testIterator.hasNext()) {
+                    TestCaseInfo currentTest = testIterator.next();
+                    Boolean val = isMethodHit(currentMethod, currentTest);
+                    currentMethodTestHit.add(val);
+                }
+
+                i++;
+            }
+        }
+
+        public void printToFile(String output) {
+            List<String> rows = new ArrayList<>(this.methodInfos.size());
+
+            int i = 0;
+            Iterator<FullMethodInfo> methodIterator = this.methodInfos.iterator();
+            while (methodIterator.hasNext()) {
+                StringBuilder rowBuilder = new StringBuilder();
+                FullMethodInfo currentMethod = methodIterator.next();
+                rowBuilder.append(currentMethod.getQualifiedName());
+
+                Iterator<Boolean> testHitsIterator = testHits.get(i).iterator();
+                while (testHitsIterator.hasNext()) {
+                    Boolean isHit = testHitsIterator.next();
+                    if (isHit) {
+                        rowBuilder.append(",0");
+                    } else {
+                        rowBuilder.append(",1");
+                    }
+                }
+                String row = rowBuilder.toString();
+                rows.add(row);
+                i++;
+            }
+            try {
+                FileWriter writer = new FileWriter(output);
+                Iterator<String> rowIterator = rows.iterator();
+                while(rowIterator.hasNext()) {
+                    String rowToPrint = rowIterator.next();
+                    writer.write(rowToPrint + System.lineSeparator());
+                }
+                writer.close();
+
+                FileWriter headerWriter = new FileWriter(output + ".header");
+                Iterator<TestCaseInfo> testIterator = this.testCaseInfos.iterator();
+                while (testIterator.hasNext()) {
+                    String testName = testIterator.next().getQualifiedName();
+                    headerWriter.write(testName + System.lineSeparator());
+                }
+                headerWriter.close();
+            } catch (IOException e) {
+                System.out.println("IO Error: ");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static boolean isMethodHit(FullMethodInfo method, TestCaseInfo test) {
+        BitSet testHits = db.getCoverageData().getHitsFor(test);
+        return isMethodHit(method, testHits);
     }
 
     private static boolean isMethodHit(FullMethodInfo method, BitSet testHits) {
@@ -93,13 +168,9 @@ public class SavantCloverDBExtractor {
         return val;
     }
 
-    private static void getTestHits(MethodInfo methodInfo) {
+    private static Set<TestCaseInfo> getTestHits(MethodInfo methodInfo) {
         SimpleCoverageRange methodRange = new SimpleCoverageRange(methodInfo.getDataIndex(), methodInfo.getDataLength());
-        Set<TestCaseInfo> tcis = db.getTestHits(methodRange);
-        System.out.println("length of tcis: " + tcis.size());
-        for (TestCaseInfo testCaseInfo : tcis) {
-            System.out.println(testCaseInfo.getTestName());
-        }
+        return db.getTestHits(methodRange);
     }
 
     private static Set<FullMethodInfo> getMethodInfoSet(CloverDatabase db) {
