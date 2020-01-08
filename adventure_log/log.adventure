@@ -802,3 +802,11 @@ t (7/1/20)
 + quest (is our way to select test correct?)
 
 + done (integrating Clover, Clustering, and Test Selection)
+
+t (8/1/20)
++ note (problem: some SBFL formulas might still have division by zero error)
+    + TODO (ensure there is no division by zero)
+
++ done (integrating SBFL calculation)
+
++ quest (should we refactor `$(dirname "$0")/`?)
