@@ -810,3 +810,14 @@ t (8/1/20)
 + done (integrating SBFL calculation)
 
 + quest (should we refactor `$(dirname "$0")/`?)
+
++ note (problem: different method representation across the scripts)
+    + note (this causes no label in the features set to 1)
+    + note (we will use this `com.package.ClassName::methodName(input_type1,input_type2:output_type)`)
+        + TODO (make all method representation same)
+    + note (the difference is found between `MethodDiff` and OpenClover outputs)
+        + note (plus we found method diff list in the output is not using line separator, all in one line)
+
++ note (some complication, problem with our py scripts on some Projects Math and OpenClover with Time)
+    + TODO (deal with them)
+    + TODO (put the output in a file for analysis)
