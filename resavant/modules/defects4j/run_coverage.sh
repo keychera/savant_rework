@@ -1,9 +1,5 @@
 # process args
-w_flag=''
-b_flag=''
-o_flag=''
 TARGET_PROJECT=''
-BUGINFO_FOLDER=''
 OUTPUT_FOLDER=''
 
 print_usage() {
