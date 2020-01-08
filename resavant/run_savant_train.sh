@@ -45,6 +45,9 @@ do
         $PY_COMMAND $CLUSTER_MODULE/select_tests.py "$CVR_FOLDER/matrix_passing.csv" "$CLUSTER_FOLDER/clusters" $MAX_TEST_NUMBER "$CLUSTER_FOLDER/selected_tests"
 
         # sbfl
+        SBFL_FOLDER="$OUT_FOLDER/4-sbfl/${proj_id}/${bug_id}"
+        mkdir -p $SBFL_FOLDER
+        $SBFL_MODULE/run_sbfl_calculation.sh -p "$CVR_FOLDER/matrix_passing.csv" -f "$CVR_FOLDER/matrix_failing.csv" -o $SBFL_FOLDER
 
         # daikon
 

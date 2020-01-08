@@ -2,3 +2,4 @@
 runconfig
 *.config
 temp*/
+__pycache__
