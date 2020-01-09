@@ -1,4 +1,5 @@
 import sys, os
+import pandas as pd
 
 if len(sys.argv) >= 4:
     method_diff_path = sys.argv[1]
@@ -13,41 +14,37 @@ if len(sys.argv) >= 4:
                 diff_methods.append(line.rstrip())
         
     # get the sbfl stat
-    sbfl_rows = list()
-    with open(sbfl_stat_path) as fp:
-        for count, line in enumerate(fp):
-            sbfl_rows.append(line.rstrip())
-
-    l2r_rows = list()
-
-    for row in sbfl_rows:
-        row_split = row.split(',')
-        if row_split[0] in diff_methods:
-            row_split[0] = '1'
-        else:
-            row_split[0] = '0'
-        for i in range(1, len(row_split)):
-            row_split[i] = '{}:{}'.format(i, row_split[i])
-
-        l2r_rows.append(row_split)
-
-    # get the invariant diff features
-    # TODO
-
-    # format the rows
-    formatted_l2r_rows = list()
-    for row in l2r_rows:
-        formatted_row = ' '.join(row)
-        formatted_l2r_rows.append(formatted_row)
+    sbfl_stat_df = pd.read_csv(sbfl_stat_path, header=None)
     
+    # TODO get the invariant diff features
+
+    # build the l2r data
+    l2r_data = list()
+
+    for row in sbfl_stat_df.itertuples(index=True):
+        
+        label = '0'
+        method_name = row[1]
+        if method_name in diff_methods:
+            label = '1'
+        
+        sbfl_row = ''
+        for index, sbfl_score in zip(range(0, len(row) - 2), row[2:]):
+            sbfl_row = sbfl_row + ' {}:{}'.format(index, sbfl_score)
+
+        # TODO daikon integrate
+        
+        l2r_row = '{}{}'.format(label, sbfl_row)
+        l2r_data.append(l2r_row)
+
     # output the result
     if len(sys.argv) >= 5:
         output_file = sys.argv[4]
         with open(output_file, 'w+') as f:
-            for row in formatted_l2r_rows:
+            for row in l2r_data:
                 f.write("{}\n".format(row))
     else:
-        for row in formatted_l2r_rows:
+        for row in l2r_data:
             print(row)
 
 
