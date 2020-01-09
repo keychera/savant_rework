@@ -25,12 +25,24 @@ import com.atlassian.clover.util.SimpleCoverageRange;
 public class SavantCloverDBExtractor {
     static CloverDatabase db;
     static Set<FullMethodInfo> methodInfos;
+    public static MethodTestMatrix failingMatrix;
+    public static MethodTestMatrix passingMatrix;
 
     public static void main(String[] args) {
         // input -> clover db, output path
         String databasePath = args[0];
         String outputPath = args[1];
 
+        // db extraction
+        extractFromDB(databasePath);
+
+        // print to csv
+        failingMatrix.printToFile(outputPath + "/matrix_failing.csv");
+        passingMatrix.printToFile(outputPath + "/matrix_passing.csv");
+
+    }
+
+    public static void extractFromDB(String databasePath) {
         try {
             db = CloverDatabase.loadWithCoverage(databasePath, new CoverageDataSpec());
             methodInfos = getMethodInfoSet(db);
@@ -55,13 +67,8 @@ public class SavantCloverDBExtractor {
                 passingTestCaseInfos.addAll(passingTests);
             }
 
-            // create test hit matrix for each covered methods
-            MethodTestMatrix failingMatrix = new MethodTestMatrix(coveredMethodInfos, failingTestCaseInfos);
-            MethodTestMatrix passingMatrix = new MethodTestMatrix(coveredMethodInfos, passingTestCaseInfos);
-
-            // print to csv
-            failingMatrix.printToFile(outputPath + "/matrix_failing.csv");
-            passingMatrix.printToFile(outputPath + "/matrix_passing.csv");
+            failingMatrix = new MethodTestMatrix(coveredMethodInfos, failingTestCaseInfos);
+            passingMatrix = new MethodTestMatrix(coveredMethodInfos, passingTestCaseInfos);
 
         } catch (CloverException e) {
             System.out.println("Error from Clover: ");
@@ -107,7 +114,7 @@ public class SavantCloverDBExtractor {
             while (methodIterator.hasNext()) {
                 StringBuilder rowBuilder = new StringBuilder();
                 FullMethodInfo currentMethod = methodIterator.next();
-                rowBuilder.append(currentMethod.getQualifiedName());
+                rowBuilder.append("\"" + getFormattedMethodName(currentMethod) + "\"");
 
                 Iterator<Boolean> testHitsIterator = testHits.get(i).iterator();
                 while (testHitsIterator.hasNext()) {
@@ -135,7 +142,8 @@ public class SavantCloverDBExtractor {
                 FileWriter headerWriter = new FileWriter(output + ".header");
                 Iterator<TestCaseInfo> testIterator = this.testCaseInfos.iterator();
                 while (testIterator.hasNext()) {
-                    String testName = testIterator.next().getQualifiedName();
+                    FullMethodInfo testMethodInfo = testIterator.next().getSourceMethod();
+                    String testName = getFormattedMethodName(testMethodInfo);
                     headerWriter.write(testName + System.lineSeparator());
                 }
                 headerWriter.close();
@@ -144,6 +152,14 @@ public class SavantCloverDBExtractor {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static String getFormattedMethodName(FullMethodInfo method) {
+        StringBuilder nameBuilder = new StringBuilder();
+        nameBuilder.append(method.getContainingClass().getQualifiedName());
+        nameBuilder.append("::");
+        nameBuilder.append(method.getName());
+        return nameBuilder.toString();
     }
 
     private static boolean isMethodHit(FullMethodInfo method, TestCaseInfo test) {
@@ -173,7 +189,9 @@ public class SavantCloverDBExtractor {
             for (FileInfo fileInfo : packageInfo.getFiles()) {
                 for (ClassInfo classInfo : fileInfo.getClasses()) {
                     for (MethodInfo methodInfo : classInfo.getAllMethods()) {
-                        methodInfos.add((FullMethodInfo)methodInfo);
+                        if (!methodInfo.isTest()) {
+                            methodInfos.add((FullMethodInfo)methodInfo);
+                        }
                     }
                 }
             }
