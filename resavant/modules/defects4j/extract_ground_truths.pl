@@ -143,23 +143,4 @@ for (my $i = 0; $i < scalar @mod_classes; $i++) {
     my $method_diff_output = "$method_diff_path/$mod_classes[$i]";
     Utils::exec_cmd("$JAVA -cp $JAVA_CP resavant.utils.MethodDiff $buggy_class $fixed_class > $method_diff_output",
                 "Get MethodDiff between modified buggy classes and fixed classes\n");
-    
-    -e $method_diff_output or die "file $method_diff_output does not exist!";
-    open my ($method_diff_file), $method_diff_output;
-
-    my @formatted_methods = ();
-    while(my $line = <$method_diff_file>)  {
-        chomp($line);
-        $line =~ m/.*\.(.*)\(.*\)/;
-        my $method_name = $1;
-        my $class_name = $mod_classes[$i];
-        my $formatted_name = "$class_name\:\:$method_name";
-        push @formatted_methods, $formatted_name;
-    }
-
-    open(to_write, '>', $method_diff_output) or die "file $method_diff_output does not exist";
-    
-    for (my $i = 0; $i < scalar @formatted_methods; $i++) {
-        print to_write $formatted_methods[$i];
-    }
 }

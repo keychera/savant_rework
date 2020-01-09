@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by Loren Klingman on 10/19/17.
  * Finds Changes Between Methods of Two Java Source Files
- * from https://stackoverflow.com/a/46851121)
+ * from https://stackoverflow.com/a/46851121 with modification
  */
 public class MethodDiff {
     public static void main( String[] args )
@@ -44,9 +44,11 @@ public class MethodDiff {
     class ClassPair {
         final ClassOrInterfaceDeclaration clazz;
         final String name;
-        ClassPair(ClassOrInterfaceDeclaration c, String n) {
+        final String packageName;
+        ClassPair(ClassOrInterfaceDeclaration c, String n, String p) {
             clazz = c;
             name = n;
+            packageName = p;
         }
     }
 
@@ -82,17 +84,27 @@ public class MethodDiff {
 
     private List<ClassPair> getClasses(Node n, String parents, boolean inMethod) {
         List<ClassPair> pairList = new ArrayList<>();
+
+        String packageName = null;
+        if (n instanceof CompilationUnit) {
+            CompilationUnit cu = (CompilationUnit) n;
+            if (cu.getPackageDeclaration().isPresent()) {
+                packageName = cu.getPackageDeclaration().get().getNameAsString();
+            }
+        }
+
         for (Node child : n.getChildNodes()) {
             if (child instanceof ClassOrInterfaceDeclaration) {
                 ClassOrInterfaceDeclaration c = (ClassOrInterfaceDeclaration)child;
-                String cName = parents+c.getNameAsString();
+                String cName = parents + c.getNameAsString();
+                
                 if (inMethod) {
                     System.out.println(
                             "WARNING: Class " + cName + " is located inside a method. We cannot predict its name at"
                             + " compile time so it will not be diffed."
                     );
                 } else {
-                    pairList.add(new ClassPair(c, cName));
+                    pairList.add(new ClassPair(c, cName, packageName));
                     pairList.addAll(getClasses(c, cName + "$", inMethod));
                 }
             } else if (child instanceof MethodDeclaration || child instanceof ConstructorDeclaration) {
@@ -122,14 +134,20 @@ public class MethodDiff {
     }
 
     @SuppressWarnings("unchecked")
-    public static String getSignature(String className, Node m) {
+    public static String getSignature(ClassPair classPair, Node m) {
+        String signature = null;
         if (m instanceof MethodDeclaration) {
-            return className + "." + ((CallableDeclaration<MethodDeclaration>)m).getSignature().asString();
+            CallableDeclaration<MethodDeclaration> mDeclaration = (CallableDeclaration<MethodDeclaration>) m;
+            signature = classPair.name + "::" + mDeclaration.getSignature().asString().replace(" ", "") + " : " + mDeclaration.asMethodDeclaration().getTypeAsString();
         } else if (m instanceof ConstructorDeclaration) {
-            return className + "." + ((CallableDeclaration<ConstructorDeclaration>)m).getSignature().asString();
+            signature = classPair.name + "::" + ((CallableDeclaration<ConstructorDeclaration>)m).getSignature().asString();
         } else {
             throw new RuntimeException("EXCEPTION: m is neither MethodDeclaration nor ConstructorDeclaration");
         }
+        if (classPair.packageName != null) {
+            signature = classPair.packageName + "." + signature;
+        }
+        return signature;
     }
 
     public static HashSet<String> methodDiffInClass(String file1, String file2) {
@@ -145,7 +163,7 @@ public class MethodDiff {
             List<ConstructorDeclaration> conList = getChildNodesNotInClass(c.clazz, ConstructorDeclaration.class);
             List<MethodDeclaration> mList = getChildNodesNotInClass(c.clazz, MethodDeclaration.class);
             for (MethodDeclaration m : mList) {
-                String methodSignature = getSignature(c.name, m);
+                String methodSignature = getSignature(c, m);
 
                 if (m.getBody().isPresent()) {
                     methods.put(methodSignature, m.getBody().get().toString(getPPC()));
@@ -154,7 +172,7 @@ public class MethodDiff {
                 }
             }
             for (ConstructorDeclaration con : conList) {
-                String methodSignature = getSignature(c.name, con);
+                String methodSignature = getSignature(c, con);
                 methods.put(methodSignature, con.getBody().toString(getPPC()));
             }
         }
@@ -165,32 +183,29 @@ public class MethodDiff {
             List<ConstructorDeclaration> conList = getChildNodesNotInClass(c.clazz, ConstructorDeclaration.class);
             List<MethodDeclaration> mList = getChildNodesNotInClass(c.clazz, MethodDeclaration.class);
             for (MethodDeclaration m : mList) {
-                String methodSignature = getSignature(c.name, m);
+                String methodSignature = getSignature(c, m);
 
                 if (m.getBody().isPresent()) {
                     String body1 = methods.remove(methodSignature);
                     String body2 = m.getBody().get().toString(getPPC());
                     if (body1 == null || !body1.equals(body2)) {
-                        // Javassist doesn't add spaces for methods with 2+ parameters...
-                        changedMethods.add(methodSignature.replace(" ", ""));
+                        changedMethods.add(methodSignature);
                     }
                 } else {
                     System.out.println("Warning: No Body for " + file2 + " " + methodSignature);
                 }
             }
             for (ConstructorDeclaration con : conList) {
-                String methodSignature = getSignature(c.name, con);
+                String methodSignature = getSignature(c, con);
                 String body1 = methods.remove(methodSignature);
                 String body2 = con.getBody().toString(getPPC());
                 if (body1 == null || !body1.equals(body2)) {
-                    // Javassist doesn't add spaces for methods with 2+ parameters...
-                    changedMethods.add(methodSignature.replace(" ", ""));
+                    changedMethods.add(methodSignature);
                 }
             }
             // Anything left in methods was only in the first set and so is "changed"
             for (String method : methods.keySet()) {
-                // Javassist doesn't add spaces for methods with 2+ parameters...
-                changedMethods.add(method.replace(" ", ""));
+                changedMethods.add(method);
             }
         }
         return changedMethods;
