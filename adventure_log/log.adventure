@@ -372,18 +372,18 @@ t (2/12/19)
 + note (about Savant clustering, if a resulting cluster is more than M, we randomly keep selecting M cluster from that cluster to create new group until the no cluster is no more than M size)
     + note (so if we happen to have only overlarge cluster with no more than 2M size, the random selection is only once per overlarge cluster. that's how we understand it)
 
-+ done (method clustering yeah)
++ DONE (method clustering yeah)
     + note (we save index of method instead of method name for cluster result. index is based on the order of `all_covered_method` file, that is generated in previous step)
         + quest (should we make the csv the same? use idx instead of method name that is too long?)
 
-+ done (test selections)
++ DONE (test selections)
     + note (problem: we weren't sure how to verify the result)
         + note (all output seems to have same number of test, regardless of T value)
             + null (retract that, using big value (T=1500) produce inequal amount of tests, which is possible)
 
 t (4/12/19)
 o ref(365)
-    + done (Centos 8 is ready to dualboot!)
+    + DONE (Centos 8 is ready to dualboot!)
         + note (oh boy did it take a whole day and a half to set it all up, here's the story)
             + note (problem: the installer can't detect the free space in drive d that we shrink with `diskmgmt.msc`)
                 + note (we tried a heck lot of things. using all other partition util tools to shrink, checking whether it's the usb bootleader fault, maybe we partition it wrongly...)
@@ -417,7 +417,7 @@ o ref(402)
     o ref(359)
         + note (in progress)
     o ref(367)
-        + done (yeah) ref(375) ref(379)
+        + DONE (yeah) ref(375) ref(379)
     o ref(368)
         + note (preparing for this)
 
@@ -427,7 +427,7 @@ o ref(402)
 + note (using source for .sh files)
 
 o ref(404)
-    + done (migration is done)
+    + DONE (migration is done)
 
 t (8/12/19)
 + note (rebuilding SingleTestRunner, and using it simply with terminal `java` and `javac`)
@@ -476,7 +476,7 @@ t (11/12/19)
         + TODO (let's now focus on the SBFL part first, because it is easier to verify and compare)
 
 t (12/12/19)
-+ done (we do some clean up)
++ DONE (we do some clean up)
     + note (delete old test runner)
         + note (test runner now in daikon module)
         + note (rename a py script (`get_method_cluster` to `generate_method_clusters`)
@@ -490,7 +490,7 @@ t (12/12/19)
     + quest (how do you use python `lambda` ?)
 
 t (17/12/19)
-+ done (progress for SBFL module)
++ DONE (progress for SBFL module)
     + note (trying Strategy Pattern for python)
     + TODO (Learning 2 Rank using only SBFL first!)
 
@@ -534,13 +534,13 @@ t (22/12/19)
 
 o ref(527)
     + note (assumption: if there happens a division by zero, return 0)
-        + done (we temporarily just check zero division when there are some error first in that method)
+        + DONE (we temporarily just check zero division when there are some error first in that method)
 
 + TODO (add `get_name()` to AbstractSBFLStrategy` for documentation purposes)
 
 t (24/12/19)
 o ref(476) ref(424)
-    + done (now move to understand the learning to rank)
+    + DONE (now move to understand the learning to rank)
         o ref(495)
     + note (we ignore multric for now)
 
@@ -579,7 +579,7 @@ o ref(561)
                     + note (that made me unable to access the method from `CallableDeclaration` since they are different because of T)
 
 + done(add `java_scripts` not javascripts, `java` scripts folder containing java util scripts)
-    + done (since it's awkward, rename the scripts `java_scripts` and `py_scripts` to `util`)
+    + DONE (since it's awkward, rename the scripts `java_scripts` and `py_scripts` to `util`)
 
 t (26/12/19)
 + note (dealing with resources folder for Junit testing for MethodDiff)
@@ -618,13 +618,13 @@ o ref(604)
     + note (we explicitly specify JAVA and JAR to perl scripts via ENV var)
 
 o ref(550) ref(559)
-    + done (simple)
+    + DONE (simple)
 
-+ done (a Ground Truth Extractor - well, we didn't create a TODO for this, but ref(495))
++ DONE (a Ground Truth Extractor - well, we didn't create a TODO for this, but ref(495))
     + TODO (build the l2r module)
 
 o ref(623)
-    + done (some fixes for compatibility (output format, java_utils changes))
+    + DONE (some fixes for compatibility (output format, java_utils changes))
 
 t (28/12/19)
 + note (an exercise of python file handling and string manipulations)
@@ -636,7 +636,7 @@ t (28/12/19)
     + note (Daikon is used by Carrot to calculate spectra)
         + quest (can Daikon-produced spectra used to calculate SBFL instead? do we need actually cobertura?)
 
-+ done (L2R prerocessing part, only for SBFL stat for now)
++ DONE (L2R prerocessing part, only for SBFL stat for now)
     + note (including reformatting for libswm, aggregation, and normalization)
     + quest (would it be okay for really big data?)
 
@@ -647,7 +647,7 @@ t (29/12/19)
     + note (LIBLINEAR feature index start from 1 (oh no what a nightmare!))
 
 o ref(624)
-    + done (RankSVM ready, L2R Module Ready)
+    + DONE (RankSVM ready, L2R Module Ready)
         + TODO (compile the necessary jar, lib, other stuff outside source code in one place)
         + TODO (understand and ready the CrossVal procedures)
         + TODO (the whole SAVANT architecture)
@@ -681,7 +681,7 @@ t (31/12/19)
 + note (problem: `defects4j checkout` will raise error if output dir exist)
     + note (solution: make sure temp folders are deleted)
 
-+ done (ground truth extractor integrated)
++ DONE (ground truth extractor integrated)
     + TODO (deal with error handling specified in TODO comments)
 
 + note (flag parameter is good)
@@ -694,7 +694,7 @@ t (31/12/19)
 
 + note (we now use only the name `test` for a test method instead calling it `test_method`)
 
-+ done (get_bug_info integrated)
++ DONE (get_bug_info integrated)
     + TODO (make defects4j less verbose and catch relevant std output)
     + TODO (separate `defects4j test` on its own, it takes a long time)
 
@@ -748,7 +748,7 @@ o ref(727)
 + note (problem: OpenClover instrumentation problem, it's not clear when it is done)
 
 o ref(727)
-    + done (clover coverage integrated, with Defects4J modified)
+    + DONE (clover coverage integrated, with Defects4J modified)
         + note (problem: getting coverage for each test still takes a long time)
             + quest (how do we find a way to utilize what is shown in html? the part where it can show which part of source is run by a test)
 
@@ -801,13 +801,13 @@ t (7/1/20)
 
 + quest (is our way to select test correct?)
 
-+ done (integrating Clover, Clustering, and Test Selection)
++ DONE (integrating Clover, Clustering, and Test Selection)
 
 t (8/1/20)
 + note (problem: some SBFL formulas might still have division by zero error)
     + TODO (ensure there is no division by zero)
 
-+ done (integrating SBFL calculation)
++ DONE (integrating SBFL calculation)
 
 + quest (should we refactor `$(dirname "$0")/`?)
 
@@ -821,3 +821,7 @@ t (8/1/20)
 + note (some complication, problem with our py scripts on some Projects Math and OpenClover with Time)
     + TODO (deal with them)
     + TODO (put the output in a file for analysis)
+
+t (9/1/20)
++ note (TODO sweep episode 3, 424)
+    + note (some `done` formatting to `DONE`)
