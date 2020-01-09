@@ -873,3 +873,20 @@ t (9/1/20)
         + note (part of ref(727))
     o ref(822, 823)
         + note (integration problem)
+
++ note (clover database is the whole thing inside `.clover`, not just the `clover4_4_1.db`)
+    + quest (whether to add them to resources or not, they are not big but there are a lot of files it lags vscode(4000+ files))
+        + note (for now, we ignore them)
+
++ note (doing the method representation fixing, they gets everywhere~!)
+
+o ref(800)
+    + note (solution: OpenClover provide checking whether a method is a testMethod or not)
+
+o ref(816)
+    + null (we change format, following OpenClover)
+        + note (`com.package.ClassName::methodName(input_type1,input_type2) : output_type`)
+
++ done (fixing method representation)
+    + quest (will the output order affect much?)
+    + quest (does daikon have the same method representation?)
