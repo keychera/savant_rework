@@ -2,6 +2,7 @@
 DEFECTS4J_MODULE="$(dirname "$0")/modules/defects4j"
 CLUSTER_MODULE="$(dirname "$0")/modules/cluster"
 SBFL_MODULE="$(dirname "$0")/modules/sbfl"
+DAIKON_MODULE="$(dirname "$0")/modules/daikon"
 L2R_MODULE="$(dirname "$0")/modules/l2r"
 SCRIPTS_JAVA_JAR="$(dirname "$0")/modules/scripts_java/target/scripts_java-1.0-SNAPSHOT.jar"
 SCRIPTS_PY="$(dirname "$0")/modules/scripts_py"
