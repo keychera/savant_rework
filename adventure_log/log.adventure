@@ -890,3 +890,12 @@ o ref(816)
 + done (fixing method representation)
     + quest (will the output order affect much?)
     + quest (does daikon have the same method representation?)
+
++ note (a lesson on using pandas to read csv since `,` can't always be separator)
+
+t (11/1/20)
++ note (a lesson on copying the whole test name instead of just name of the method)
+
++ done (Daikon is correctly run and `MultipleTestRunner` ready)
+    + note (both `SingleTestRunner` and `MultipleTestRunner` is in one class `TestRunner`)
+    + note (remember, they are not in scripts_java since they need to be compiled and run with Java 7)
