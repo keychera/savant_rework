@@ -14,6 +14,7 @@ fi
 # compile target project
 CUR_DIR=$(pwd)
 cd $TARGETPROJECT
+git clean -fd
 defects4j compile
 cd $CUR_DIR
 
