@@ -12,7 +12,8 @@ fi
 JAVA7_PATH="/usr/java/jdk1.7.0_80/jre/bin/java"
 JAVAC7_PATH="/usr/java/jdk1.7.0_80/bin/javac"
 TARGETPROJECT="/home/square/Documents/projects/savant_rework/resavant/temp/0-checkout/Lang/1/b"
-TESTS_TO_RUN="/home/square/Documents/projects/savant_rework/resavant/modules/daikon/testlist"
+TESTS_TO_RUN="/home/square/Documents/projects/savant_rework/resavant/modules/daikon/test_resources/list_test"
+METHOD_LIST="/home/square/Documents/projects/savant_rework/resavant/modules/daikon/test_resources/list_method"
 OUTPUT_DIR="$(dirname "$0")/temp"
 mkdir -p $OUTPUT_DIR
 
@@ -53,10 +54,11 @@ $TEST_RUNNER single org.apache.commons.lang3.LocaleUtilsTest::testParseAllLocale
 $TEST_RUNNER multiple $TESTS_TO_RUN
 
 TEST_RUNNER_CLASS="TestRunner"
+SELECT_PATTERN="$(python $(dirname "$0")/build_method_pattern.py --method_list $METHOD_LIST)"
 DTRACE_FILE="$OUTPUT_DIR/test.dtrace.gz"
 INV_FILE="$OUTPUT_DIR/test.inv.gz"
 PRINT_INV_FILE="$OUTPUT_DIR/test-inv"
-$JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.Chicory --ppt-select-pattern="org.apache.commons.lang3" --dtrace-file=$DTRACE_FILE $TEST_RUNNER_CLASS multiple $TESTS_TO_RUN >/dev/null 2>&1
+$JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.Chicory --ppt-select-pattern=$SELECT_PATTERN --dtrace-file=$DTRACE_FILE $TEST_RUNNER_CLASS multiple $TESTS_TO_RUN >/dev/null 2>&1
 
 $JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.Daikon $DTRACE_FILE -o $INV_FILE >/dev/null 2>&1
 

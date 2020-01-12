@@ -35,9 +35,12 @@ public class TestRunner {
 
     private static void runTest(String testName) {
         String[] classAndMethod = testName.split("::");
+        String className = classAndMethod[0];
+        String methodName = classAndMethod[1].split("\\(")[0];
+
         Request request;
         try {
-            request = Request.method(Class.forName(classAndMethod[0]), classAndMethod[1]);
+            request = Request.method(Class.forName(className), methodName);
             Result result = new JUnitCore().run(request);
             System.out.println(result.wasSuccessful() ? "pass" : "fail");
         } catch (ClassNotFoundException e) {
