@@ -18,13 +18,18 @@ matrix_failing_path = '{}/{}'.format(cvr_stat_dir, 'matrix_failing.csv')
 matrix_failing_df = pd.read_csv(matrix_failing_path, header=None)
 covered_method = matrix_failing_df[0]
 
-# get list passing tests
+# get list of failing and passing tests
+failing_test_path = '{}/{}'.format(cvr_stat_dir, 'matrix_failing.csv.header')
+failing_tests = list()
+with open(failing_test_path) as fp:
+    for count, line in enumerate(fp):
+        failing_tests.append(line.rstrip())
 
 passing_test_path = '{}/{}'.format(cvr_stat_dir, 'matrix_passing.csv.header')
-passing_test = list()
+passing_tests = list()
 with open(passing_test_path) as fp:
     for count, line in enumerate(fp):
-        passing_test.append(line.rstrip())
+        passing_tests.append(line.rstrip())
 
 # get clusters and selected passing tests
 clusters_path = '{}/{}'.format(clusters_dir, 'clusters')
@@ -43,12 +48,12 @@ with open(selected_tests_path) as fp:
 
 assert (len(clusters) == len(selected_tests)), 'number of clusters must be the same as number of groups of selected tests'
 
-# build three sets of clusers
+# build the clusters files and the faling tests file
 for i, cluster, tests in zip(range(0, len(clusters)), clusters, selected_tests):
-    cluster_dir = '{}/{}'.format(out_dir, i)
+    cluster_dir = '{}/{}/{}'.format(out_dir, 'clusters_dir', i)
     Path(cluster_dir).mkdir(parents=True, exist_ok=True)
 
-    cluster_file = '{}/{}'.format(cluster_dir, 'clusters')
+    cluster_file = '{}/{}'.format(cluster_dir, 'cluster')
     with open(cluster_file, 'w+') as fp:
         for methodIndex in cluster:
             methodName = covered_method[int(methodIndex)]
@@ -57,5 +62,10 @@ for i, cluster, tests in zip(range(0, len(clusters)), clusters, selected_tests):
     test_file = '{}/{}'.format(cluster_dir, 'selected_tests')
     with open(test_file, 'w+') as fp:
         for testIndex in tests:
-            testName = passing_test[int(testIndex)]
+            testName = passing_tests[int(testIndex)]
             fp.write('{}\n'.format(testName))
+
+failing_test_file = '{}/{}'.format(out_dir, 'failing_tests')
+with open(failing_test_file, 'w+') as fp:
+    for failing_test in failing_tests:
+        fp.write('{}\n'.format(failing_test))
