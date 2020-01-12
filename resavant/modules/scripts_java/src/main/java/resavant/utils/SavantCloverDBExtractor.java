@@ -120,9 +120,9 @@ public class SavantCloverDBExtractor {
                 while (testHitsIterator.hasNext()) {
                     Boolean isHit = testHitsIterator.next();
                     if (isHit) {
-                        rowBuilder.append(",0");
-                    } else {
                         rowBuilder.append(",1");
+                    } else {
+                        rowBuilder.append(",0");
                     }
                 }
                 String row = rowBuilder.toString();
