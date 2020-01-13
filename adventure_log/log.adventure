@@ -907,3 +907,8 @@ t (12/1/20)
     + note (daikon does not use '::' to separate method name from class name)
 
 + quest (should we use argparse for the rest of py scripts?)
+
+t (13/1/20)
++ done (daikon is now running the three set of cluster)
+    + note (problem: why does it take so long for Chart in cluster number 1 and 3, checked so far)
+        + note (Lang have no problem at all, though it only have one cluster)
