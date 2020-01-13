@@ -912,3 +912,13 @@ t (13/1/20)
 + done (daikon is now running the three set of cluster)
     + note (problem: why does it take so long for Chart in cluster number 1 and 3, checked so far)
         + note (Lang have no problem at all, though it only have one cluster)
+
+t (14/1/20)
++ done (making daikon more efficient by running the failing set only once and then print invariant for each cluster separately)
+
++ note (problem: `java.lang.RuntimeException: Invalid StackMap offset 3` error is running rampant in daikon results!)
+    + note (solution: use daikon 5.2.8 and it works!, we originally use 5.6.6 because of the reasons we previously mentioned)
+
++ note (problem: some daikon process is taking so long)
+    + note (reason: wrong select pattern for method, some pattern allows even more method included instead)
+        + note (such as the regex pattern `.*` inside signatures which means all method regardless of signature will be included)
