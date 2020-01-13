@@ -41,26 +41,40 @@ TEST_DIR=$(defects4j export -p dir.bin.tests -w $TARGET_PROJECT)
 CLASS_PATHS="$TARGET_PROJECT/$CLS_DIR:$TARGET_PROJECT/$TEST_DIR:$LIB_FOLDER:$TEST_RUNNER_DIR"
 TEST_RUNNER_CLASS="TestRunner"
 
-# iterate cluster and process 3 sets of tests
-CLUSTERS_DIR="$DAIKON_DATA_DIR/clusters_dir"
-
+# Daikon
 run_daikon() {
   PHASE_NAME=$1
-  DTRACE_FILE="$CURRENT_OUT_DIR/$PHASE_NAME.dtrace.gz"
-  INV_FILE="$CURRENT_OUT_DIR/$PHASE_NAME.inv.gz"
-  PRINT_INV_FILE="$CURRENT_OUT_DIR/$PHASE_NAME-inv"
+  OUT_DIR=$2
+  DTRACE_FILE="$OUT_DIR/$PHASE_NAME.dtrace.gz"
+  INV_FILE="$OUT_DIR/$PHASE_NAME.inv.gz"
 
-  $JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.Chicory --ppt-select-pattern=$SELECT_PATTERN --dtrace-file=$DTRACE_FILE $TEST_RUNNER_CLASS multiple $TESTS_TO_RUN >/dev/null 2>&1
+  $JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.Chicory --ppt-select-pattern=$SELECT_PATTERN --dtrace-file=$DTRACE_FILE $TEST_RUNNER_CLASS multiple $TESTS_TO_RUN >"$DTRACE_FILE.log" 2>"$DTRACE_FILE.error"
 
-  $JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.Daikon $DTRACE_FILE -o $INV_FILE >/dev/null 2>&1
+  $JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.Daikon $DTRACE_FILE -o $INV_FILE >"$INV_FILE.log" 2>"$INV_FILE.error"
+}
 
+print_invariant() {
+  PHASE_NAME=$1
+  INV_FILE=$2
+  OUT_DIR=$3
+  PRINT_INV_FILE="$OUT_DIR/$PHASE_NAME-inv"
+  
   if test -f "$INV_FILE"; then
-    $JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.PrintInvariants $INV_FILE > $PRINT_INV_FILE
+    $JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.PrintInvariants --ppt-select-pattern=$SELECT_PATTERN $INV_FILE > $PRINT_INV_FILE
   else
     echo "no invariant inferred for $PHASE_NAME"
   fi
 }
 
+# run daikon for all failing test and select all covered methods
+echo "processing all failing test with all covered methods"
+ALL_METHOD_LIST="$DAIKON_DATA_DIR/covered_methods"
+SELECT_PATTERN="$(python $(dirname "$0")/build_method_pattern.py --method_list $ALL_METHOD_LIST)"
+TESTS_TO_RUN="$DAIKON_DATA_DIR/failing_tests"
+run_daikon "failing" $OUTPUT_DIR
+
+# iterate all cluster
+CLUSTERS_DIR="$DAIKON_DATA_DIR/clusters_dir"
 counter=0
 num_cluster=$(find $CLUSTERS_DIR/* -maxdepth 0 -type d | wc -l)
 while [ $counter -lt `expr $num_cluster` ]
@@ -74,15 +88,19 @@ do
     SELECT_PATTERN="$(python $(dirname "$0")/build_method_pattern.py --method_list $METHOD_LIST)"
 
     # process all failing tests
-    TESTS_TO_RUN="$CLUSTERS_DIR/failing_tests"
-    run_daikon "failing"
+    echo "inferring for failing tests"
+    TESTS_TO_RUN="$DAIKON_DATA_DIR/failing_tests"
+    print_invariant "failing" "$OUTPUT_DIR/failing.inv.gz" $CURRENT_OUT_DIR
 
     # process selected tests
+    echo "inferring for selected tests"
     TESTS_TO_RUN="$CLUSTERS_DIR/$counter/selected_tests"
-    run_daikon "selected"
+    run_daikon "selected" $CURRENT_OUT_DIR
+    print_invariant "selected" "$CURRENT_OUT_DIR/selected.inv.gz" $CURRENT_OUT_DIR
 
     # process failing U selected tests
-    echo "not yet implemented"
+    echo "inferring for failing U selected tests"
+    echo "[not yet implemented]"
 
     ((counter++))
 done

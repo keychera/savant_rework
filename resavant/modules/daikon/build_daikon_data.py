@@ -16,7 +16,7 @@ out_dir = args.out_dir
 # get list of covered method
 matrix_failing_path = '{}/{}'.format(cvr_stat_dir, 'matrix_failing.csv')
 matrix_failing_df = pd.read_csv(matrix_failing_path, header=None)
-covered_method = matrix_failing_df[0]
+covered_methods = matrix_failing_df[0]
 
 # get list of failing and passing tests
 failing_test_path = '{}/{}'.format(cvr_stat_dir, 'matrix_failing.csv.header')
@@ -48,7 +48,7 @@ with open(selected_tests_path) as fp:
 
 assert (len(clusters) == len(selected_tests)), 'number of clusters must be the same as number of groups of selected tests'
 
-# build the clusters files and the faling tests file
+# build the clusters files, the faling tests file, and all covered methods file
 for i, cluster, tests in zip(range(0, len(clusters)), clusters, selected_tests):
     cluster_dir = '{}/{}/{}'.format(out_dir, 'clusters_dir', i)
     Path(cluster_dir).mkdir(parents=True, exist_ok=True)
@@ -56,7 +56,7 @@ for i, cluster, tests in zip(range(0, len(clusters)), clusters, selected_tests):
     cluster_file = '{}/{}'.format(cluster_dir, 'cluster')
     with open(cluster_file, 'w+') as fp:
         for methodIndex in cluster:
-            methodName = covered_method[int(methodIndex)]
+            methodName = covered_methods[int(methodIndex)]
             fp.write('{}\n'.format(methodName))
     
     test_file = '{}/{}'.format(cluster_dir, 'selected_tests')
@@ -69,3 +69,8 @@ failing_test_file = '{}/{}'.format(out_dir, 'failing_tests')
 with open(failing_test_file, 'w+') as fp:
     for failing_test in failing_tests:
         fp.write('{}\n'.format(failing_test))
+
+covered_method_file = '{}/{}'.format(out_dir, 'covered_methods')
+with open(covered_method_file, 'w+') as fp:
+    for method_name in covered_methods:
+        fp.write('{}\n'.format(method_name))
