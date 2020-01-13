@@ -13,15 +13,16 @@ with open(method_list_path) as fp:
         method_full_name = line.rstrip()
 
         method_capture = re.search(r'(.+)::(\w+)\((.*)\) : (\w+)', method_full_name)
-        class_full_name = method_capture.group(1)
-        method_name = method_capture.group(2)
-        input_types_string = method_capture.group(3)
+        if (not isinstance(method_capture, type(None))):
+            class_full_name = method_capture.group(1)
+            method_name = method_capture.group(2)
+            input_types_string = method_capture.group(3)
 
-        class_regex_name = class_full_name.replace('.', '\.')
-        input_types_pattern = '.*{}'.format(input_types_string)
-        regex_pattern = '{}\.{}\\({}\\)'.format(class_regex_name, method_name, input_types_pattern)
+            class_regex_name = class_full_name.replace('.', '\.')
+            input_types_pattern = '.*{}'.format(input_types_string)
+            regex_pattern = '{}\.{}\\({}\\)'.format(class_regex_name, method_name, input_types_pattern)
 
-        methods_regex.append(regex_pattern)
+            methods_regex.append(regex_pattern)
 
 regex_result = ''
 list_len = len(methods_regex)
