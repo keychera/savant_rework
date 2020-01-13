@@ -50,7 +50,7 @@ run_daikon() {
 
   $JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.Chicory --ppt-select-pattern=$SELECT_PATTERN --dtrace-file=$DTRACE_FILE $TEST_RUNNER_CLASS multiple $TESTS_TO_RUN >"$DTRACE_FILE.log" 2>"$DTRACE_FILE.error"
 
-  $JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.Daikon $DTRACE_FILE -o $INV_FILE >"$INV_FILE.log" 2>"$INV_FILE.error"
+  $JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.Daikon $DTRACE_FILE -o $INV_FILE --no_text_output >"$INV_FILE.log" 2>"$INV_FILE.error"
 }
 
 print_invariant() {
