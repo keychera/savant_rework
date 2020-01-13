@@ -59,8 +59,16 @@ for i, cluster, tests in zip(range(0, len(clusters)), clusters, selected_tests):
             methodName = covered_methods[int(methodIndex)]
             fp.write('{}\n'.format(methodName))
     
-    test_file = '{}/{}'.format(cluster_dir, 'selected_tests')
-    with open(test_file, 'w+') as fp:
+    selected_test_file = '{}/{}'.format(cluster_dir, 'selected_tests')
+    with open(selected_test_file, 'w+') as fp:
+        for testIndex in tests:
+            testName = passing_tests[int(testIndex)]
+            fp.write('{}\n'.format(testName))
+
+    failing_and_selected_file = '{}/{}'.format(cluster_dir, 'failing_and_selected_tests')
+    with open(failing_and_selected_file, 'w+') as fp:
+        for failing_test in failing_tests:
+            fp.write('{}\n'.format(failing_test))
         for testIndex in tests:
             testName = passing_tests[int(testIndex)]
             fp.write('{}\n'.format(testName))

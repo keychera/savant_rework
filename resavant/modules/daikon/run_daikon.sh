@@ -100,7 +100,9 @@ do
 
     # process failing U selected tests
     echo "inferring for failing U selected tests"
-    echo "[not yet implemented]"
+    TESTS_TO_RUN="$CLUSTERS_DIR/$counter/failing_and_selected_tests"
+    run_daikon "failing_selected" $CURRENT_OUT_DIR
+    print_invariant "failing_selected" "$CURRENT_OUT_DIR/failing_selected.inv.gz" $CURRENT_OUT_DIR
 
     ((counter++))
 done
