@@ -899,3 +899,11 @@ t (11/1/20)
 + done (Daikon is correctly run and `MultipleTestRunner` ready)
     + note (both `SingleTestRunner` and `MultipleTestRunner` is in one class `TestRunner`)
     + note (remember, they are not in scripts_java since they need to be compiled and run with Java 7)
+
+t (12/1/20)
++ done (building the base cluster input for Daikon)
+
++ note (daikon uses similar method representation but with complete name for input type, `java.lang.String` for example)
+    + note (daikon does not use '::' to separate method name from class name)
+
++ quest (should we use argparse for the rest of py scripts?)
