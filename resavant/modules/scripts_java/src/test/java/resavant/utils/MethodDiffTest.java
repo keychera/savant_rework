@@ -65,30 +65,4 @@ public class MethodDiffTest {
 
         assertEquals(expected, actual);
     }
-
-    @Test
-    public void TestChangeSignature() {
-        String file1 = diffClassesPath + "/4-change-signature/buggy.java.src";
-        String file2 = diffClassesPath + "/4-change-signature/fixed.java.src";
-        HashSet<String> actual = MethodDiff.methodDiffInClass(file1, file2);
-
-        HashSet<String> expected = new HashSet<>();
-        expected.add("test.math.TestClass::Divide(int,int) : int");
-
-        // TODO
-        // assertEquals(expected, actual);
-    }
-
-    @Test
-    public void TestChangeConstructor() {
-        String file1 = diffClassesPath + "/5-change-constructor/buggy.java.src";
-        String file2 = diffClassesPath + "/5-change-constructor/fixed.java.src";
-        HashSet<String> actual = MethodDiff.methodDiffInClass(file1, file2);
-
-        HashSet<String> expected = new HashSet<>();
-        expected.add("test.math.TestClass::TestClass(int,int)");
-
-        // TODO
-        // assertEquals(expected, actual);
-    }
 }
