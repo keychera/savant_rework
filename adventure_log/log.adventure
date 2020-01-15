@@ -929,3 +929,18 @@ t (14/1/20)
             + note (solution, replace them all to `\[` and `\]`)
 
 + done (daikon correctly)
+
++ note (daikon have Invariant diff!! yeah!)
+    + quest (but then, how do you read them correctly?? i am confusion!)
+    + note (problem: it seems that its output can't be immediately used since what we need is the Invariant class not default daikon format)
+        + note (solution: use either flag `--wrap-xml` or `--config_option daikon.PrintInvariants.print_inv_class=true`!)
+            + note (from: http://plse.cs.washington.edu/daikon/download/doc/daikon.html#Printing-invariants the very below on the section)
+
+t (15/1/20)
++ note (compiled source `with.clover` can't be used for Daikon, need to recompile to use)
+
++ note (problem, invariant mining from failing test has no results, even though they should always output result since all covered methods are the method run by the failing tests)
+
+o ref(920)
+    + note (the reason was this: ref(445), we didn't really explicitly state the reason there. the reason was because we had trouble installing 5.2.8)
+        + note (but this time, we just use .jar immediately from the extracted file of daikon5.2.8.zip)
