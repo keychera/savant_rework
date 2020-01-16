@@ -939,8 +939,20 @@ t (14/1/20)
 t (15/1/20)
 + note (compiled source `with.clover` can't be used for Daikon, need to recompile to use)
 
-+ note (problem, invariant mining from failing test has no results, even though they should always output result since all covered methods are the method run by the failing tests)
++ note (problem: invariant mining from failing test has no results, even though they should always output result since all covered methods are the method run by the failing tests)
 
 o ref(920)
     + note (the reason was this: ref(445), we didn't really explicitly state the reason there. the reason was because we had trouble installing 5.2.8)
         + note (but this time, we just use .jar immediately from the extracted file of daikon5.2.8.zip)
+
+o ref(942)
+    + note (reason: because some of the cluster only contain of constructor method and constructor method as select pattern means no program point declaration found)
+
+t (16/1/20)
++ note (we are confusion, heck it let's just ask people at Daikon mailist)
+    + note (while you are at it, let's prepare other questions for other tools)
+        + note (about OpenClover x Defects4J, for Defects4J maintainer)
+            + note (and about old bugs list in Defects4J)
+        + note (about timing and experiment procedure in Savant, for Savant author)
+            + note (and about tools used in Savant)
+            + note (and opinion of our work)
