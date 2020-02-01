@@ -967,3 +967,9 @@ o ref (952)
 
 t (1/2/20)
 + note (we're back, we've been dealing with documents and stuff)
+
+t (2/2/20)
++ done (fixing test selection procedure)
+    + note (the variable T(number of method coverage by test) if high enough, a cluster will select a lot of tests)
+
++ quest (the clustering results are always random, would that be problematic?)
