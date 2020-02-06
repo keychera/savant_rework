@@ -60,18 +60,11 @@ print_invariant() {
   PRINT_INV_FILE="$OUT_DIR/$PHASE_NAME-inv"
   
   if test -f "$INV_FILE"; then
-    $JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.PrintInvariants --ppt-select-pattern=$SELECT_PATTERN $INV_FILE > $PRINT_INV_FILE
+    $JAVA7_PATH -cp $CLASS_PATHS:$DAIKON_JAR daikon.PrintInvariants --wrap_xml --ppt-select-pattern=$SELECT_PATTERN $INV_FILE > $PRINT_INV_FILE
   else
     echo "no invariant inferred for $PHASE_NAME"
   fi
 }
-
-# run daikon for all failing test and select all covered methods
-echo "processing all failing test with all covered methods"
-ALL_METHOD_LIST="$DAIKON_DATA_DIR/covered_methods"
-SELECT_PATTERN="$(python $(dirname "$0")/build_method_pattern.py --method_list $ALL_METHOD_LIST)"
-TESTS_TO_RUN="$DAIKON_DATA_DIR/failing_tests"
-run_daikon "failing" $OUTPUT_DIR
 
 # iterate all cluster
 CLUSTERS_DIR="$DAIKON_DATA_DIR/clusters_dir"
@@ -90,19 +83,17 @@ do
     # process all failing tests
     echo "inferring for failing tests"
     TESTS_TO_RUN="$DAIKON_DATA_DIR/failing_tests"
-    print_invariant "failing" "$OUTPUT_DIR/failing.inv.gz" $CURRENT_OUT_DIR
+    run_daikon "failing" $CURRENT_OUT_DIR
 
     # process selected tests
     echo "inferring for selected tests"
     TESTS_TO_RUN="$CLUSTERS_DIR/$counter/selected_tests"
     run_daikon "selected" $CURRENT_OUT_DIR
-    print_invariant "selected" "$CURRENT_OUT_DIR/selected.inv.gz" $CURRENT_OUT_DIR
 
     # process failing U selected tests
     echo "inferring for failing U selected tests"
     TESTS_TO_RUN="$CLUSTERS_DIR/$counter/failing_and_selected_tests"
     run_daikon "failing_selected" $CURRENT_OUT_DIR
-    print_invariant "failing_selected" "$CURRENT_OUT_DIR/failing_selected.inv.gz" $CURRENT_OUT_DIR
 
     ((counter++))
 done
