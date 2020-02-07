@@ -1002,3 +1002,9 @@ t (6/2/20)
         + note (it's as if we cheat the reflection code)
     + done (for now, some working daikon diff codes)
         + TODO (now to integrate them to the overall features and the three set of comparision)
+
+t (7/2/20)
++ note (prep for seminar)
+
++ note (l2r data format, the things starts at index 1!)
+    + TODO (make sure l2r format is correct)
