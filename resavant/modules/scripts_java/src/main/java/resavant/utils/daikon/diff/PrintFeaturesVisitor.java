@@ -92,15 +92,6 @@ public class PrintFeaturesVisitor extends DepthFirstVisitor {
 				}
 			}
 		}
-//		if (this.averageConfidenceRatio.containsKey(methodName)) {
-//			Map<String, List<Double>> mp = this.averageConfidenceRatio.get(methodName);
-//			empty=false;
-//			for (Entry<String, List<Double>> e : mp.entrySet()) {
-//				int fid = ExtractInvariantType.getConfidenceID(e.getKey());
-//				double avg = Lib.averageOf(e.getValue());
-//				sb.append(fid + ":" + avg + " ");
-//			}
-//		}
 		if (empty) {
 			return null;
 		}
@@ -164,11 +155,6 @@ public class PrintFeaturesVisitor extends DepthFirstVisitor {
 	 * their relationship.
 	 **/
 	public void visit(InvNode node) {
-
-		if (HUMAN_OUTPUT) {
-			printHumanOutput(node);
-			return;
-		}
 
 		Invariant inv1 = node.getInv1();
 		Invariant inv2 = node.getInv2();
@@ -327,48 +313,6 @@ public class PrintFeaturesVisitor extends DepthFirstVisitor {
 		}
 
 		return true;
-	}
-
-	/**
-	 * This method is an alternate printing procedure for an InvNode so that the
-	 * output is more human readable. The format resembles cvs diff with '+' and
-	 * '-' signs for the differing invariants. There is no information on
-	 * justification or invariant type.
-	 **/
-	public void printHumanOutput(InvNode node) {
-
-		Invariant inv1 = node.getInv1();
-		Invariant inv2 = node.getInv2();
-
-		// bufPrint(" " + "<");
-
-		if (inv1 != null && inv2 != null && (inv1.format().equals(inv2.format()))) {
-			return;
-		}
-
-		if (inv1 == null) {
-			// bufPrint((String) null);
-		} else {
-			// printInvariant(inv1);
-			bufPrintln(("- " + inv1.format()).trim());
-		}
-		// bufPrint(", ");
-		if (inv2 == null) {
-			// bufPrint((String) null);
-		} else {
-			bufPrintln(("+ " + inv2.format()).trim());
-			// printInvariant(inv2);
-		}
-		// bufPrint(">");
-
-		int type = DetailedStatisticsVisitor.determineType(inv1, inv2);
-		int rel = DetailedStatisticsVisitor.determineRelationship(inv1, inv2);
-
-		// String typeLabel = DetailedStatisticsVisitor.TYPE_LABELS[type];
-		// String relLabel = DetailedStatisticsVisitor.RELATIONSHIP_LABELS[rel];
-		// bufPrint(" (" + typeLabel + "," + relLabel + ")");
-
-		bufPrintln();
 	}
 
 	/**
