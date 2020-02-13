@@ -79,7 +79,7 @@ do
 
 
         # build the l2r data
-        $PY_COMMAND $L2R_MODULE/build_l2r_data.py "$GROUND_TRUTH_FOLDER/${proj_id}.${bug_id}b.method_diff" "$SBFL_FOLDER/susp_scores" "." "$L2R_DATA_FOLDER/l2rdata.${proj_id}.${bug_id}"
+        $PY_COMMAND $L2R_MODULE/build_l2r_data.py "$GROUND_TRUTH_FOLDER/${proj_id}.${bug_id}b.method_diff" "$SBFL_FOLDER/susp_scores" "$DAIKON_FOLDER/3_daikon_diff" "$L2R_DATA_FOLDER/l2rdata.${proj_id}.${bug_id}"
 
         ((bug_id++))
     done
