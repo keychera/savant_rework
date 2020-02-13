@@ -1029,3 +1029,12 @@ t (11/2/20)
             + note (alternative: try deploying savant-rework on VirtualOS linux mint we previously used)
             + note (alternative: try deploying on windows' ubuntu)
             + note (alternative: try installing another linux))
+
+t (12/2/20)
++ note (problem: daikon list two features list for the same method because it has two points: EXIT point and ENTER point)
+    + note (solution: after looking at original savant data, the sbfl scores is copied to both points)
+
+t (13/2/20)
++ done (integrate daikon features to l2r data)
+    + note (a lesson in python dictionary)
+    + note (a lesson in python regex, match,search, capture groups)
