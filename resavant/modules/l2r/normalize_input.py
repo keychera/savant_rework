@@ -1,5 +1,11 @@
 import sys, os
 
+def normalize(val, min_val, max_val):
+    if (max_val == min_val):
+        return val
+    else:
+        return (float(val) - min_val)/(max_val - min_val)
+
 if len(sys.argv) >= 2:
     aggregate_path = sys.argv[1]
 
@@ -10,57 +16,42 @@ if len(sys.argv) >= 2:
             bug_features.append(line.rstrip())
     
     # get values per column
-    a_row = bug_features[0].split(' ')[1:]
-    column_list = list() 
-    for i in range(0, len(a_row)):
-        column_list.append(list())
-
+    column_list = {}
     label_list = list()
-    for row in bug_features:
+    for i, row in zip(range(0, len(bug_features)), bug_features):
         row_split = row.split(' ')[1:]
         label_list.append(row.split(' ')[0])
-        for i in range(0, len(row_split)):
-            row_val = row_split[i]
-            column_list[i].append(row_val)
-    
-    val_only_column_list = list()
-    for column in column_list:
-        val_only_column = list()
-        for val in column:
-            val_only = val.split(":")[1]
-            val_only_column.append(val_only)
-        val_only_column_list.append(val_only_column)
+        for j in range(0, len(row_split)):
+            col_index, val = row_split[j].split(':')
+            col_index = int(col_index)
+            if (not col_index in column_list):
+                column_list[col_index] = [0] * len(bug_features)
+            column_list[col_index][i] = val
 
+    print(column_list)
+    
     # normalize bug features
-    normalized_column_list = list()
-    maxmin_column_stat = list()
-    for val_only_column in val_only_column_list:
+    normalized_column_list = {}
+    maxmin_column_stat = {}
+    for col_index in column_list:
+        val_only_column = column_list[col_index]
         max_val = max(float(x) for x in val_only_column)
         min_val = min(float(x) for x in val_only_column)
-
-        normalized_column = list()
-        for val in val_only_column:
-            if (max_val == min_val):
-                normalized_column.append(val)
-            else:
-                normalized_val = (float(val) - min_val)/(max_val - min_val)
-                normalized_column.append(normalized_val)
         
-        normalized_column_list.append(normalized_column)
-        maxmin_column_stat.append((max_val, min_val))
+        func = lambda x: normalize(x, min_val, max_val)
+        normalized_column = map(func, val_only_column)
+        normalized_column_list[col_index] = list(normalized_column)
+        maxmin_column_stat[col_index] = (max_val, min_val)
     
     # build the feature list back from column list
-    normalized_features_list = list()
+    normed_features_list = list()
     for label in label_list:
-        normalized_features_list.append(label)
+        normed_features_list.append(label)
     
-    col_i = 1
-    for normalized_column in normalized_column_list:
-        i = 0
-        for val in normalized_column:
-            normalized_features_list[i] = normalized_features_list[i] + ' {}:{}'.format(col_i, val)
-            i = i + 1
-        col_i = col_i + 1
+    for col_index in sorted(normalized_column_list):
+        normalized_column = normalized_column_list[col_index]
+        for i, val in zip(range(0, len(normalized_column)), normalized_column):
+            normed_features_list[i] = normed_features_list[i] + ' {}:{}'.format(col_index, val)
 
     # output the result
     if len(sys.argv) >= 4:
@@ -68,17 +59,19 @@ if len(sys.argv) >= 2:
         maxmin_output_file = sys.argv[3]
 
         with open(norm_output_file, 'w+') as f:
-            for row in normalized_features_list:
+            for row in normed_features_list:
                 f.write("{}\n".format(row))
         
         with open(maxmin_output_file, 'w+') as f:
-            for a_tuple in maxmin_column_stat:
-                f.write("{},{}\n".format(a_tuple[0], a_tuple[1]))
+            for col_index in sorted(maxmin_column_stat):
+                a_tuple = maxmin_column_stat[col_index]
+                f.write("{}:{},{}\n".format(col_index ,a_tuple[0], a_tuple[1]))
     else:
-        for row in normalized_features_list:
+        for row in normed_features_list:
             print(row)
-        for a_tuple in maxmin_column_stat:
-            print(row)
+        for col_index in sorted(maxmin_column_stat):
+            a_tuple = maxmin_column_stat[col_index]
+            print("{}:{},{}\n".format(col_index ,a_tuple[0], a_tuple[1]))
 
 else:
     print('python aggregate input.py')
