@@ -1038,3 +1038,14 @@ t (13/2/20)
 + done (integrate daikon features to l2r data)
     + note (a lesson in python dictionary)
     + note (a lesson in python regex, match,search, capture groups)
+
+t (14/2/20)
++ done (formatting the overall l2r data so it can be used)
+
+t (15/2/20)
++ done (fix normalization scripts)
+
++ note (trying to install Nvidia Driver for centos to resolve ref(1028))
+    + note (ref: https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-centos-7-linux)
+        + note (problem: encounter with this Centos Bug: https://bugs.centos.org/view.php?id=16456 when attempting to `yum install` something)
+            + note ("how does that get past QA?" I echoes)
