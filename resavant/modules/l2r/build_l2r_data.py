@@ -90,8 +90,31 @@ if len(sys.argv) >= 4:
                 method_features[daikon_method_name]['sbfl'] = sbfl_features
 
                 # format into l2r data row strings as well
-                formatted_features = '{}{}'.format(method_features[daikon_method_name]['daikon'], sbfl_features) # TODO
-                l2r_row = '{} {}'.format(label, formatted_features)
+                # format daikon features
+                total_index_num = 96721
+                all_daikon_features = method_features[daikon_method_name]['daikon']
+                formatted_daikon_features = ''
+                for i, daikon_features in zip(range(0,len(all_daikon_features)), all_daikon_features):
+                     if (not isinstance(daikon_features, type(None))): 
+                        split_features = daikon_features.split(' ')
+
+                        for feature in split_features:
+                            if ':' in feature:
+                                index, value = feature.split(':')
+                                formatted_feature = ' {}:{}'.format(int(index) + (total_index_num * i),value)
+                                formatted_daikon_features += formatted_feature
+
+                # format sbfl features
+                formatted_sbfl_features = ''
+                split_features = sbfl_features.split(' ')
+                for feature in split_features:
+                    if ':' in feature:
+                        index, value = feature.split(':')
+                        formatted_feature = ' {}:{}'.format(int(index) + (total_index_num * 3),value)
+                        formatted_sbfl_features += formatted_feature
+
+                formatted_features = '{}{}'.format(formatted_daikon_features, formatted_sbfl_features)
+                l2r_row = '{}{}'.format(label, formatted_features)
                 l2r_data.append(l2r_row)
 
     # output the result
