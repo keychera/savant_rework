@@ -24,8 +24,6 @@ while getopts 't:d:o:' flag; do
 done
 
 # temp
-JAVA7_PATH="/usr/java/jdk1.7.0_80/jre/bin/java"
-JAVAC7_PATH="/usr/java/jdk1.7.0_80/bin/javac"
 mkdir -p $OUTPUT_DIR
 
 # compile testrunners

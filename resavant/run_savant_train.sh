@@ -5,7 +5,7 @@ source $SCRIPTS_PY/check_py.sh
 
 # iterate bug
 PROJECTS=(Chart Closure Math Time Lang)
-BUGS_NUM=(1 0 0 0 1)
+BUGS_NUM=(0 0 0 0 1)
 
 L2R_DATA_FOLDER="$OUT_FOLDER/6-l2r-data"
 mkdir -p $L2R_DATA_FOLDER

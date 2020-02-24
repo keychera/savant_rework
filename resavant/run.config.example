@@ -4,8 +4,10 @@ MAX_CLUSTER_SIZE=5
 MAX_TEST_NUMBER=10
 
 # Java Environment
+JAVA7_PATH="."
+JAVAC7_PATH="."
 JAVA8="."
-export JAVA8
+export JAVA7_PATH JAVAC7_PATH JAVA8
 
 # Learning-to-rank lib
 RANKSVM_FOLDER="."

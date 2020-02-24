@@ -12,8 +12,6 @@ while getopts 'd:o:' flag; do
   esac
 done
 
-JAVA8="/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-0.el8_0.x86_64/jre/bin/java"
-SCRIPTS_JAVA_JAR="$(dirname "$0")/../scripts_java/target/scripts_java-1.0-SNAPSHOT.jar"
 mkdir -p $OUTPUT_DIR
 
 # iterate all cluster
