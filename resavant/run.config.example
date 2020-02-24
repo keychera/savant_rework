@@ -1,0 +1,12 @@
+# session var
+OUT_FOLDER="$(dirname "$0")/temp"
+MAX_CLUSTER_SIZE=5
+MAX_TEST_NUMBER=10
+
+# Java Environment
+JAVA8="."
+export JAVA8
+
+# Learning-to-rank lib
+RANKSVM_FOLDER="."
+export RANKSVM_FOLDER
