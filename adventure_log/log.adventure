@@ -1080,3 +1080,12 @@ t (15/2/20)
                         + note (and then we found this: https://gist.github.com/wangruohui/df039f0dc434d6486f5d4d098aa52d07)
                             + note (disabling the secure boot, but Centos is not loaded at all, we went to windows immediately)
     + note (reverting back for now, using ref(1072), to be continued...)
+
+t (24/2/20)
++ note (currently preparing for code documentation and attempting to run savant on another machine)
+    + note (problem: mvn's JAVA_HOME failing)
+    + note (problem: JAVA8 path set in run.config failing)
+        + note (reason: the java version updated so the folder name changed)
+            + note (solution: use the more general name folder for java)
+
++ done (make `run.config.example` file and decouple some variables)
