@@ -1089,3 +1089,8 @@ t (24/2/20)
             + note (solution: use the more general name folder for java)
 
 + done (make `run.config.example` file and decouple some variables)
+
+o ref(1086)
+    + note (reason: the same as ref(1088))
+        + note (solution: update the ~/.mavenrc accordingly)
+        + note (a lesson on not upgrading things carelessly while development)
