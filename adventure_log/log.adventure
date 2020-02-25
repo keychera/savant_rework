@@ -1094,3 +1094,7 @@ o ref(1086)
     + note (reason: the same as ref(1088))
         + note (solution: update the ~/.mavenrc accordingly)
         + note (a lesson on not upgrading things carelessly while development)
+
+t (25/2/20)
++ done (migration to virtual linux mint, successful!)
+    + note (there are several things that need to be set up, all listed in current README)
