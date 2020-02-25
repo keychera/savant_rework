@@ -42,7 +42,7 @@ public class TestRunner {
         try {
             request = Request.method(Class.forName(className), methodName);
             Result result = new JUnitCore().run(request);
-            System.out.println(result.wasSuccessful() ? "pass" : "fail");
+            System.out.println(result.wasSuccessful() ? "pass" : "fail, msg: " + result.getFailures().get(0).getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
