@@ -27,8 +27,6 @@ if len(sys.argv) >= 2:
             if (not col_index in column_list):
                 column_list[col_index] = [0] * len(bug_features)
             column_list[col_index][i] = val
-
-    print(column_list)
     
     # normalize bug features
     normalized_column_list = {}

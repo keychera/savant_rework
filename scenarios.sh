@@ -22,8 +22,8 @@ case $SCENARIO in
     # run_savant_predict
     3) ./resavant/run_savant_predict.sh -i "./temp_data/6-l2r-data/l2rdata.Lang.1" -m "./temp_model/model" -o "./temp_out" ;;
 
-    # run_else
-    *) echo "not done" ;;
+    # else
+    *) echo "There is no scenario \"$SCENARIO\"" ;;
 esac
 
 

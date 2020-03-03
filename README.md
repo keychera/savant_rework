@@ -23,7 +23,7 @@ This is the repository for the Final Year Project of Kevin Erdiza Yogatama. It f
     
     - before installing Defects4J, put OpenClover 4.4.1 folder in a new folder named `extra` in Defects4J folder. It would look like this:
 
-        `PARENT_DIR/defects4J/extra/clover-ant-4.4.1/..`
+        `PARENT_DIR/defects4J/extra/clover-ant-4.4.1`
         
         (make sure the folder name is the same)
     
@@ -40,17 +40,21 @@ This is the repository for the Final Year Project of Kevin Erdiza Yogatama. It f
     - rename it to `run.config`
     - the the following variables inside to the correct path each: JAVA7 JAVA7C JAVA8 RANKSVM_FOLDER
 
-7. edit daikon path value in scripts_java's pom.xml
+7. prepare the Maven project `scripts_java`
+    - edit daikon path value in scripts_java's pom.xml
+    - Compile using commands below
 
-9. Compile java codes using maven
-    `mvn initialize -f "PARENT_DIR/savant_rework/resavant/modules/scripts_java/pom.xml"`
-    `mvn package -f "PARENT_DIR/savant_rework/resavant/modules/scripts_java/pom.xml"`
+        `mvn initialize -f "PARENT_DIR/savant_rework/resavant/modules/scripts_java/pom.xml"`
 
-10. put junit.jar and hamcrest.jar in /resavant/modules/daikon/TestRunner/lib
+        `mvn package -f "PARENT_DIR/savant_rework/resavant/modules/scripts_java/pom.xml"`
+
+8. put junit.jar and hamcrest.jar in `PARENT_DIR/savant_rework//resavant/modules/daikon/TestRunner/lib`
 
 ## Usage
 
-General instruction. assuming we did `cd PARENT_DIR/savant_rework`
+### General instruction
+assuming we did `cd PARENT_DIR/savant_rework`
+
 - building data for Savant to train/predict
     
     `./resavant/run_savant_build_data.sh -b BUGINPUT_FILE -o PATH_TO_OUTPUT`
@@ -60,14 +64,20 @@ General instruction. assuming we did `cd PARENT_DIR/savant_rework`
 - let Savant train with data built from `run_savant_build_data.sh`
     
     `./resavant/run_savant_train.sh -i PATH_TO_DATA -o PATH_TO_OUTPUT`
-    - PATH_TO_DATA is "PATH_TO_OUTPUT/6-l2r-data" from `run_savant_build_data.sh`
+    - PATH_TO_DATA is `PATH_TO_OUTPUT/6-l2r-data` folder path from `run_savant_build_data.sh`
     - PATH_TO_OUTPUT is a path to arbitrary folder where output will be written
 
 - let Savant predict the value of data built from `run_savant_build_data.sh`
     
     `./resavant/run_savant_predict.sh -i PATH_TO_DATA -m PATH_TO_MODEL -o PATH_TO_OUTPUT`
+    - PATH_TO_DATA is one feature file that is in `PATH_TO_OUTPUT/6-l2r-data` 
+    - PATH_TO_MODEL is the model file, `PATH_TO_OUTPUT/model` from `run_savant_train.sh`
+    - PATH_TO_OUTPUT is a path to arbitrary folder where output will be written
 
-Usage Scenarios
+### Usage Scenarios
+
+Some example scenarios can be seen in `scenarios.sh`
+
 
 
 [savantpaper]: https://squareslab.github.io/materials/LeLikelyInvariants2016.pdf
