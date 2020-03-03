@@ -14,10 +14,10 @@ done
 
 case $SCENARIO in
     # run_savant_build_data
-    1) ;;
+    1) ./resavant/run_savant_build_data.sh -b "./resavant/bug.input.example" -o "./temp_data" ;;
     
     # run_savant_train
-    2) ./resavant/run_savant_train.sh -i "./temp_data/6-l2r-data" -o "./temp_res/" ;;
+    2) ./resavant/run_savant_train.sh -i "./temp_data/6-l2r-data" -o "./temp_res" ;;
 
     # run_else
     *) echo "not done" ;;

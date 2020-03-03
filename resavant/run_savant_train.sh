@@ -6,7 +6,7 @@
 
 # process args
 print_usage() {
-  printf "Usage: ..."
+  printf "Usage: -i L2R_DATA_FOLDER_PATH -o OUTPUT_FOLDER_PATH"
 }
 
 while getopts 'i:o:' flag; do

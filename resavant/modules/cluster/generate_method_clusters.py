@@ -10,6 +10,7 @@ if len(sys.argv) >= 3:
     sI = len(df.index)
     sM = int(sys.argv[2])
     n = round(sI / sM)
+    if (n == 0): n = 1
 
     col_len = len(df.columns)
     kmeans = KMeans(n_clusters=n).fit(df[df.columns[1:col_len]])
