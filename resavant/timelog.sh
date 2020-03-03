@@ -7,7 +7,6 @@ savant_timelog() {
     MSG=$1
     CURRENT_TIME=$(($(date +%s%N)/1000000))
     let "time_elapsed=(CURRENT_TIME-LAST_TIME)"
-    echo "elpase $time_elapsed"
     LAST_TIME=$CURRENT_TIME
 
     echo "$CURRENT_TIME $(date +"%T")" >> $TIMELOG_FILE
