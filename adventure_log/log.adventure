@@ -1098,3 +1098,14 @@ o ref(1086)
 t (25/2/20)
 + done (migration to virtual linux mint, successful!)
     + note (there are several things that need to be set up, all listed in current README)
+
+t (2/3/20)
++ note (ongoing, completing the README)
+
+t (3/3/20)
++ note (implementing the scenarios by writing the README instructions first)
+    + note (scenarios is done by the script `scenarios.sh`)
+        
++ done (scenarios script for simple usage)
+    + done (separating train script and build data scripts)
+        + done (better README)
