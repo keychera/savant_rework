@@ -1109,3 +1109,8 @@ t (3/3/20)
 + done (scenarios script for simple usage)
     + done (separating train script and build data scripts)
         + done (better README)
+
+t (4/2/20)
++ done (predict scripts and even better README)
+
++ note (problem: some method does not have daikon features, and it's not recorded in the resulting features)
