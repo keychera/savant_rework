@@ -1117,4 +1117,6 @@ t (4/3/20)
     + note (solution: fix the `build_l2r_data.py`)
         + note (some problem may arise with observation below)
             + note (problem: ?, daikon sometimes double the features since there are `method::ENTER` and `method::EXIT`)
-            + note (priblem: ?, method representation between daikon and sbfl is slightly different)
+            + note (problem: ?, method representation between daikon and sbfl is slightly different)
+
++ done (making scenarios for Sidang)
