@@ -1,6 +1,15 @@
 LAST_TIME=$(($(date +%s%N)/1000000))
 TIMELOG_FILE="$1"
 
+if [ -f "$TIMELOG_FILE" ]; then
+    last_char=${TIMELOG_FILE: -1}
+    if [[ $last_char =~ ^-?[0-9]+$ ]]; then
+        let "num=last_char+1"
+    else
+        let "num=1"
+    fi
+    TIMELOG_FILE="${TIMELOG_FILE}_${num}"
+fi
 echo '' > $TIMELOG_FILE
 
 savant_timelog() {
