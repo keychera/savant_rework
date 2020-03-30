@@ -77,7 +77,7 @@ for i, pair in zip(range(0, pairs_len), sorted_pairs):
         total_faulty += 1
 
 n_faulty = 0
-for i, pair in zip(range(0, n_iteration), sorted_pairs):
+for i, pair in zip(range(0, pairs_len), sorted_pairs):
     if (pair[1] == 1):
         n_faulty += 1
         pos_i = 1
@@ -86,8 +86,9 @@ for i, pair in zip(range(0, n_iteration), sorted_pairs):
     Pi = n_faulty / (i + 1)
     AP += (Pi * pos_i) / total_faulty
 
-print('{},{},{}'.format(acc_1, acc_3, acc_5))
-print('{},{},{}'.format(wef_1, wef_3, wef_5))
-print('{}'.format(total_faulty))
+all_scores = [acc_1, acc_3, acc_5, wef_1, wef_3, wef_5, AP]
+
+for score in all_scores:
+    print(score)
 
 
