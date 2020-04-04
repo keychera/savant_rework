@@ -86,6 +86,10 @@ do
         $PY_COMMAND $L2R_MODULE/build_l2r_data.py "$GROUND_TRUTH_FOLDER/${proj_id}.${bug_id}b.method_diff" "$SBFL_FOLDER/susp_scores" "$DAIKON_FOLDER/3_daikon_diff" "$L2R_DATA_FOLDER/l2rdata.${proj_id}.${bug_id}"
         savant_timelog "${proj_id} ${bug_id} building l2r data"
 
+        L2R_METHOD_NAMES="$L2R_DATA_FOLDER/methodnames"
+        mkdir -p $L2R_METHOD_NAMES
+        mv "$L2R_DATA_FOLDER/l2rdata.${proj_id}.${bug_id}.names" "$L2R_METHOD_NAMES/l2rdata.${proj_id}.${bug_id}.names"
+
         ((bug_id++))
     done
     

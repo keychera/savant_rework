@@ -54,8 +54,9 @@ if len(sys.argv) >= 4:
                 
                 method_features[daikon_method_name]['daikon'][i] = daikon_features
 
-    # integrate label and SBFL data
+    # integrate label and SBFL data, and collect method names
     l2r_data = list()
+    method_names = list()
 
     sbfl_method_pattern = r'(.+)::(\w+)\((.*)\)[ : (\w+)]*'
     for row in sbfl_stat_df.itertuples(index=True):
@@ -119,7 +120,9 @@ if len(sys.argv) >= 4:
                 formatted_features = '{}{}'.format(formatted_daikon_features, formatted_sbfl_features)
                 l2r_row = '{}{}'.format(label, formatted_features)
                 l2r_data.append(l2r_row)
+                method_names.append(daikon_method_name)
         
+        # if there is no daikon feature with names the same as SBFL one, that means there are some method that doesn't have invariant features
         if (not match_at_least_one):
             # format sbfl features
             formatted_sbfl_features = ''
@@ -132,6 +135,7 @@ if len(sys.argv) >= 4:
 
             l2r_row = '{}{}'.format(label, formatted_sbfl_features)
             l2r_data.append(l2r_row)
+            method_names.append(method_full_name)
 
     # output the result
     if len(sys.argv) >= 5:
@@ -139,6 +143,9 @@ if len(sys.argv) >= 4:
         with open(output_file, 'w+') as f:
             for row in l2r_data:
                 f.write("{}\n".format(row))
+        with open('{}.names'.format(output_file), 'w+') as f:
+            for name in method_names:
+                f.write("{}\n".format(name))
     else:
         for row in l2r_data:
             print(row)

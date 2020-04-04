@@ -22,6 +22,11 @@ mkdir -p $OUTPUT_FOLDER
 # prep the timer
 . $(dirname "$0")/timelog.sh "$OUTPUT_FOLDER/train_timelog"
 
-# l2r, aggregate the results and train
-$L2R_MODULE/run_l2r_train.sh -i "$L2R_DATA_FOLDER" -o "$OUTPUT_FOLDER"
-savant_timelog "aggregation + normalization + l2r training"
+# aggregate features and names
+$PY_COMMAND $L2R_MODULE/aggregate_input.py "$L2R_DATA_FOLDER" "$OUTPUT_FOLDER/aggregate_features"
+$PY_COMMAND $L2R_MODULE/aggregate_input.py "$L2R_DATA_FOLDER/methodnames" "$OUTPUT_FOLDER/aggregate_names"
+savant_timelog "aggregation"
+
+# normalize the value and train them
+$L2R_MODULE/run_l2r_train.sh -i "$OUTPUT_FOLDER/aggregate_features" -o "$OUTPUT_FOLDER"
+savant_timelog "normalization + l2r training"
