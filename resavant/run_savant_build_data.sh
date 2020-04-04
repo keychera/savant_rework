@@ -17,7 +17,7 @@ while getopts 'b:o:' flag; do
   esac
 done
 mkdir -p $OUTPUT_FOLDER
-. $BUGINPUT_FILE # this export variable PROJECTS and BUGS_NUM
+. $BUGINPUT_FILE # this export variable PROJECTS, BUGS_NUM, M, T
 
 # prep the timer
 . $(dirname "$0")/timelog.sh "$OUTPUT_FOLDER/build_data_timelog"
@@ -64,8 +64,8 @@ do
         CLUSTER_FOLDER="$OUTPUT_FOLDER/3-cluster/${proj_id}/${bug_id}"
         mkdir -p $CLUSTER_FOLDER
 
-        $PY_COMMAND $CLUSTER_MODULE/generate_method_clusters.py "$CVR_FOLDER/matrix_passing.csv" $MAX_CLUSTER_SIZE "$CLUSTER_FOLDER/clusters" 
-        $PY_COMMAND $CLUSTER_MODULE/select_tests.py "$CVR_FOLDER/matrix_passing.csv" "$CLUSTER_FOLDER/clusters" $MAX_TEST_NUMBER "$CLUSTER_FOLDER/selected_tests"
+        $PY_COMMAND $CLUSTER_MODULE/generate_method_clusters.py "$CVR_FOLDER/matrix_passing.csv" $M "$CLUSTER_FOLDER/clusters" 
+        $PY_COMMAND $CLUSTER_MODULE/select_tests.py "$CVR_FOLDER/matrix_passing.csv" "$CLUSTER_FOLDER/clusters" $T "$CLUSTER_FOLDER/selected_tests"
         savant_timelog "${proj_id} ${bug_id} method clustering and test selection"
 
         # daikon

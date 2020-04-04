@@ -1,3 +1,5 @@
 PROJECTS=(Chart Closure Math Time Lang)
 BUGS_NUM=(0 0 0 0 1)
-export PROJECTS BUGS_NUM
+M=5
+T=10
+export PROJECTS BUGS_NUM M T

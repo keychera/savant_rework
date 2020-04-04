@@ -64,13 +64,15 @@ case $SCENARIO in
 
     # small training dataset scenario
     4)
+      SMALL_OUT="$OUT/S"
+      mkdir -p $SMALL_OUT
       # training
-      ./resavant/run_savant_build_data.sh -b "./scenarios_input/bug.input.S_train" -o "$OUT/S_data"
-      ./resavant/run_savant_train.sh -i "$OUT/S_data/6-l2r-data" -o "$OUT/S_model"
+      ./resavant/run_savant_build_data.sh -b "./scenarios_input/bug.input.S_train" -o "$SMALL_OUT/S_data"
+      ./resavant/run_savant_train.sh -i "$SMALL_OUT/S_data/6-l2r-data" -o "$SMALL_OUT/S_model"
 
       # testing   
-      ./resavant/run_savant_build_data.sh -b "./scenarios_input/bug.input.a_test" -o "$OUT/S_test"
-      ./resavant/run_savant_predict.sh -i "$OUT/S_test/6-l2r-data/l2rdata.Chart.1" -m "$OUT/S_model/model" -o "$OUT/S_out"
+      ./resavant/run_savant_build_data.sh -b "./scenarios_input/bug.input.a_test" -o "$SMALL_OUT/S_test"
+      ./resavant/run_savant_predict.sh -i "$SMALL_OUT/S_test/6-l2r-data/l2rdata.Chart.1" -m "$SMALL_OUT/S_model/model" -o "$SMALL_OUT/S_out"
     ;;
 
     # small training (cross val n-1)
