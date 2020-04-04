@@ -21,5 +21,5 @@ for d in $ITERATION_FOLDER/*/ ; do
 done
 
 # aggregate score
-python $(dirname "$0")/aggregate.py --eval_scores_dir "$OUTPUT_FOLDER"
+python $(dirname "$0")/aggregate.py --eval_scores_dir "$OUTPUT_FOLDER" > "$OUTPUT_FOLDER/total"
 
