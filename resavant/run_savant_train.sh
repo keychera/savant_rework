@@ -24,7 +24,10 @@ mkdir -p $OUTPUT_FOLDER
 
 # aggregate features and names
 $PY_COMMAND $L2R_MODULE/aggregate_input.py "$L2R_DATA_FOLDER" "$OUTPUT_FOLDER/aggregate_features"
-$PY_COMMAND $L2R_MODULE/aggregate_input.py "$L2R_DATA_FOLDER/methodnames" "$OUTPUT_FOLDER/aggregate_names"
+if [ -d "$L2R_DATA_FOLDER/methodnames" ]
+then
+  $PY_COMMAND $L2R_MODULE/aggregate_input.py "$L2R_DATA_FOLDER/methodnames" "$OUTPUT_FOLDER/aggregate_names"
+fi
 savant_timelog "aggregation"
 
 # normalize the value and train them

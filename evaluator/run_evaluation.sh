@@ -14,10 +14,10 @@ done
 mkdir -p $OUTPUT_FOLDER
 
 # run evaluation on all iteration
-i=0
 for d in $ITERATION_FOLDER/*/ ; do
-    python $(dirname "$0")/evaluate.py --result_file "$d/out/output" --test_file "$d/test_data" > "$OUTPUT_FOLDER/$i"
-    ((i++))
+    echo $d
+    test_data="$(basename $(find $d -name "*testdata"))"
+    python $(dirname "$0")/evaluate.py --result_file "$d/out/output" --test_file "$d/$test_data" --output "$OUTPUT_FOLDER/${test_data}_res"
 done
 
 # aggregate score

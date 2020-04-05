@@ -16,19 +16,15 @@ OUT="./temp_all"
 mkdir -p $OUT
 
 cross_val() {
-  input_data=$1
-  cross_val_out=$2
+  features=$1
+  out=$2
 
-  # build all data
-  all_data_out="$cross_val_out/all_data"
-  ./resavant/run_savant_build_data.sh -b $input_data -o $all_data_out
-
-  iter_out="$cross_val_out/iterations"
+  iter_out="$out/iterations"
   mkdir -p $iter_out
   # the crossval
   # iterate all n file inside all_data
   i=0
-  FILES="$all_data_out/6-l2r-data/*"
+  FILES="$features/*"
   for f in $FILES
   do
     # prepare the cross_val iteration folder
@@ -36,16 +32,17 @@ cross_val() {
     mkdir -p $current_folder
 
     # move the iterated file to test folder, leaving n-1 files
-    mv $f "$current_folder/test_data"
+    file_name="$(basename $f)_testdata"
+    mv $f "$current_folder/$file_name"
 
     # train with all_data
-    ./resavant/run_savant_train.sh -i "$all_data_out/6-l2r-data" -o "$current_folder/model"
+    ./resavant/run_savant_train.sh -i "$features" -o "$current_folder/model"
 
     # test the file in test folder
-    ./resavant/run_savant_predict.sh -i "$current_folder/test_data" -m "$current_folder/model/model" -o "$current_folder/out"
+    ./resavant/run_savant_predict.sh -i "$current_folder/$file_name" -m "$current_folder/model/model" -o "$current_folder/out"
 
     # copy back the iterated file to all_data
-    cp "$current_folder/test_data" $f
+    cp "$current_folder/$file_name" $f
 
     ((i++))
   done
@@ -75,79 +72,22 @@ case $SCENARIO in
       ./resavant/run_savant_predict.sh -i "$SMALL_OUT/S_test/6-l2r-data/l2rdata.Chart.1" -m "$SMALL_OUT/S_model/model" -o "$SMALL_OUT/S_out"
     ;;
 
-    # small training (cross val n-1)
-    5)
-      cross_val "./scenarios_input/bug.input.S_train" "$OUT/cross_val"
-      
-      # the evaluation
-      eval_out="$OUT/cross_val/eval"
-      mkdir -p $eval_out
-
-      evaluator/run_evaluation.sh -i $iter_out -o $eval_out
-    ;;
-
-    # large training (cross val n-1)
-    6)
-      cross_val "./scenarios_input/bug.input.L_train" "$OUT/cross_val"
-      
-      # the evaluation
-      eval_out="$OUT/cross_val/eval"
-      mkdir -p $eval_out
-
-      evaluator/run_evaluation.sh -i $iter_out -o $eval_out
-    ;;
-
     # Chart cross val
-    7)
-      cross_val "./scenarios_input/bug.input.train_Chart" "$OUT/cross_val_Chart"
+    5)
+      input_data="./scenarios_input/bug.input.train_Chart"
+      cross_val_out="$OUT/cross_val_Chart"
+
+      # build all data
+      all_data_out="$cross_val_out/all_data"
+      ./resavant/run_savant_build_data.sh -b $input_data -o $all_data_out
+
+      # cross train and predict
+      cross_val "$all_data_out/6-l2r-data" "$cross_val_out"
 
       # the evaluation
-      eval_out="$OUT/cross_val_Chart/eval"
+      eval_out="$cross_val_out/eval"
       mkdir -p $eval_out
-
-      evaluator/run_evaluation.sh -i $iter_out -o $eval_out
-    ;;
-    
-    # Closure cross val
-    8)
-      cross_val "./scenarios_input/bug.input.train_Closure" "$OUT/cross_val_Closure"
-
-      # the evaluation
-      eval_out="$OUT/cross_val_Closure/eval"
-      mkdir -p $eval_out
-
-      evaluator/run_evaluation.sh -i $iter_out -o $eval_out
-    ;;
-    
-    #  Math cross val
-    9)
-      cross_val "./scenarios_input/bug.input.train_Math" "$OUT/cross_val_Math"
-
-      # the evaluation
-      eval_out="$OUT/cross_val_Math/eval"
-      mkdir -p $eval_out
-
-      evaluator/run_evaluation.sh -i $iter_out -o $eval_out
-    ;;
-
-    # Time cross val
-    10)
-      cross_val "./scenarios_input/bug.input.train_Time" "$OUT/cross_val_Time"
-
-      # the evaluation
-      eval_out="$OUT/cross_val_Time/eval"
-      mkdir -p $eval_out
-
-      evaluator/run_evaluation.sh -i $iter_out -o $eval_out
-    ;;
-    
-    # Lang cross val
-    11)
-      cross_val "./scenarios_input/bug.input.train_Lang" "$OUT/cross_val_Lang"
-
-      # the evaluation
-      eval_out="$OUT/cross_val_Lang/eval"
-      mkdir -p $eval_out
+      iter_out="$cross_val_out/iterations"
 
       evaluator/run_evaluation.sh -i $iter_out -o $eval_out
     ;;

@@ -4,10 +4,12 @@ import argparse
 parser = argparse.ArgumentParser(description='Get inputs')
 parser.add_argument('--result_file', dest='result_file_path', type=str, required=True,help='resavant\'s output/result file')
 parser.add_argument('--test_file', dest='test_feature_path', type=str, required=True, help='resavant\' input file on deployment')
+parser.add_argument('--output', dest='output_path', type=str, required=True, help='eval output path')
 
 args = parser.parse_args()
 result_file_path = args.result_file_path
 test_feature_path = args.test_feature_path
+output_path = args.output_path
 
 # get scores and ground truth
 scores = list()
@@ -41,6 +43,8 @@ else:
 acc_1 = 0
 acc_3 = 0
 acc_5 = 0
+
+print('\t{}'.format(sorted_pairs))
 
 for i, pair in zip(range(0, n_iteration), sorted_pairs):
     if pair[1] == 1:
@@ -88,7 +92,8 @@ for i, pair in zip(range(0, pairs_len), sorted_pairs):
 
 all_scores = [acc_1, acc_3, acc_5, wef_1, wef_3, wef_5, AP]
 
-for score in all_scores:
-    print(score)
+with open(output_path, 'w+') as fp:
+       for score in all_scores:
+            fp.write('{}\n'.format(score))
 
 
