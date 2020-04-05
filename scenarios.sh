@@ -97,24 +97,59 @@ case $SCENARIO in
       evaluator/run_evaluation.sh -i $iter_out -o $eval_out
     ;;
 
-    # cross val per project
+    # Chart cross val
     7)
-      # Chart
-        cross_val "./scenarios_input/bug.input.train_Chart" "$OUT/cross_val_Chart"
+      cross_val "./scenarios_input/bug.input.train_Chart" "$OUT/cross_val_Chart"
 
-        # the evaluation
-        eval_out="$OUT/cross_val_Chart/eval"
-        mkdir -p $eval_out
+      # the evaluation
+      eval_out="$OUT/cross_val_Chart/eval"
+      mkdir -p $eval_out
 
-        evaluator/run_evaluation.sh -i $iter_out -o $eval_out
-      # Lang
-        cross_val "./scenarios_input/bug.input.train_Lang" "$OUT/cross_val_Lang"
+      evaluator/run_evaluation.sh -i $iter_out -o $eval_out
+    ;;
+    
+    # Closure cross val
+    8)
+      cross_val "./scenarios_input/bug.input.train_Closure" "$OUT/cross_val_Closure"
 
-        # the evaluation
-        eval_out="$OUT/cross_val_Lang/eval"
-        mkdir -p $eval_out
+      # the evaluation
+      eval_out="$OUT/cross_val_Closure/eval"
+      mkdir -p $eval_out
 
-        evaluator/run_evaluation.sh -i $iter_out -o $eval_out
+      evaluator/run_evaluation.sh -i $iter_out -o $eval_out
+    ;;
+    
+    #  Math cross val
+    9)
+      cross_val "./scenarios_input/bug.input.train_Math" "$OUT/cross_val_Math"
+
+      # the evaluation
+      eval_out="$OUT/cross_val_Math/eval"
+      mkdir -p $eval_out
+
+      evaluator/run_evaluation.sh -i $iter_out -o $eval_out
+    ;;
+
+    # Time cross val
+    10)
+      cross_val "./scenarios_input/bug.input.train_Time" "$OUT/cross_val_Time"
+
+      # the evaluation
+      eval_out="$OUT/cross_val_Time/eval"
+      mkdir -p $eval_out
+
+      evaluator/run_evaluation.sh -i $iter_out -o $eval_out
+    ;;
+    
+    # Lang cross val
+    11)
+      cross_val "./scenarios_input/bug.input.train_Lang" "$OUT/cross_val_Lang"
+
+      # the evaluation
+      eval_out="$OUT/cross_val_Lang/eval"
+      mkdir -p $eval_out
+
+      evaluator/run_evaluation.sh -i $iter_out -o $eval_out
     ;;
 
     # else

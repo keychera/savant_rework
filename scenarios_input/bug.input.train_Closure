@@ -1,0 +1,5 @@
+PROJECTS=(Closure)
+BUGS_NUM=(133)
+M=10
+T=10
+export PROJECTS BUGS_NUM M T
