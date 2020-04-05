@@ -44,8 +44,6 @@ acc_1 = 0
 acc_3 = 0
 acc_5 = 0
 
-print('\t{}'.format(sorted_pairs))
-
 for i, pair in zip(range(0, n_iteration), sorted_pairs):
     if pair[1] == 1:
         if i < 1:
