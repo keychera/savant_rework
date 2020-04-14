@@ -4,15 +4,18 @@ print_usage() {
   printf "Usage: ..."
 }
 
-while getopts 's:' flag; do
+OUT="./temp_all"
+
+while getopts 's:o:' flag; do
   case "${flag}" in
     s) SCENARIO="${OPTARG}" ;;
+    o) OUT="${OPTARG}" ;;
     *) print_usage
        exit 1 ;;
   esac
 done
 
-OUT="./temp_all"
+# OUT is from the input, default is temp_all
 mkdir -p $OUT
 
 cross_val() {

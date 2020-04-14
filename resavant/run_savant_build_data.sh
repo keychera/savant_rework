@@ -1,7 +1,7 @@
 # check prereq
 . $(dirname "$0")/run.config
 . $(dirname "$0")/modules.structure
-. $SCRIPTS_PY/check_py.sh
+. $(dirname "$0")/check_py.sh
 
 # process args
 print_usage() {
