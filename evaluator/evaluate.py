@@ -93,5 +93,3 @@ all_scores = [acc_1, acc_3, acc_5, wef_1, wef_3, wef_5, AP]
 with open(output_path, 'w+') as fp:
        for score in all_scores:
             fp.write('{}\n'.format(score))
-
-

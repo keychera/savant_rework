@@ -7,10 +7,13 @@ if len(sys.argv) >= 2:
     # get all features
     bug_features = list()
     all_files_in_dir = [f for f in os.listdir(bug_features_path) if isfile(join(bug_features_path, f))]
-    for bug_feature_file in all_files_in_dir:
+    for i, bug_feature_file in zip(range(0, len(all_files_in_dir)), all_files_in_dir):
         with open('{}/{}'.format(bug_features_path,bug_feature_file)) as fp:
             for count, line in enumerate(fp):
-                bug_features.append(line.rstrip())
+                row = line.rstrip()
+                label, features = row.split(' ', 1)
+                row_with_qid = '{} qid:{} {}'.format(label, i, features)
+                bug_features.append(row_with_qid)
     
     # output the result
     if len(sys.argv) >= 3:

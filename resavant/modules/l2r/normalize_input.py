@@ -17,10 +17,11 @@ if len(sys.argv) >= 2:
     
     # get values per column
     column_list = {}
-    label_list = list()
+    label_qid_list = list()
     for i, row in zip(range(0, len(bug_features)), bug_features):
-        row_split = row.split(' ')[1:]
-        label_list.append(row.split(' ')[0])
+        all_split = row.split(' ')
+        row_split = all_split[2:]
+        label_qid_list.append('{} {}'.format(all_split[0], all_split[1]))
         for j in range(0, len(row_split)):
             col_index, val = row_split[j].split(':')
             col_index = int(col_index)
@@ -43,13 +44,13 @@ if len(sys.argv) >= 2:
     
     # build the feature list back from column list
     normed_features_list = list()
-    for label in label_list:
-        normed_features_list.append(label)
+    for label_qid in label_qid_list:
+        normed_features_list.append(label_qid)
     
     for col_index in sorted(normalized_column_list):
         normalized_column = normalized_column_list[col_index]
         for i, val in zip(range(0, len(normalized_column)), normalized_column):
-            normed_features_list[i] = normed_features_list[i] + ' {}:{}'.format(col_index, val)
+            normed_features_list[i] = '{} {}:{}'.format(normed_features_list[i], col_index, val)
 
     # output the result
     if len(sys.argv) >= 4:
