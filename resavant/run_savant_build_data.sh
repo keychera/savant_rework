@@ -79,6 +79,7 @@ do
         # sbfl
         SBFL_FOLDER="$OUTPUT_FOLDER/5-sbfl/${proj_id}/${bug_id}"
         mkdir -p $SBFL_FOLDER
+        
         $SBFL_MODULE/run_sbfl_calculation.sh -p "$CVR_FOLDER/matrix_passing.csv" -f "$CVR_FOLDER/matrix_failing.csv" -o $SBFL_FOLDER
         savant_timelog "${proj_id} ${bug_id} sbfl"
 
