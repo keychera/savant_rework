@@ -13,6 +13,7 @@ while getopts 'i:o:' flag; do
        exit 1 ;;
   esac
 done
+mkdir -p $OUTPUT_FOLDER
 
 # normalize the input
 $PY_COMMAND $(dirname "$0")/normalize_input.py "$FEATURES_FILE" "$OUTPUT_FOLDER/normalized_features" "$OUTPUT_FOLDER/maxmin_info"
