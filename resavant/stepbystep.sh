@@ -5,7 +5,7 @@
 
 # process args
 print_usage() {
-  printf "Usage: -b BUGINPUT_FILE_PATH -o OUTPUT_FOLDER_PATH"
+  printf "Usage: -p proj_id -b bug_id -s #_step -o out_folder\n"
 }
 
 OUT="./temp_all"

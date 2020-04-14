@@ -3,10 +3,9 @@
 . $(dirname "$0")/modules.structure
 . $(dirname "$0")/check_py.sh
 
-
 # process args
 print_usage() {
-  printf "Usage: -i L2R_DATA_FOLDER_PATH -o OUTPUT_FOLDER_PATH"
+  printf "Usage: -i L2R_DATA_FOLDER_PATH -o OUTPUT_FOLDER_PATH\n"
 }
 
 while getopts 'i:o:' flag; do

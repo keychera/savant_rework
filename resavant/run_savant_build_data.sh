@@ -5,7 +5,7 @@
 
 # process args
 print_usage() {
-  printf "Usage: -b BUGINPUT_FILE_PATH -o OUTPUT_FOLDER_PATH"
+  printf "Usage: -b BUGINPUT_FILE_PATH -o OUTPUT_FOLDER_PATH\n"
 }
 
 while getopts 'b:o:' flag; do
