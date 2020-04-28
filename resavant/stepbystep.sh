@@ -15,11 +15,12 @@ while getopts 'p:b:s:o:' flag; do
     p) proj_id="${OPTARG}" ;;
     b) bug_id="${OPTARG}" ;;
     s) step="${OPTARG}" ;;
-    o) OUT="${OPTARG}" ;;
+    o) out_folder="${OPTARG}" ;;
     *) print_usage
        exit 1 ;;
   esac
 done
+OUT="$out_folder/steps.$proj_id.$bug_id"
 mkdir -p $OUT
 T=10
 M=10
@@ -101,6 +102,14 @@ case $step in
       mkdir -p $L2R_METHOD_NAMES
       mv "$L2R_DATA_FOLDER/l2rdata.${proj_id}.${bug_id}.names" "$L2R_METHOD_NAMES/l2rdata.${proj_id}.${bug_id}.names"
 
+    ;;
+    
+    step8)
+      $(dirname "$0")/run_savant_train.sh -i $OUT/6-l2r-data/ -o $OUT/model
+    ;;
+
+    step9)
+      $(dirname "$0")/run_savant_predict.sh -i $OUT/6-l2r-data/l2rdata.Lang.1 -m $OUT/model/model -o $OUT/res/
     ;;
 
     # else
